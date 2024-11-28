@@ -1,0 +1,12 @@
+{
+    "name": "Time for Feathers",
+    "short_name": "TimeForFeathers",
+    "start_url": "./",
+    "scope": ".",
+    "display": "standalone",
+    "background_color": "#fdfdfd",
+    "theme_color": "#db4938",
+    "orientation": "portrait-primary",
+    "lang": "sk",
+    "icons": []
+}

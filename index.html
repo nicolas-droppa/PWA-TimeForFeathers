@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time for Feathers</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <main>
+        Ahoj
+    </main>
+    <script src="./app.js"></script>
+    <script>
+        navigator.serviceWorker.register('./serviceWorker.js')
+        .then((reg) => {
+            console.log("service worker registered", reg)
+        }).catch((err) => {
+            console.log("error when registering service worker", err)
+        })
+    </script>
+</body>
+</html>
