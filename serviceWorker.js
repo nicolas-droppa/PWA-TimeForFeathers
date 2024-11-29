@@ -1,6 +1,7 @@
 const staticDevTFF = "dev-time-for-feathers-v1"
 const assets = [
     "./",
+    "./images",
     "./index.html",
     "./app.js"
 ]
