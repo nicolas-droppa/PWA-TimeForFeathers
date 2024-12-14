@@ -3,7 +3,7 @@ const assets = [
     "./",
     "./images",
     "./index.html",
-    "./app.js"
+    "./scripts/app.js",
 ]
 
 self.addEventListener("install", installEvent => {
@@ -15,6 +15,18 @@ self.addEventListener("install", installEvent => {
 })
 
 self.addEventListener('activate', function(event){
+    const cacheWhitelist = [staticDevTFF];
+    event.waitUntil(
+        caches.keys().then(cacheNames => {
+            return Promise.all(
+                cacheNames.map(cacheName => {
+                    if (!cacheWhitelist.includes(cacheName)) {
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        })
+    );
     console.log("service worker activated", event)
 })
 
