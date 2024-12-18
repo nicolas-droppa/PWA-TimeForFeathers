@@ -1,3 +1,5 @@
+import { Player } from './playerMovement.js';
+
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -6,6 +8,16 @@ const pixelArtRatio = 3;
 canvas.width = 500;
 canvas.height = 500;
 
+const player = new Player(50, 50, 5, canvas);
+
+function gameLoop() {
+    player.update();
+    requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+
+/*
 const tileWidth = 32 * pixelArtRatio;
 const tileHeight = 32 * pixelArtRatio;
 
@@ -39,3 +51,4 @@ grassImage.onload = () => {
             console.error('Error loading levels.json:', error);
         });
 };
+*/
