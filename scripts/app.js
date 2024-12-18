@@ -1,54 +1,32 @@
+import { TILE_WIDTH, TILE_HEIGHT, PIXEL_ART_RATIO, CANVAS_WIDTH, CANVAS_HEIGHT } from './_constants.js';
 import { Player } from './playerMovement.js';
+import { loadTiles } from './tileRenderer.js';
 
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+const playerCanvas = document.getElementById('playerLayer');
 
-const pixelArtRatio = 3;
+canvas.width = CANVAS_WIDTH;
+canvas.height = CANVAS_HEIGHT;
+playerCanvas.width = CANVAS_WIDTH;
+playerCanvas.height = CANVAS_HEIGHT;
+const tileWidth = TILE_WIDTH * PIXEL_ART_RATIO;
+const tileHeight = TILE_HEIGHT * PIXEL_ART_RATIO;
 
-canvas.width = 500;
-canvas.height = 500;
-
-const player = new Player(50, 50, 5, canvas);
-
-function gameLoop() {
-    player.update();
-    requestAnimationFrame(gameLoop);
-}
-
-gameLoop();
-
-/*
-const tileWidth = 32 * pixelArtRatio;
-const tileHeight = 32 * pixelArtRatio;
+const player = new Player(50, 50, 5, playerCanvas);
 
 const grassImage = new Image();
 grassImage.src = '../images/assets/ground/grass.png';
 
 grassImage.onload = () => {
-    fetch('../levels.json')
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then((data) => {
-            const level = data.levels[0];
-            const tileMap = level.tileMap;
+    // Load the level and render tiles
+    loadTiles('../levels.json', tileWidth, tileHeight, ctx, grassImage);
 
-            for (let row = 0; row < tileMap.length; row++) {
-                for (let col = 0; col < tileMap[row].length; col++) {
-                    if (tileMap[row][col] === 0) {
-                        const x = col * tileWidth;
-                        const y = row * tileHeight;
-
-                        ctx.drawImage(grassImage, x, y, tileWidth, tileHeight);
-                    }
-                }
-            }
-        })
-        .catch((error) => {
-            console.error('Error loading levels.json:', error);
-        });
+    // Start the game loop
+    gameLoop();
 };
-*/
+
+function gameLoop() {
+    player.update();
+    requestAnimationFrame(gameLoop);
+}

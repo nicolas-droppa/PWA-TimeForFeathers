@@ -65,7 +65,7 @@ export class Player {
 
     draw() {
         /*
-        Clears the previous freame and draws player as blue square.
+        Clears the previous freame and draws player as blue square only on playerLayer.
         */
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.fillStyle = 'blue';
