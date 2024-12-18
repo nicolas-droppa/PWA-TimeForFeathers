@@ -36,7 +36,6 @@ export class Player {
         Clamps diagonal movement to prevent faster speeds.
         Ensures the player remains within the canvas boundaries.
         */
-    
         let x = 0;
         let y = 0;
     
