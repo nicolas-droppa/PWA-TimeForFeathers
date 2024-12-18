@@ -13,7 +13,7 @@ playerCanvas.height = CANVAS_HEIGHT;
 const tileWidth = TILE_WIDTH * PIXEL_ART_RATIO;
 const tileHeight = TILE_HEIGHT * PIXEL_ART_RATIO;
 
-const player = new Player(50, 50, 5, playerCanvas);
+const player = new Player(50, 50, 5, playerCanvas, '../levels.json');
 
 const grassImage = new Image();
 grassImage.src = '../images/assets/ground/grass.png';
@@ -21,7 +21,6 @@ grassImage.src = '../images/assets/ground/grass.png';
 grassImage.onload = () => {
     // Load the level and render tiles
     loadTiles('../levels.json', tileWidth, tileHeight, ctx, grassImage);
-
     // Start the game loop
     gameLoop();
 };
