@@ -21,7 +21,7 @@ window.onload = () => {
     const tileWidth = TILE_WIDTH * PIXEL_ART_RATIO;
     const tileHeight = TILE_HEIGHT * PIXEL_ART_RATIO;
 
-    const player = new Player(300, 300, 8, playerCanvas, '../levels.json');
+    const player = new Player(3, 3, 8, playerCanvas, '../levels.json');
     const chicken = new Chicken(0, 0, 1, chickenCanvas, [[0, 0], [0, 3], [2, 3], [2, 0]], TILE_WIDTH * PIXEL_ART_RATIO);
 
     const grassImage = new Image();
@@ -36,7 +36,8 @@ window.onload = () => {
 
     function gameLoop() {
         player.update();
-        chicken.update(player.x, player.y, player.size);
+        if (!chicken.eaten)
+            chicken.update(player.x, player.y, player.size);
         requestAnimationFrame(gameLoop);
     }
 };

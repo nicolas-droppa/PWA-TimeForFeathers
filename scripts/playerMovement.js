@@ -1,12 +1,12 @@
-import { TILE_WIDTH, PIXEL_ART_RATIO} from './_constants.js';
+import { TILE_WIDTH, PIXEL_ART_RATIO, FOX_SIZE} from './_constants.js';
 export class Player {
     constructor(x, y, speed, canvas, levelDataUrl) {
-        this.x = x;
-        this.y = y;
+        this.x = x * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - FOX_SIZE) / 2;
+        this.y = y * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - FOX_SIZE) / 2;
         this.speed = speed;
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
-        this.size = 32;
+        this.size = FOX_SIZE;
 
         this.keys = {
             ArrowUp: false,
@@ -72,6 +72,9 @@ export class Player {
          */
         let x = 0;
         let y = 0;
+
+        console.log(this.x);
+        console.log(this.y);
     
         if (this.keys.ArrowLeft)
             x = -1;
