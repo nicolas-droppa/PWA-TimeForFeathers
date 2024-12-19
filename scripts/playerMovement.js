@@ -24,6 +24,7 @@ export class Player {
     async loadLevelData(url) {
         /*
          * Loads tileMap and stores it in the constructor of player
+         * url : Path to stored levels
          */
         try {
             const response = await fetch(url);
@@ -54,7 +55,11 @@ export class Player {
     isWalkable(x, y) {
         /*
          * Checks if a position is walkable (tileMap value is 0).
+         * x : x-position of player
+         * y : y-position of player
          */
+        if (!this.tileMap)
+            return false;
         const col = Math.floor(x / this.tileSize);
         const row = Math.floor(y / this.tileSize);
         return this.tileMap[row]?.[col] == 0;
@@ -68,10 +73,14 @@ export class Player {
         let x = 0;
         let y = 0;
     
-        if (this.keys.ArrowLeft) x = -1;
-        if (this.keys.ArrowRight) x = 1;
-        if (this.keys.ArrowUp) y = -1;
-        if (this.keys.ArrowDown) y = 1;
+        if (this.keys.ArrowLeft)
+            x = -1;
+        if (this.keys.ArrowRight)
+            x = 1;
+        if (this.keys.ArrowUp)
+            y = -1;
+        if (this.keys.ArrowDown)
+            y = 1;
     
         // Normalize diagonal movement
         if (x !== 0 && y !== 0) {

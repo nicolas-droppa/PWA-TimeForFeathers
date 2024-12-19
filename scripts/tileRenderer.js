@@ -1,6 +1,11 @@
 export function renderTiles(ctx, grassImage, tileMap, tileWidth, tileHeight) {
     /*
-    Loops through the tileMap and renders the tiles onto the provided canvas context.
+    * Loops through the tileMap and renders the tiles onto the provided canvas context.
+    * ctx : context of canvas
+    * grassImage : Path to image
+    * tileMap : Tile-Map used for specific level
+    * tileWidth : ...
+    * tileHeight : ...
     */
     for (let row = 0; row < tileMap.length; row++) {
         for (let col = 0; col < tileMap[row].length; col++) {
@@ -16,8 +21,13 @@ export function renderTiles(ctx, grassImage, tileMap, tileWidth, tileHeight) {
 
 export function loadTiles(levelData, tileWidth, tileHeight, ctx, grassImage) {
     /*
-    Fetches level data.
-    Loads the tiles and renders them.
+    * Fetches level data.
+    * Loads the tiles and renders them.
+    * levelData : Path to stored levels
+    * tileWidth : ...
+    * tileHeight : ...
+    * ctx : context of canvas
+    * grassImage : Path to image 
     */
     fetch(levelData)
         .then((response) => {
