@@ -6,12 +6,22 @@
     <title>Time for Feathers</title>
     <link rel="manifest" href="./manifest.json">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <main>
-        <canvas id="gameCanvas" style="position: absolute;"></canvas>
-        <canvas id="playerLayer" style="position: absolute;"></canvas>
-        <canvas id="chickenLayer" style="position: absolute;"></canvas>
+        <canvas id="gameCanvas"></canvas>
+        <canvas id="playerLayer"></canvas>
+        <canvas id="chickenLayer"></canvas>
+        <div class="time-container">
+            <p id="timer">
+                <span id="minutes">00</span>
+                <span id="divider">:</span>
+                <span id="seconds">00</span>
+                <span id="divider">.</span>
+                <span id="miliseconds">00</span>
+            </p>
+        </div>
     </main>
     <script type="module" src="./scripts/app.js" defer></script>
     <script>

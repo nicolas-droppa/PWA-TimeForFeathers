@@ -1,0 +1,42 @@
+@font-face {
+    font-family: 'PixelFont';
+    src: url('./fonts/Pixel.ttf');
+}
+
+body {
+    font-family: 'PixelFont', sans-serif;
+}
+
+main {
+    position: relative;
+}
+
+canvas {
+    position: absolute;
+}
+
+.time-container {
+    position: absolute;
+    background-color: rgba(28, 28, 28, 0.662);
+    color: white;
+    right: 0;
+    font-size: 1.2rem;
+    width: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#timer {
+    display: flex;
+    flex-direction: row;
+}
+
+#miliseconds,
+#seconds,
+#minutes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.7rem;
+}

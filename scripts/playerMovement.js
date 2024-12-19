@@ -72,9 +72,6 @@ export class Player {
          */
         let x = 0;
         let y = 0;
-
-        console.log(this.x);
-        console.log(this.y);
     
         if (this.keys.ArrowLeft)
             x = -1;
