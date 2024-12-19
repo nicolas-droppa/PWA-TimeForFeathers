@@ -55,48 +55,55 @@ export class Player {
         /*
          * Checks if a position is walkable (tileMap value is 0).
          */
-        if (!this.tileMap) return false; // Tilemap not loaded yet
         const col = Math.floor(x / this.tileSize);
         const row = Math.floor(y / this.tileSize);
-        return this.tileMap[row]?.[col] === 0;
+        return this.tileMap[row]?.[col] == 0;
     }
 
     updatePosition() {
         /*
          * Moves the player in a given direction at a consistent speed.
-         * Checks for walkable tiles in the tileMap.
+         * Separates horizontal and vertical movement checks to handle walls better.
          */
         let x = 0;
         let y = 0;
-
+    
         if (this.keys.ArrowLeft) x = -1;
         if (this.keys.ArrowRight) x = 1;
         if (this.keys.ArrowUp) y = -1;
         if (this.keys.ArrowDown) y = 1;
-
+    
         // Normalize diagonal movement
         if (x !== 0 && y !== 0) {
             const length = Math.sqrt(x ** 2 + y ** 2);
             x /= length;
             y /= length;
         }
-
-        // Calculate the new position
+    
         const newX = this.x + x * this.speed;
         const newY = this.y + y * this.speed;
-
-        // Check if the new position is walkable
-        const corners = [
-            [newX, newY], // Top-left corner
-            [newX + this.size, newY], // Top-right corner
-            [newX, newY + this.size], // Bottom-left corner
-            [newX + this.size, newY + this.size], // Bottom-right corner
+    
+        const horizontalCorners = [
+            [newX, this.y], //Top-left
+            [newX + this.size, this.y], //Top-right
+            [newX, this.y + this.size], //Bottom-left
+            [newX + this.size, this.y + this.size], //Bottom-right
         ];
-
-        const canMove = corners.every(([cornerX, cornerY]) => this.isWalkable(cornerX, cornerY));
-
-        if (canMove) {
+        const canMoveHorizontally = horizontalCorners.every(([cornerX, cornerY]) => this.isWalkable(cornerX, cornerY));
+    
+        if (canMoveHorizontally) {
             this.x = newX;
+        }
+    
+        const verticalCorners = [
+            [this.x, newY], //Top-left
+            [this.x + this.size, newY], //Top-right
+            [this.x, newY + this.size], //Bottom-left
+            [this.x + this.size, newY + this.size], //Bottom-right
+        ];
+        const canMoveVertically = verticalCorners.every(([cornerX, cornerY]) => this.isWalkable(cornerX, cornerY));
+    
+        if (canMoveVertically) {
             this.y = newY;
         }
     }
