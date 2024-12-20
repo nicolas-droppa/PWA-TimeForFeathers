@@ -20,6 +20,7 @@ export class Timer {
     display(container) {
         /*
          * Display the time in its container
+         * container : container holding time
          */
         const [minutes,seconds,milliseconds] = this.getFormattedTime();
         console.log(this.getFormattedTime());
