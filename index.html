@@ -13,14 +13,26 @@
         <canvas id="gameCanvas"></canvas>
         <canvas id="playerLayer"></canvas>
         <canvas id="chickenLayer"></canvas>
-        <div class="time-container">
-            <p id="timer">
-                <span id="minutes">00</span>
-                <span id="divider">:</span>
-                <span id="seconds">00</span>
-                <span id="divider">.</span>
-                <span id="miliseconds">00</span>
-            </p>
+        <div class="game-info-container">
+            <div id="topInfo">
+                <div id="levelContainer" class="info-section">
+                    <h4>Level</h4>
+                    <span id="level-id">1</span>
+                </div>
+                <div id="timeContainer" class="info-section">
+                    <h4>Time elapsed</h4>
+                    <p id="timer">
+                        <span id="minutes">00</span>
+                        <span id="divider">:</span>
+                        <span id="seconds">00</span>
+                        <span id="divider">.</span>
+                        <span id="miliseconds">00</span>
+                    </p>
+                </div>
+            </div>
+            <div id="bottomInfo">
+                <div id="checkpointContainer" class="info-section"></div>
+            </div>
         </div>
     </main>
     <script type="module" src="./scripts/app.js" defer></script>

@@ -50,7 +50,7 @@ export class Chicken {
         }
     }
 
-    checkCollision(playerX, playerY, playerSize) {
+    checkCollision(playerX, playerY, playerSize, timer) {
         /*
          * Check if the player overlaps with the chicken.
          * If so, mark the chicken as "eaten."
@@ -63,7 +63,22 @@ export class Chicken {
 
         if (overlapX && overlapY) {
             this.eaten = true;
+            this.logEvent(timer);
         }
+    }
+
+    logEvent(timer) {
+        /*
+         * Logs event in case of chicken beign eaten
+         * timer : timer object
+         */
+        const [minutes,seconds,milliseconds] = timer.getFormattedTime();
+        console.log(timer.getFormattedTime());
+        const eventContainer = document.getElementById('checkpointContainer');
+        const eventElement = document.createElement('p');
+        eventElement.id = 'event';
+        eventElement.innerHTML = `<span id="eventTitle">Chicken</span><span id="eventTime">${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}.${milliseconds < 10 ? '0' + milliseconds : milliseconds}</span>`;
+        eventContainer.appendChild(eventElement);
     }
 
     draw() {
@@ -75,17 +90,14 @@ export class Chicken {
             return;
         }
 
-        // Clear previous position
         this.ctx.clearRect(this.prevX, this.prevY, this.size, this.size);
-
-        // Draw the chicken at the new position
         this.ctx.fillStyle = 'red';
         this.ctx.fillRect(this.x, this.y, this.size, this.size);
     }
 
-    update(playerX, playerY, playerSize) {
+    update(playerX, playerY, playerSize, timer) {
         this.updatePosition();
-        this.checkCollision(playerX, playerY, playerSize);
+        this.checkCollision(playerX, playerY, playerSize, timer);
         this.draw();
     }
 }

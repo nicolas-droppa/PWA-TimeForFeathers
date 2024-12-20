@@ -12,7 +12,7 @@ export class Timer {
 
         const minutes = Math.floor(this.elapsedTime / 60000);
         const seconds = Math.floor((this.elapsedTime % 60000) / 1000);
-        const milliseconds = this.elapsedTime % 100;
+        const milliseconds = Math.floor((this.elapsedTime % 1000) / 10);
 
         return [minutes,seconds,milliseconds];
     }

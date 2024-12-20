@@ -29,7 +29,7 @@ window.onload = async () => {
         player.update();
         chickens.forEach((chicken) => {
             if (!chicken.eaten) 
-                chicken.update(player.x, player.y, player.size);
+                chicken.update(player.x, player.y, player.size, timer);
         });
         requestAnimationFrame(() => gameLoop({ player, chickens, timer }, timeContainer));
     }
