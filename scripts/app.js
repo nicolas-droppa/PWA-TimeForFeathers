@@ -24,11 +24,13 @@ window.onload = async () => {
         gameLoop(entities, timeContainer);
     };
 
-    function gameLoop({ player, chicken, chicken2, timer }, timeContainer) {
+    function gameLoop({ player, chickens, timer }, timeContainer) {
         timer.display(timeContainer);
         player.update();
-        if (!chicken.eaten) chicken.update(player.x, player.y, player.size);
-        if (!chicken2.eaten) chicken2.update(player.x, player.y, player.size);
-        requestAnimationFrame(() => gameLoop({ player, chicken, chicken2, timer }, timeContainer));
+        chickens.forEach((chicken) => {
+            if (!chicken.eaten) 
+                chicken.update(player.x, player.y, player.size);
+        });
+        requestAnimationFrame(() => gameLoop({ player, chickens, timer }, timeContainer));
     }
 };

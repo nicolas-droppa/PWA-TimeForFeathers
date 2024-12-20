@@ -50,14 +50,27 @@ export async function loadEntities(canvases, levelDataPath) {
     }
 
     const level = levelData.levels[0];
-    const tileMap = level.tileMap;
 
-    const player = new Player(3, 3, 8, canvases.playerLayer, levelDataPath);
-    const chicken = new Chicken(0, 0, 1, canvases.chickenLayer, [[0, 0], [0, 3], [2, 3], [2, 0]]);
-    const chicken2 = new Chicken(0, 3, 1, canvases.chickenLayer, [[0, 0], [0, 3], [2, 3], [2, 0]]);
-    console.log(chicken);
-    console.log(chicken2);
+    const playerConfig = level.fox[0];
+    const player = new Player(
+        playerConfig.spawn.x,
+        playerConfig.spawn.y,
+        playerConfig.speed,
+        canvases.playerLayer,
+        levelDataPath
+    );
+
+    const chickens = level.chickens.map((chickenConfig) => {
+        return new Chicken(
+            chickenConfig.spawn.x,
+            chickenConfig.spawn.y,
+            chickenConfig.speed,
+            canvases.chickenLayer,
+            chickenConfig.path.map((p) => [p.x, p.y])
+        );
+    });
+
     const timer = new Timer();
 
-    return { player, chicken, chicken2, timer };
+    return { player, chickens, timer };
 }
