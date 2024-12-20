@@ -22,7 +22,7 @@ export function initializeCanvases(canvasIds) {
  * Fetches level data from the specified file
  * levelDataPath : path to levels.json
  */
-export function fetchLevelData(levelDataPath) {
+export async function fetchLevelData(levelDataPath) {
     return fetch(levelDataPath)
         .then((response) => {
             if (!response.ok) {
@@ -55,6 +55,8 @@ export async function loadEntities(canvases, levelDataPath) {
     const player = new Player(3, 3, 8, canvases.playerLayer, levelDataPath);
     const chicken = new Chicken(0, 0, 1, canvases.chickenLayer, [[0, 0], [0, 3], [2, 3], [2, 0]]);
     const chicken2 = new Chicken(0, 3, 1, canvases.chickenLayer, [[0, 0], [0, 3], [2, 3], [2, 0]]);
+    console.log(chicken);
+    console.log(chicken2);
     const timer = new Timer();
 
     return { player, chicken, chicken2, timer };

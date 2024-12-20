@@ -23,7 +23,6 @@ export class Timer {
          * container : container holding time
          */
         const [minutes,seconds,milliseconds] = this.getFormattedTime();
-        console.log(this.getFormattedTime());
 
         container.querySelector("#minutes").textContent = minutes < 10 ? '0' + minutes : minutes;
         container.querySelector("#seconds").textContent = seconds < 10 ? '0' + seconds : seconds;

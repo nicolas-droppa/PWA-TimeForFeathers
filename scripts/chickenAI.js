@@ -1,19 +1,18 @@
-import { CHICKEN_SIZE, TILE_WIDTH } from './_constants.js';
-
+import { CHICKEN_SIZE, TILE_WIDTH, PIXEL_ART_RATIO } from './_constants.js';
 export class Chicken {
-    constructor(startX, startY, speed, canvas, path, tileSize) {
-        this.x = startX * tileSize + (tileSize - CHICKEN_SIZE) / 2;
-        this.y = startY * tileSize + (tileSize - CHICKEN_SIZE) / 2;
+    constructor(startX, startY, speed, canvas, path) {
+        this.x = startX * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - CHICKEN_SIZE) / 2;
+        this.y = startY * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - CHICKEN_SIZE) / 2;
         this.prevX = this.x;
         this.prevY = this.y;
         this.speed = speed;
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
-        this.tileSize = TILE_WIDTH;
+        this.tileSize = (TILE_WIDTH * PIXEL_ART_RATIO);
         this.size = CHICKEN_SIZE;
         this.path = path.map(([col, row]) => [
-            col * tileSize + (tileSize - CHICKEN_SIZE) / 2,
-            row * tileSize + (tileSize - CHICKEN_SIZE) / 2
+            col * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - CHICKEN_SIZE) / 2,
+            row * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - CHICKEN_SIZE) / 2
         ]);
         this.currentTargetIndex = 0;
         this.reachedTarget = true;
@@ -76,7 +75,10 @@ export class Chicken {
             return;
         }
 
+        // Clear previous position
         this.ctx.clearRect(this.prevX, this.prevY, this.size, this.size);
+
+        // Draw the chicken at the new position
         this.ctx.fillStyle = 'red';
         this.ctx.fillRect(this.x, this.y, this.size, this.size);
     }

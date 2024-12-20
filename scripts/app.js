@@ -17,7 +17,7 @@ window.onload = async () => {
     let entities = null;
 
     grassImage.onload = async () => {
-        entities = await loadEntities(canvases, TILE_WIDTH * PIXEL_ART_RATIO, '../levels.json');
+        entities = await loadEntities(canvases, '../levels.json');
 
         loadTiles('../levels.json', tileWidth, tileHeight, ctx, grassImage);
 
