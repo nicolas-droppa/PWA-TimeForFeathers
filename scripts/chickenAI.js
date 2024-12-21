@@ -19,20 +19,21 @@ export class Chicken {
         this.eaten = false;
     }
 
-    updatePosition() {
+    updatePosition(deltaTime) {
         /*
-         * Move the chicken toward the current target coordinate in the path.
-         * When it reaches the target, switch to the next one.
+         * Moves chicken to target and cycles to another
+         * deltaTime : time diff for movement normalization
          */
         if (this.eaten || this.path.length == 0) return;
-
+    
         const [targetX, targetY] = this.path[this.currentTargetIndex];
-
         const deltaX = targetX - this.x;
         const deltaY = targetY - this.y;
         const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
-
-        if (distance < this.speed) { // Target reached
+    
+        const moveDistance = this.speed * deltaTime;
+    
+        if (distance < moveDistance) { // Target reached
             this.prevX = this.x;
             this.prevY = this.y;
             this.x = targetX;
@@ -42,8 +43,8 @@ export class Chicken {
         } else { // Move to the target
             this.prevX = this.x;
             this.prevY = this.y;
-            const moveX = (deltaX / distance) * this.speed;
-            const moveY = (deltaY / distance) * this.speed;
+            const moveX = (deltaX / distance) * moveDistance;
+            const moveY = (deltaY / distance) * moveDistance;
             this.x += moveX;
             this.y += moveY;
             this.reachedTarget = false;
@@ -86,17 +87,21 @@ export class Chicken {
          * Draw the chicken as a red square if not eaten.
          */
         if (this.eaten) {
-            this.ctx.clearRect(this.prevX, this.prevY, this.size, this.size);
+            // -1 and -2 to prevent errors of not delelting whole rectangle
+            this.ctx.clearRect(this.prevX - 1, this.prevY - 1, this.size + 2, this.size + 2);
             return;
         }
 
-        this.ctx.clearRect(this.prevX, this.prevY, this.size, this.size);
+        // -1 and -2 to prevent errors of not delelting whole rectangle
+        this.ctx.clearRect(this.prevX - 1, this.prevY - 1, this.size + 2, this.size + 2);
         this.ctx.fillStyle = 'red';
         this.ctx.fillRect(this.x, this.y, this.size, this.size);
+        this.prevX = this.x;
+        this.prevY = this.y;
     }
 
-    update(playerX, playerY, playerSize, timer) {
-        this.updatePosition();
+    update(playerX, playerY, playerSize, timer, deltaTime) {
+        this.updatePosition(deltaTime);
         this.checkCollision(playerX, playerY, playerSize, timer);
         this.draw();
     }

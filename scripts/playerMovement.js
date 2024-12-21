@@ -65,10 +65,10 @@ export class Player {
         return this.tileMap[row]?.[col] == 0;
     }
 
-    updatePosition() {
+    updatePosition(deltaTime) {
         /*
-         * Moves the player in a given direction at a consistent speed.
-         * Separates horizontal and vertical movement checks to handle walls better.
+         * Checks if player can move in direction and moves player
+         * deltaTime : time diff for movement normalization
          */
         let x = 0;
         let y = 0;
@@ -89,14 +89,14 @@ export class Player {
             y /= length;
         }
     
-        const newX = this.x + x * this.speed;
-        const newY = this.y + y * this.speed;
+        const newX = this.x + x * this.speed * deltaTime;
+        const newY = this.y + y * this.speed * deltaTime;
     
         const horizontalCorners = [
-            [newX, this.y], //Top-left
-            [newX + this.size, this.y], //Top-right
-            [newX, this.y + this.size], //Bottom-left
-            [newX + this.size, this.y + this.size], //Bottom-right
+            [newX, this.y],
+            [newX + this.size, this.y],
+            [newX, this.y + this.size],
+            [newX + this.size, this.y + this.size],
         ];
         const canMoveHorizontally = horizontalCorners.every(([cornerX, cornerY]) => this.isWalkable(cornerX, cornerY));
     
@@ -105,10 +105,10 @@ export class Player {
         }
     
         const verticalCorners = [
-            [this.x, newY], //Top-left
-            [this.x + this.size, newY], //Top-right
-            [this.x, newY + this.size], //Bottom-left
-            [this.x + this.size, newY + this.size], //Bottom-right
+            [this.x, newY],
+            [this.x + this.size, newY],
+            [this.x, newY + this.size],
+            [this.x + this.size, newY + this.size],
         ];
         const canMoveVertically = verticalCorners.every(([cornerX, cornerY]) => this.isWalkable(cornerX, cornerY));
     
@@ -126,8 +126,8 @@ export class Player {
         this.ctx.fillRect(this.x, this.y, this.size, this.size);
     }
 
-    update() {
-        this.updatePosition();
+    update(deltaTime) {
+        this.updatePosition(deltaTime);
         this.draw();
     }
 }
