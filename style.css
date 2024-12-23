@@ -3,6 +3,10 @@
     src: url('./fonts/Pixel.ttf');
 }
 
+.hidden {
+    display: none;
+}
+
 body {
     font-family: 'PixelFont', sans-serif;
 }
