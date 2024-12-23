@@ -1,10 +1,23 @@
+:root {
+    --text-color: #f4f4f4;
+    --text-dark-color: #1d1d1d;
+    --highlight-color: #f49733;
+}
+
 @font-face {
     font-family: 'PixelFont';
     src: url('./fonts/Pixel.ttf');
 }
 
+.no-select {
+    -webkit-user-select: none; /* Chrome, Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* Internet Explorer/Edge */
+    user-select: none;         /* Standard */
+}
+
 .hidden {
-    display: none;
+    display: none!important;
 }
 
 body {
@@ -41,7 +54,7 @@ canvas {
 .info-section {
     position: relative;
     background-color: rgba(28, 28, 28, 0.662);
-    color: white;
+    color: var(--text-color);
     font-size: 1.25rem;
     display: flex;
     flex-direction: column;
@@ -98,4 +111,51 @@ h4 {
     justify-content: center;
     align-items: center;
     width: 1.7rem;
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(250, 214, 157, 0.99);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.menu h1 {
+    margin-bottom: 2rem;
+    font-size: 8rem;
+    text-transform: uppercase;
+    text-shadow: -4px 4px 3px var(--text-dark-color);
+}
+
+.menu button {
+    padding: 1rem 2rem;
+    margin: 1rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: 'PixelFont', sans-serif;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    color: var(--text-color);
+    background-color: transparent;
+    text-shadow: -4px 4px 3px var(--text-dark-color);
+}
+
+.menu button:hover {
+    color: var(--highlight-color);
+}
+
+.menu-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 5%;
 }

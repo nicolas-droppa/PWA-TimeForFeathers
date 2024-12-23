@@ -3,7 +3,15 @@ import { loadTiles } from './tileRenderer.js';
 import { initializeCanvases, loadEntities } from './entitySpawner.js';
 import { DeltaTime } from './deltaTime.js';
 
-window.onload = async () => {
+window.onload = () => {
+    const startButton = document.getElementById('startButton');
+    startButton.addEventListener('click', startGame);
+};
+
+async function startGame() {
+    const menu = document.getElementById('menu');
+    menu.classList.add('hidden');
+    
     const canvasIds = ['gameCanvas', 'playerLayer', 'chickenLayer'];
     const tileWidth = TILE_WIDTH * PIXEL_ART_RATIO;
     const tileHeight = TILE_HEIGHT * PIXEL_ART_RATIO;
@@ -39,4 +47,4 @@ window.onload = async () => {
 
         requestAnimationFrame(() => gameLoop({ player, chickens, timer }, timeContainer, deltaTimeCalculator));
     }
-};
+}
