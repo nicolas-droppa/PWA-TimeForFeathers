@@ -2,16 +2,13 @@ import { TILE_WIDTH, TILE_HEIGHT, PIXEL_ART_RATIO } from './_constants.js';
 import { loadTiles } from './tileRenderer.js';
 import { initializeCanvases, loadEntities } from './entitySpawner.js';
 import { DeltaTime } from './deltaTime.js';
+import { initializeGame } from './gameInitializer.js';
 
 window.onload = () => {
-    const startButton = document.getElementById('startButton');
-    startButton.addEventListener('click', startGame);
+    initializeGame();
 };
 
-async function startGame() {
-    const menu = document.getElementById('menu');
-    menu.classList.add('hidden');
-    
+export async function startGame() {
     const canvasIds = ['gameCanvas', 'playerLayer', 'chickenLayer'];
     const tileWidth = TILE_WIDTH * PIXEL_ART_RATIO;
     const tileHeight = TILE_HEIGHT * PIXEL_ART_RATIO;
