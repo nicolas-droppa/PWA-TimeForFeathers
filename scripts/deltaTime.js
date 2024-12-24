@@ -1,6 +1,6 @@
 export class DeltaTime {
     /*
-     * Making sure that movement speed of entities is not based on hardware
+     * Making sure that movement speed of entities is not based on hardware but rather dependent on time (still not perfect)
      */
     constructor() {
         this.lastTime = performance.now();

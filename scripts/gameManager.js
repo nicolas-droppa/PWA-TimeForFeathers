@@ -9,6 +9,9 @@ export class GameManager {
     }
 
     initialize() {
+        /*
+         * initialize game and skips menu based on dev file
+         */
         if (SKIP_MENU) {
             this.startGame(() => startGame());
         } else {
@@ -18,6 +21,10 @@ export class GameManager {
     }
 
     showMenu(menuId) {
+        /*
+         * Shows menu
+         * menuId : id of menu
+         */
         const menu = document.getElementById(menuId);
         if (menu) {
             menu.style.display = 'flex';
@@ -31,11 +38,17 @@ export class GameManager {
     }
 
     prepareGameEnvironment() {
+        /*
+         * Shows game container and hides menu container
+         */
         this.gameContainer.style.display = 'block';
         this.menuContainer.style.display = 'none';
     }
 
     setupMenuListeners() {
+        /*
+         * Prepares buttons for main menu and their listeners
+         */
         const startButton = document.getElementById('startButton');
         startButton.addEventListener('click', () => {
             this.startGame(() => startGame());
@@ -53,6 +66,9 @@ export class GameManager {
     }
 
     static levelCompleted() {
+        /*
+         * Handling level completion
+         */
         console.log("Level completed");
     }
 }
