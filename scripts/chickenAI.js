@@ -74,7 +74,6 @@ export class Chicken {
          * timer : timer object
          */
         const [minutes,seconds,milliseconds] = timer.getFormattedTime();
-        console.log(timer.getFormattedTime());
         const eventContainer = document.getElementById('checkpointContainer');
         const eventElement = document.createElement('p');
         eventElement.id = 'event';
