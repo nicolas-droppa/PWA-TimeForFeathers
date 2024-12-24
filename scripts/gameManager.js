@@ -1,3 +1,6 @@
+import { startGame } from './app.js';
+import { SKIP_MENU } from './_dev.js';
+
 export class GameManager {
     constructor({ gameContainerId, menuId }) {
         this.gameContainer = document.getElementById(gameContainerId);
@@ -6,7 +9,12 @@ export class GameManager {
     }
 
     initialize() {
-        this.showMenu('mainMenu');
+        if (SKIP_MENU) {
+            this.startGame(() => startGame());
+        } else {
+            this.showMenu('mainMenu');
+            this.setupMenuListeners();
+        }
     }
 
     showMenu(menuId) {
@@ -25,5 +33,26 @@ export class GameManager {
     prepareGameEnvironment() {
         this.gameContainer.style.display = 'block';
         this.menuContainer.style.display = 'none';
+    }
+
+    setupMenuListeners() {
+        const startButton = document.getElementById('startButton');
+        startButton.addEventListener('click', () => {
+            this.startGame(() => startGame());
+        });
+
+        const recordsButton = document.getElementById('recordsButton');
+        recordsButton.addEventListener('click', () => {
+            console.log('Show records menu');
+        });
+
+        const settingsButton = document.getElementById('settingsButton');
+        settingsButton.addEventListener('click', () => {
+            console.log('Show settings menu');
+        });
+    }
+
+    static levelCompleted() {
+        console.log("Level completed");
     }
 }

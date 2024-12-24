@@ -1,1 +1,1 @@
-const skipMenu = true;
+export const SKIP_MENU = true;

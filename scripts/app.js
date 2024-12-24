@@ -2,10 +2,14 @@ import { TILE_WIDTH, TILE_HEIGHT, PIXEL_ART_RATIO } from './_constants.js';
 import { loadTiles } from './tileRenderer.js';
 import { initializeCanvases, loadEntities } from './entitySpawner.js';
 import { DeltaTime } from './deltaTime.js';
-import { initializeGame } from './gameInitializer.js';
+import { GameManager } from './gameManager.js';
 
 window.onload = () => {
-    initializeGame();
+    const gameManager = new GameManager({
+        gameContainerId: 'gameContainer',
+        menuId: 'menu',
+    });
+    gameManager.initialize();
 };
 
 export async function startGame() {
@@ -41,6 +45,9 @@ export async function startGame() {
             if (!chicken.eaten) 
                 chicken.update(player.x, player.y, player.size, timer, deltaTime);
         });
+
+        if (chickens.every(chicken => chicken.eaten))
+            GameManager.levelCompleted();
 
         requestAnimationFrame(() => gameLoop({ player, chickens, timer }, timeContainer, deltaTimeCalculator));
     }
