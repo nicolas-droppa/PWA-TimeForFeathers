@@ -19,7 +19,7 @@ export function renderTiles(ctx, grassImage, tileMap, tileWidth, tileHeight) {
     }
 }
 
-export function loadTiles(levelData, tileWidth, tileHeight, ctx, grassImage) {
+export function loadTiles(levelData, currentLevel, tileWidth, tileHeight, ctx, grassImage) {
     /*
     * Fetches level data.
     * Loads the tiles and renders them.
@@ -37,7 +37,7 @@ export function loadTiles(levelData, tileWidth, tileHeight, ctx, grassImage) {
             return response.json();
         })
         .then((data) => {
-            const level = data.levels[0];
+            const level = data.levels[currentLevel];
             const tileMap = level.tileMap;
             renderTiles(ctx, grassImage, tileMap, tileWidth, tileHeight);
         })

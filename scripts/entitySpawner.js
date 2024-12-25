@@ -41,7 +41,7 @@ export async function fetchLevelData(levelDataPath) {
  * canvases : all the canvases for every needed layer
  * levelDataPath : path to levels.json
  */
-export async function loadEntities(canvases, levelDataPath) {
+export async function loadEntities(canvases, levelDataPath, currentLevel) {
     const levelData = await fetchLevelData(levelDataPath);
 
     if (!levelData) {
@@ -49,9 +49,12 @@ export async function loadEntities(canvases, levelDataPath) {
         return null;
     }
 
-    const level = levelData.levels[0];
+    const level = levelData.levels[currentLevel];
 
-    const playerConfig = level.fox[0];
+    console.log(levelData.levels);
+    console.log(currentLevel);
+
+    const playerConfig = level.fox;
     const player = new Player(
         playerConfig.spawn.x,
         playerConfig.spawn.y,
@@ -69,6 +72,9 @@ export async function loadEntities(canvases, levelDataPath) {
             chickenConfig.path.map((p) => [p.x, p.y])
         );
     });
+
+    console.log(player);
+    console.log(chickens);
 
     const timer = new Timer();
 

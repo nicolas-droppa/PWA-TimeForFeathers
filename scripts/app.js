@@ -31,16 +31,14 @@ export async function startGame() {
     const deltaTimeCalculator = new DeltaTime();
 
     grassImage.onload = async () => {
-        entities = await loadEntities(canvases, '../levels.json');
-
-        loadTiles('../levels.json', tileWidth, tileHeight, ctx, grassImage);
-
+        entities = await loadEntities(canvases, '../levels.json', gameManager.currentLevel);
+    
+        loadTiles('../levels.json', gameManager.currentLevel, tileWidth, tileHeight, ctx, grassImage);
+    
         gameLoop(entities, timeContainer, deltaTimeCalculator);
     };
 
     function gameLoop({ player, chickens, timer }, timeContainer, deltaTimeCalculator) {
-        resetGameData();
-        console.log(gameManager.currentLevel);
         const deltaTime = deltaTimeCalculator.getDeltaTime();
 
         timer.display(timeContainer);

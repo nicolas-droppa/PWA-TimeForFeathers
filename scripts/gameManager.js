@@ -8,6 +8,7 @@ export class GameManager {
         this.menuContainer = document.getElementById(menuId);
         this.currentMenu = null;
         this.currentLevel = null;
+        this.isLevelCompleted = false;
     }
 
     initialize() {
@@ -15,7 +16,7 @@ export class GameManager {
          * initialize game and skips menu based on dev file
          */
         this.currentLevel = getCurrentLevel();
-        
+
         if (SKIP_MENU) {
             this.startGame(() => startGame());
         } else {
@@ -43,6 +44,7 @@ export class GameManager {
     }
 
     startGame(startCallback = () => {}) {
+        this.isLevelCompleted = false;
         this.prepareGameEnvironment();
         startCallback();
     }
@@ -89,12 +91,13 @@ export class GameManager {
          */
         const nextButton = document.getElementById('nextButton');
         nextButton.addEventListener('click', () => {
-            console.log('[ F ] Next level');
+            this.currentLevel = this.currentLevel + 1;
+            this.startGame(() => startGame());
         });
 
         const retryButton = document.getElementById('retryButton');
         retryButton.addEventListener('click', () => {
-            console.log('[ R ] Play again');
+            this.startGame(() => startGame());
         });
     }
 
@@ -102,9 +105,12 @@ export class GameManager {
         /*
          * Handling level completion
          */
+        if (this.isLevelCompleted) 
+            return;
+
+        this.isLevelCompleted = true;
         this.prepareMenuEnvironment();
         this.showMenu('levelCompleted');
         this.setupLevelListeners();
-        console.log("Level completed");
     }
 }
