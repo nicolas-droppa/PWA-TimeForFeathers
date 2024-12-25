@@ -56,7 +56,7 @@ export class GameManager {
          * Shows menu container and hides game container
          */
         this.gameContainer.style.display = 'none';
-        this.menuContainer.style.display = 'block';
+        this.menuContainer.style.display = 'flex';
     }
 
     setupMenuListeners() {
@@ -100,6 +100,7 @@ export class GameManager {
          */
         this.prepareMenuEnvironment();
         this.showMenu('levelCompleted');
+        this.setupLevelListeners();
         console.log("Level completed");
     }
 }
