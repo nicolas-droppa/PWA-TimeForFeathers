@@ -4,11 +4,12 @@ import { initializeCanvases, loadEntities } from './entitySpawner.js';
 import { DeltaTime } from './deltaTime.js';
 import { GameManager } from './gameManager.js';
 
+const gameManager = new GameManager({
+    gameContainerId: 'gameContainer',
+    menuId: 'menu',
+});
+
 window.onload = () => {
-    const gameManager = new GameManager({
-        gameContainerId: 'gameContainer',
-        menuId: 'menu',
-    });
     gameManager.initialize();
 };
 
@@ -47,7 +48,7 @@ export async function startGame() {
         });
 
         if (chickens.every(chicken => chicken.eaten))
-            GameManager.levelCompleted();
+            gameManager.levelCompleted();
 
         requestAnimationFrame(() => gameLoop({ player, chickens, timer }, timeContainer, deltaTimeCalculator));
     }

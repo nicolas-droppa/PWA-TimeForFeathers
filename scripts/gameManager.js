@@ -25,11 +25,17 @@ export class GameManager {
          * Shows menu
          * menuId : id of menu
          */
+        this.hideAllMenus();
         const menu = document.getElementById(menuId);
         if (menu) {
             menu.style.display = 'flex';
             this.currentMenu = menu;
         }
+    }
+
+    hideAllMenus() {
+        const menus = this.menuContainer.querySelectorAll('.menu-screen');
+        menus.forEach(menu => menu.style.display = 'none');
     }
 
     startGame(startCallback = () => {}) {
@@ -43,6 +49,14 @@ export class GameManager {
          */
         this.gameContainer.style.display = 'block';
         this.menuContainer.style.display = 'none';
+    }
+
+    prepareMenuEnvironment() {
+        /*
+         * Shows menu container and hides game container
+         */
+        this.gameContainer.style.display = 'none';
+        this.menuContainer.style.display = 'block';
     }
 
     setupMenuListeners() {
@@ -65,10 +79,27 @@ export class GameManager {
         });
     }
 
-    static levelCompleted() {
+    setupLevelListeners() {
+        /*
+         * Prepares buttons for level menu and their listeners
+         */
+        const nextButton = document.getElementById('nextButton');
+        nextButton.addEventListener('click', () => {
+            console.log('[ F ] Next level');
+        });
+
+        const retryButton = document.getElementById('retryButton');
+        retryButton.addEventListener('click', () => {
+            console.log('[ R ] Play again');
+        });
+    }
+
+    levelCompleted() {
         /*
          * Handling level completion
          */
+        this.prepareMenuEnvironment();
+        this.showMenu('levelCompleted');
         console.log("Level completed");
     }
 }
