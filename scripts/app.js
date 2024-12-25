@@ -3,6 +3,7 @@ import { loadTiles } from './tileRenderer.js';
 import { initializeCanvases, loadEntities } from './entitySpawner.js';
 import { DeltaTime } from './deltaTime.js';
 import { GameManager } from './gameManager.js';
+import { getCurrentLevel, resetGameData } from './storageSystem.js';
 
 const gameManager = new GameManager({
     gameContainerId: 'gameContainer',
@@ -38,6 +39,8 @@ export async function startGame() {
     };
 
     function gameLoop({ player, chickens, timer }, timeContainer, deltaTimeCalculator) {
+        resetGameData();
+        console.log(gameManager.currentLevel);
         const deltaTime = deltaTimeCalculator.getDeltaTime();
 
         timer.display(timeContainer);

@@ -1,17 +1,21 @@
 import { startGame } from './app.js';
 import { SKIP_MENU } from './_dev.js';
+import { getCurrentLevel } from './storageSystem.js';
 
 export class GameManager {
     constructor({ gameContainerId, menuId }) {
         this.gameContainer = document.getElementById(gameContainerId);
         this.menuContainer = document.getElementById(menuId);
         this.currentMenu = null;
+        this.currentLevel = null;
     }
 
     initialize() {
         /*
          * initialize game and skips menu based on dev file
          */
+        this.currentLevel = getCurrentLevel();
+        
         if (SKIP_MENU) {
             this.startGame(() => startGame());
         } else {
