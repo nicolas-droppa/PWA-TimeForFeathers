@@ -1,6 +1,6 @@
 import { TILE_WIDTH, PIXEL_ART_RATIO, FOX_SIZE} from './_constants.js';
 export class Player {
-    constructor(x, y, speed, canvas, levelDataUrl) {
+    constructor(x, y, speed, canvas, levelDataUrl, currentLevel) {
         this.x = x * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - FOX_SIZE) / 2;
         this.y = y * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - FOX_SIZE) / 2;
         this.speed = speed;
@@ -24,10 +24,10 @@ export class Player {
 
         this.tileMap = null;
         this.tileSize = TILE_WIDTH * PIXEL_ART_RATIO;
-        this.loadLevelData(levelDataUrl);
+        this.loadLevelData(levelDataUrl, currentLevel);
     }
 
-    async loadLevelData(url) {
+    async loadLevelData(url, currentLevel) {
         /*
          * Loads tileMap and stores it in the constructor of player
          * url : Path to stored levels
@@ -38,7 +38,7 @@ export class Player {
                 throw new Error(`Failed to fetch level data: ${response.status}`);
             }
             const data = await response.json();
-            this.tileMap = data.levels[0].tileMap;
+            this.tileMap = data.levels[currentLevel].tileMap;
         } catch (error) {
             console.error("Error fetching level data:", error);
         }

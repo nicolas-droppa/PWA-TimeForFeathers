@@ -11,6 +11,7 @@ const gameManager = new GameManager({
 });
 
 window.onload = () => {
+    resetGameData();
     gameManager.initialize();
 };
 
@@ -48,8 +49,10 @@ export async function startGame() {
                 chicken.update(player.x, player.y, player.size, timer, deltaTime);
         });
 
-        if (chickens.every(chicken => chicken.eaten))
-            gameManager.levelCompleted();
+        if (chickens.every(chicken => chicken.eaten)) {
+            gameManager.levelCompleted();   
+            return;
+        }
 
         requestAnimationFrame(() => gameLoop({ player, chickens, timer }, timeContainer, deltaTimeCalculator));
     }

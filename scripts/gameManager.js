@@ -91,12 +91,14 @@ export class GameManager {
          */
         const nextButton = document.getElementById('nextButton');
         nextButton.addEventListener('click', () => {
+            this.isLevelCompleted = false;
             this.currentLevel = this.currentLevel + 1;
             this.startGame(() => startGame());
         });
 
         const retryButton = document.getElementById('retryButton');
         retryButton.addEventListener('click', () => {
+            this.isLevelCompleted = false;
             this.startGame(() => startGame());
         });
     }
@@ -105,7 +107,7 @@ export class GameManager {
         /*
          * Handling level completion
          */
-        if (this.isLevelCompleted) 
+        if (this.isLevelCompleted)
             return;
 
         this.isLevelCompleted = true;
