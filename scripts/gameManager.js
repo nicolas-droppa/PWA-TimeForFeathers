@@ -101,15 +101,15 @@ export class GameManager {
         const nextButton = document.getElementById('nextButton');
         const retryButton = document.getElementById('retryButton');
 
-        nextButton.replaceWith(nextButton.cloneNode(true));
-        retryButton.replaceWith(retryButton.cloneNode(true));
-
         if (SKIP_MENU) {
             if (AUTO_NEXT_LEVEL)
                 this.currentLevel = this.currentLevel + 1 < levelCount ? this.currentLevel + 1 : 0;
 
             this.startGame(() => startGame());
         }
+
+        nextButton.replaceWith(nextButton.cloneNode(true));
+        retryButton.replaceWith(retryButton.cloneNode(true));
 
         document.getElementById('nextButton').addEventListener('click', () => {
             this.currentLevel = this.currentLevel + 1 < levelCount ? this.currentLevel + 1 : 0;

@@ -77,12 +77,12 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
             dogConfig.spawn.x,
             dogConfig.spawn.y,
             dogConfig.speed,
-            canvases.chickenLayer,
+            canvases.dogLayer,
             dogConfig.path.map((p) => [p.x, p.y])
         );
     });
 
     const timer = new Timer();
 
-    return { player, chickens, timer }; //todo
+    return { player, chickens, dogs, timer };
 }
