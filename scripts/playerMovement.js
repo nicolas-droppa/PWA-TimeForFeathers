@@ -8,6 +8,12 @@ export class Player {
         this.ctx = canvas.getContext('2d');
         this.size = FOX_SIZE;
 
+        this.imageLeft = new Image();
+        this.imageLeft.src = '../images/fox_left.png';
+
+        this.imageRight = new Image();
+        this.imageRight.src = '../images/fox_right.png';
+
         this.keys = {
             ArrowUp: false,
             ArrowDown: false,
@@ -119,11 +125,11 @@ export class Player {
 
     draw() {
         /*
-         * Clears the previous frame and draws player as blue square only on playerLayer.
+         * Clears the previous frame and draws player as fox only on playerLayer.
          */
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.fillStyle = 'blue';
-        this.ctx.fillRect(this.x, this.y, this.size, this.size);
+        const image = this.keys.ArrowLeft ? this.imageLeft : this.imageRight;
+        this.ctx.drawImage(image, this.x, this.y, this.size, this.size);   
     }
 
     update(deltaTime) {
