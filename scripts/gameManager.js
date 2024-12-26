@@ -91,15 +91,17 @@ export class GameManager {
          * Prepares buttons for level menu and their listeners
          */
         const nextButton = document.getElementById('nextButton');
-        nextButton.addEventListener('click', () => {
-            this.isLevelCompleted = false;
+        const retryButton = document.getElementById('retryButton');
+
+        nextButton.replaceWith(nextButton.cloneNode(true));
+        retryButton.replaceWith(retryButton.cloneNode(true));
+
+        document.getElementById('nextButton').addEventListener('click', () => {
             this.currentLevel = this.currentLevel + 1;
             this.startGame(() => startGame());
         });
-
-        const retryButton = document.getElementById('retryButton');
-        retryButton.addEventListener('click', () => {
-            this.isLevelCompleted = false;
+    
+        document.getElementById('retryButton').addEventListener('click', () => {
             this.startGame(() => startGame());
         });
     }
