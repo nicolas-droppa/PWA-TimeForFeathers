@@ -3,9 +3,10 @@ import { SKIP_MENU } from './_dev.js';
 import { getCurrentLevel } from './storageSystem.js';
 
 export class GameManager {
-    constructor({ gameContainerId, menuId }) {
+    constructor({ gameContainerId, menuId, eventTableId }) {
         this.gameContainer = document.getElementById(gameContainerId);
         this.menuContainer = document.getElementById(menuId);
+        this.eventTable = document.getElementById(eventTableId);
         this.currentMenu = null;
         this.currentLevel = null;
         this.isLevelCompleted = false;
@@ -114,5 +115,11 @@ export class GameManager {
         this.prepareMenuEnvironment();
         this.showMenu('levelCompleted');
         this.setupLevelListeners();
+    }
+
+    clearEventTable() {
+        while (this.eventTable.firstChild) {
+            this.eventTable.removeChild(this.eventTable.firstChild);
+        }
     }
 }

@@ -80,7 +80,7 @@ export class Chicken {
          * timer : timer object
          */
         const [minutes,seconds,milliseconds] = timer.getFormattedTime();
-        const eventContainer = document.getElementById('checkpointContainer');
+        const eventContainer = document.getElementById('eventTable');
         const eventElement = document.createElement('p');
         eventElement.id = 'event';
         eventElement.innerHTML = `<span id="eventTitle">Chicken</span><span id="eventTime">${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}.${milliseconds < 10 ? '0' + milliseconds : milliseconds}</span>`;
@@ -92,18 +92,19 @@ export class Chicken {
          * Draw the chicken if not eaten.
          */
         if (this.eaten) {
-            // -1 and -2 to prevent errors of not delelting whole chicken
+            // -1 and +2 to prevent errors of not delelting whole chicken
             this.ctx.clearRect(this.prevX - 1, this.prevY - 1, this.size + 2, this.size + 2);
             return;
         }
 
-        // -1 and -2 to prevent errors of not delelting whole chicken
+        // -1 and +2 to prevent errors of not delelting whole chicken
         this.ctx.clearRect(this.prevX - 1, this.prevY - 1, this.size + 2, this.size + 2);
-        const image = this.x <this.prevX ? this.imageLeft: this.imageRight;
+        const image = this.x < this.prevX ? this.imageLeft: this.imageRight;
         this.ctx.drawImage(image, this.x, this.y, this.size, this.size);
         this.prevX = this.x;
         this.prevY = this.y;
     }
+
     update(playerX, playerY, playerSize, timer, deltaTime) {
         this.updatePosition(deltaTime);
         this.checkCollision(playerX, playerY, playerSize, timer);

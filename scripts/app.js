@@ -8,6 +8,7 @@ import { getCurrentLevel, resetGameData } from './storageSystem.js';
 const gameManager = new GameManager({
     gameContainerId: 'gameContainer',
     menuId: 'menu',
+    eventTableId: 'eventTable'
 });
 
 window.onload = () => {
@@ -23,6 +24,8 @@ export async function startGame() {
     const canvases = initializeCanvases(canvasIds);
     const ctx = canvases.gameCanvas.getContext('2d');
     const timeContainer = document.getElementById('timer');
+
+    gameManager.clearEventTable();
 
     const grassImage = new Image();
     grassImage.src = '../images/assets/ground/grass.png';
