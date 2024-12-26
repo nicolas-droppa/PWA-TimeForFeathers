@@ -24,7 +24,6 @@ export class Chicken {
         this.imageRight = new Image();
         this.imageRight.src = '../images/chicken_right.png';
     }
-    }
 
     updatePosition(deltaTime) {
         /*
