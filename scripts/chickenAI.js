@@ -17,6 +17,13 @@ export class Chicken {
         this.currentTargetIndex = 0;
         this.reachedTarget = true;
         this.eaten = false;
+
+        this.imageLeft = new Image();
+        this.imageLeft.src = '../images/chicken_left.png';
+
+        this.imageRight = new Image();
+        this.imageRight.src = '../images/chicken_right.png';
+    }
     }
 
     updatePosition(deltaTime) {
@@ -83,22 +90,21 @@ export class Chicken {
 
     draw() {
         /*
-         * Draw the chicken as a red square if not eaten.
+         * Draw the chicken if not eaten.
          */
         if (this.eaten) {
-            // -1 and -2 to prevent errors of not delelting whole rectangle
+            // -1 and -2 to prevent errors of not delelting whole chicken
             this.ctx.clearRect(this.prevX - 1, this.prevY - 1, this.size + 2, this.size + 2);
             return;
         }
 
-        // -1 and -2 to prevent errors of not delelting whole rectangle
+        // -1 and -2 to prevent errors of not delelting whole chicken
         this.ctx.clearRect(this.prevX - 1, this.prevY - 1, this.size + 2, this.size + 2);
-        this.ctx.fillStyle = 'red';
-        this.ctx.fillRect(this.x, this.y, this.size, this.size);
+        const image = this.x <this.prevX ? this.imageLeft: this.imageRight;
+        this.ctx.drawImage(image, this.x, this.y, this.size, this.size);
         this.prevX = this.x;
         this.prevY = this.y;
     }
-
     update(playerX, playerY, playerSize, timer, deltaTime) {
         this.updatePosition(deltaTime);
         this.checkCollision(playerX, playerY, playerSize, timer);
