@@ -50,7 +50,7 @@ export async function startGame() {
                 chicken.update(player.x, player.y, player.size, timer, deltaTime);
         });
         dogs.forEach((dog) => {
-            dog.update(deltaTime);
+            dog.update(player.x, player.y, player.size, deltaTime);
         });
 
         if (chickens.every(chicken => chicken.eaten)) {

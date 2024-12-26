@@ -63,8 +63,21 @@ export class Dog {
         this.prevY = this.y;
     }
 
-    update(deltaTime) {
+    checkForPlayerInSight(playerX, playerY, playerSize) {
+        let distance = 0;
+
+        if (this.prevX < this.x)
+            distance = distance + 100;
+        if (this.prevX > this.x)
+            distance = distance - 100;
+
+        if (playerX <= this.x + distance && this.prevX < this.x)
+            console.log("see!");
+    }
+
+    update(playerX, playerY, playerSize, deltaTime) {
         this.updatePosition(deltaTime);
+        this.checkForPlayerInSight(playerX, playerY, playerSize)
         this.draw();
     }
 }
