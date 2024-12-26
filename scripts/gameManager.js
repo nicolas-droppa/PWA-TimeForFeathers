@@ -1,5 +1,5 @@
 import { startGame } from './app.js';
-import { SKIP_MENU, AUTO_NEXT_LEVEL } from './_dev.js';
+import { SKIP_MENU, AUTO_NEXT_LEVEL, STARTING_LEVEL } from './_dev.js';
 import { getCurrentLevel, getLevelCount } from './storageSystem.js';
 
 export class GameManager {
@@ -16,7 +16,10 @@ export class GameManager {
         /*
          * initialize game and skips menu based on dev file
          */
-        this.currentLevel = getCurrentLevel();
+        if (STARTING_LEVEL != -1)
+            this.currentLevel = STARTING_LEVEL - 1;
+        else
+            this.currentLevel = getCurrentLevel();
 
         if (SKIP_MENU)
             this.startGame(() => startGame());
@@ -99,7 +102,7 @@ export class GameManager {
         if (SKIP_MENU) {
             if (AUTO_NEXT_LEVEL)
                 this.currentLevel = this.currentLevel + 1 < levelCount ? this.currentLevel + 1 : 0;
-            
+
             this.startGame(() => startGame());
         }
 
