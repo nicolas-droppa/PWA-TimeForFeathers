@@ -42,6 +42,9 @@ export class GameManager {
     }
 
     hideAllMenus() {
+        /*
+         * Hiding all menu types
+         */
         const menus = this.menuContainer.querySelectorAll('.menu-screen');
         menus.forEach(menu => menu.style.display = 'none');
     }
@@ -58,6 +61,8 @@ export class GameManager {
          */
         this.gameContainer.style.display = 'block';
         this.menuContainer.style.display = 'none';
+        this.displayCurrentLevel();
+        this.clearEventTable();
     }
 
     prepareMenuEnvironment() {
@@ -130,8 +135,19 @@ export class GameManager {
     }
 
     clearEventTable() {
+        /*
+         * Clears eventTable from previous logs
+         */
         while (this.eventTable.firstChild) {
             this.eventTable.removeChild(this.eventTable.firstChild);
         }
+    }
+
+    displayCurrentLevel() {
+        /*
+         * Displays current level number in specified container
+         */
+        const levelContainer = document.getElementById('level-id');
+        levelContainer.innerHTML = this.currentLevel + 1;
     }
 }

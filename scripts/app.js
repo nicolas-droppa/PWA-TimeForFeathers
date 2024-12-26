@@ -25,8 +25,6 @@ export async function startGame() {
     const ctx = canvases.gameCanvas.getContext('2d');
     const timeContainer = document.getElementById('timer');
 
-    gameManager.clearEventTable();
-
     const grassImage = new Image();
     grassImage.src = '../images/assets/ground/grass.png';
 
