@@ -39,7 +39,7 @@
         },
         {
             "id": 2,
-            "name": "Title 2",
+            "name": "Who is faster?",
             "tileMap": [
                 [0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0],
