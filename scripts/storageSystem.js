@@ -22,3 +22,21 @@ export function resetGameData() {
      */
     localStorage.removeItem(LOCAL_STORAGE_KEY);
 }
+
+export async function getLevelCount(url) {
+    /*
+     * Returns how many levels are there
+     * url : path to levels.json
+     */
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch levels file: ${response.statusText}`);
+        }
+        const levelsData = await response.json();
+        return levelsData.levels.length;
+    } catch (error) {
+        console.error('Error loading levels:', error);
+        return 0;
+    }
+}

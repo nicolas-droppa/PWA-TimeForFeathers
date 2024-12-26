@@ -1,6 +1,6 @@
 import { startGame } from './app.js';
 import { SKIP_MENU } from './_dev.js';
-import { getCurrentLevel } from './storageSystem.js';
+import { getCurrentLevel, getLevelCount } from './storageSystem.js';
 
 export class GameManager {
     constructor({ gameContainerId, menuId, eventTableId }) {
@@ -86,10 +86,11 @@ export class GameManager {
         });
     }
 
-    setupLevelListeners() {
+    async setupLevelListeners() {
         /*
          * Prepares buttons for level menu and their listeners
          */
+        const levelCount = await getLevelCount('../levels.json');
         const nextButton = document.getElementById('nextButton');
         const retryButton = document.getElementById('retryButton');
 
@@ -97,7 +98,7 @@ export class GameManager {
         retryButton.replaceWith(retryButton.cloneNode(true));
 
         document.getElementById('nextButton').addEventListener('click', () => {
-            this.currentLevel = this.currentLevel + 1;
+            this.currentLevel = this.currentLevel + 1 < levelCount ? this.currentLevel + 1 : 0;
             this.startGame(() => startGame());
         });
     
