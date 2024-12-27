@@ -16,7 +16,10 @@ export class Entity {
 
     updatePosition(deltaTime, targetX = null, targetY = null) {
         /*
-         * Default movement for animals
+         * Updates position of an entity
+         * @param deltaTime : value for movement normalization
+         * @param targetX : x-pos coord of where to move
+         * @param targetY : y-pos coord of where to move
          */
         if (targetX !== null && targetY !== null) {
             const deltaX = targetX - this.x;

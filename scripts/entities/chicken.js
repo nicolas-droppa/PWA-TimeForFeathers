@@ -31,9 +31,10 @@ export class Chicken extends Entity {
         /*
          * Check if the player overlaps with the chicken.
          * If so, mark the chicken as "eaten."
-         * playerX : x-position of player
-         * playerY : y-position of player
-         * playerSize : size of player
+         * @paramplayerX : x-position of player
+         * @param playerY : y-position of player
+         * @param playerSize : size of player
+         * @param timer : timer object
          */
         const overlapX = playerX < this.x + this.size && playerX + playerSize > this.x;
         const overlapY = playerY < this.y + this.size && playerY + playerSize > this.y;
@@ -47,7 +48,7 @@ export class Chicken extends Entity {
     logEvent(timer) {
         /*
          * Logs event in case of chicken beign eaten
-         * timer : timer object
+         * @param timer : timer object
          */
         const [minutes,seconds,milliseconds] = timer.getFormattedTime();
         const eventContainer = document.getElementById('eventTable');
@@ -76,6 +77,14 @@ export class Chicken extends Entity {
     }
 
     update(playerX, playerY, playerSize, timer, deltaTime) {
+        /*
+         * Parrent class for all the smaller functions regarding chicken script
+         * @param playerX : ...
+         * @param playerY : ...
+         * @param playerSize : ...
+         * @param timer : timer object
+         * @param deltaTime : value used to normalize movement speed
+         */
         this.updatePosition(deltaTime);
         this.checkCollision(playerX, playerY, playerSize, timer);
         this.draw();

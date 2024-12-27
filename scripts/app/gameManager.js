@@ -31,7 +31,7 @@ export class GameManager {
     showMenu(menuId) {
         /*
          * Shows menu
-         * menuId : id of menu
+         * @param menuId : id of menu
          */
         this.hideAllMenus();
         const menu = document.getElementById(menuId);

@@ -23,9 +23,9 @@ export class Player extends Entity {
     async loadLevelData(url, currentLevel) {
         /*
          * Loads tileMap and stores it in the constructor of player
-         * url : Path to stored levels
-         * currentLevel : level to fetch data from 
-        */
+         * @param url : Path to stored levels
+         * @param currentLevel : level to fetch data from 
+         */
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -55,8 +55,8 @@ export class Player extends Entity {
     isWalkable(x, y) {
         /*
          * Checks if a position is walkable (tileMap value is 0).
-         * x : x-position of player
-         * y : y-position of player
+         * @param x : x-position of player
+         * @param y : y-position of player
          */
         if (!this.tileMap)
             return false;
@@ -68,7 +68,7 @@ export class Player extends Entity {
     updatePosition(deltaTime) {
         /*
          * Checks if player can move in direction and moves player
-         * deltaTime : time diff for movement normalization
+         * @param deltaTime : time diff for movement normalization
          */
         let x = 0;
         let y = 0;
@@ -118,6 +118,10 @@ export class Player extends Entity {
     }
 
     update(deltaTime) {
+        /*
+         * Parrent class for all the smaller functions regarding player script
+         * @param deltaTime : value used to normalize movement speed
+         */
         this.updatePosition(deltaTime);
         this.draw();
     }

@@ -14,6 +14,10 @@ export class Dog extends Entity {
     }
 
     updatePosition(deltaTime) {
+        /*
+         * Updates position of a dog
+         * @param deltaTime : value for movement normalization
+         */
         const [targetX, targetY] = this.path[this.currentTargetIndex];
         super.updatePosition(deltaTime, targetX, targetY);
 
@@ -29,7 +33,7 @@ export class Dog extends Entity {
 
     draw() {
         /*
-         * Draw the dog
+         * Draws the dog on canvas
          */
         // -1 and +2 to prevent errors of not delelting whole chicken
         this.ctx.clearRect(this.prevX - 1, this.prevY - 1, this.size + 2, this.size + 2);
@@ -40,6 +44,13 @@ export class Dog extends Entity {
     }
 
     update(playerX, playerY, playerSize, deltaTime) {
+        /*
+         * Parrent class for all the smaller functions regarding dog script
+         * @param playerX : ...
+         * @param playerY : ...
+         * @param playerSize : ...
+         * @param deltaTime : value used to normalize movement speed
+         */
         this.updatePosition(deltaTime);
         this.checkForPlayerInSight(playerX, playerY, playerSize)
         this.draw();

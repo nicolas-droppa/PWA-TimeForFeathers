@@ -7,7 +7,8 @@ import { Timer } from './timer.js';
 export function initializeCanvases(canvasIds) {
     /*
      * Initializes the canvas elements and sets their dimensions
-     * canvasIds : Ids of every canvas
+     * @param canvasIds : Ids of every canvas
+     * @returns : all the canvases
      */
     const canvases = {};
     canvasIds.forEach((id) => {
@@ -22,7 +23,8 @@ export function initializeCanvases(canvasIds) {
 export async function fetchLevelData(levelDataPath) {
     /*
      * Fetches level data from the specified file
-     * levelDataPath : path to levels.json
+     * @param levelDataPath : path to levels.json
+     * @returns : fetched data
      */
     return fetch(levelDataPath)
         .then((response) => {
@@ -40,8 +42,9 @@ export async function fetchLevelData(levelDataPath) {
 export async function loadEntities(canvases, levelDataPath, currentLevel) {
     /*
      * Spawns entities based on the fetched level data
-     * canvases : all the canvases for every needed layer
-     * levelDataPath : path to levels.json
+     * @param canvases : all the canvases for every needed layer
+     * @param levelDataPath : path to levels.json
+     * @returns : all the entities
      */
     const levelData = await fetchLevelData(levelDataPath);
 

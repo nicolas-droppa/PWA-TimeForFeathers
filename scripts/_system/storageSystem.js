@@ -26,7 +26,7 @@ export function resetGameData() {
 export async function getLevelCount(url) {
     /*
      * Returns how many levels are there
-     * url : path to levels.json
+     * @param url : url to fetched data
      */
     try {
         const response = await fetch(url);
