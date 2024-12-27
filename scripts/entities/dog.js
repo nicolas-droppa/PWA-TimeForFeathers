@@ -44,9 +44,37 @@ export class Dog extends Entity {
         }
     }
 
+    drawCone(centerX, centerY, detectionRadius, angle, facingDirection) {
+        /*
+         * Draws a cone-shaped field of view (FOV) for the dog
+         * @param centerX : X-coordinate of the dog's center
+         * @param centerY : Y-coordinate of the dog's center
+         * @param detectionRadius : The radius of the cone
+         * @param angle : The FOV angle in radians
+         * @param facingDirection : The direction the dog is facing (in radians)
+         */
+        // Clear the canvas area (optional: remove if handled elsewhere)
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    
+        // Calculate the start and end angles of the cone
+        const startAngle = facingDirection - angle / 2;
+        const endAngle = facingDirection + angle / 2;
+    
+        this.ctx.beginPath();
+        this.ctx.moveTo(centerX, centerY); // Start at the center of the dog
+        this.ctx.arc(centerX, centerY, detectionRadius, startAngle, endAngle); // Draw the arc
+        this.ctx.closePath(); // Close the shape by connecting the arc to the center
+    
+        // Set fill and stroke styles
+        this.ctx.fillStyle = 'rgba(0, 0, 255, 0.2)'; // Semi-transparent blue
+        this.ctx.fill();
+        this.ctx.strokeStyle = 'blue'; // Outline color
+        this.ctx.stroke();
+    }
+
     checkForPlayerInSight(playerX, playerY, playerSize) {
         /*
-         * Checks if the player is within the dog's triangular field of view
+         * Checks if the player is within the dog's cone-shaped field of view
          * @param playerX : X position of the player
          * @param playerY : Y position of the player
          * @param playerSize : Size of the player
@@ -56,53 +84,59 @@ export class Dog extends Entity {
         const playerCenterX = playerX + playerSize / 2;
         const playerCenterY = playerY + playerSize / 2;
     
-        // Determine the direction the dog is facing
-        const [targetX, targetY] = this.path[this.currentTargetIndex];
-        const isHorizontal = Math.abs(targetX - this.x) > Math.abs(targetY - this.y);
+        let targetX, targetY;
     
-        let triangle;
-        if (isHorizontal) {
-            const facingRight = targetX > this.x;
-            const direction = facingRight ? 1 : -1;
-    
-            triangle = [
-                [dogCenterX, dogCenterY],
-                [dogCenterX + direction * this.detectionRadius, dogCenterY - this.detectionRadius * Math.tan(this.fovAngle)], // Top corner
-                [dogCenterX + direction * this.detectionRadius, dogCenterY + this.detectionRadius * Math.tan(this.fovAngle)]  // Bottom corner
-            ];
+        if (this.state == DOG_STATE.CHASING) {
+            targetX = parseInt(playerX);
+            targetY = parseInt(playerY);
         } else {
-            const facingDown = targetY > this.y;
-            const direction = facingDown ? 1 : -1;
-    
-            triangle = [
-                [dogCenterX, dogCenterY],
-                [dogCenterX - this.detectionRadius * Math.tan(this.fovAngle), dogCenterY + direction * this.detectionRadius], // Left corner
-                [dogCenterX + this.detectionRadius * Math.tan(this.fovAngle), dogCenterY + direction * this.detectionRadius]  // Right corner
-            ];
+            [targetX, targetY] = this.path[this.currentTargetIndex];
         }
-
-        if (this.isPointInTriangle(playerCenterX, playerCenterY, triangle)) {
-            if (!this.stateFlag) {
-                console.log("Alarmed!");
-                this.state = DOG_STATE.ALARMED;
-                this.stateFlag = true;
     
-                setTimeout(() => {
-                    console.log("Chasing!");
-                    this.state = DOG_STATE.CHASING;
-                }, 250);
+        const facingDirection = Math.atan2(targetY - this.y, targetX - this.x);
+    
+        // Draw the cone for visualization
+        this.drawCone(dogCenterX, dogCenterY, this.detectionRadius, this.fovAngle, facingDirection);
+    
+        // Check if the player is within the detection radius
+        const dx = playerCenterX - dogCenterX;
+        const dy = playerCenterY - dogCenterY;
+        const distance = Math.sqrt(dx ** 2 + dy ** 2);
+    
+        if (distance <= this.detectionRadius) {
+            // Check if the player is within the field of view angle
+            const angleToPlayer = Math.atan2(dy, dx);
+            const deltaAngle = Math.abs(facingDirection - angleToPlayer);
+    
+            // Normalize angles to account for edge cases at 0/2π
+            const normalizedDeltaAngle = Math.min(deltaAngle, Math.abs(2 * Math.PI - deltaAngle));
+    
+            if (normalizedDeltaAngle <= this.fovAngle / 2) {
+                // Player detected within cone
+                if (!this.stateFlag) {
+                    console.log("Alarmed!");
+                    this.state = DOG_STATE.ALARMED;
+                    this.stateFlag = true;
+    
+                    setTimeout(() => {
+                        console.log("Chasing!");
+                        this.state = DOG_STATE.CHASING;
+                    }, 250);
+                }
+                return;
             }
-        } else {
-            if (this.stateFlag) {
-                console.log("Confused?");
-                this.state = DOG_STATE.CONFUSED;
-
-                setTimeout(() => {
-                    console.log("Guarding...");
-                    this.state = DOG_STATE.GUARDING;
-                    this.stateFlag = false;
-                }, 250);
-            }
+        }
+    
+        // Player not detected
+        if (this.stateFlag) {
+            console.log("Confused?");
+            this.state = DOG_STATE.CONFUSED;
+    
+            setTimeout(() => {
+                console.log("Guarding...");
+                this.state = DOG_STATE.GUARDING;
+                this.stateFlag = false;
+            }, 250);
         }
     }
     
