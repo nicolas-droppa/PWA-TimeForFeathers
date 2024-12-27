@@ -13,16 +13,22 @@ export class Dog extends Entity {
         this.stateFlag = false;
         this.fovAngle = Math.PI * 2 / 3; //120 degrees
         this.detectionRadius = 150;
+        this.recentlyChased = false;
     }
 
-    updatePosition(deltaTime) {
+    updatePosition(deltaTime, playerX, playerY, playerSize) {
         /*
          * Updates position of a dog
          * @param deltaTime : value for movement normalization
          */
-        if (this.state === DOG_STATE.ALARMED || this.state === DOG_STATE.CONFUSED) {
+        if (this.state == DOG_STATE.ALARMED || this.state == DOG_STATE.CONFUSED) {
             return; // Stop movement
         }
+
+        if (this.state == DOG_STATE.CHASING) {
+            
+        }
+        
         const [targetX, targetY] = this.path[this.currentTargetIndex];
         super.updatePosition(deltaTime, targetX, targetY);
 
@@ -132,7 +138,7 @@ export class Dog extends Entity {
          * @param playerSize : ...
          * @param deltaTime : value used to normalize movement speed
          */
-        this.updatePosition(deltaTime);
+        this.updatePosition(deltaTime, playerX, playerY, playerSize);
         this.checkForPlayerInSight(playerX, playerY, playerSize)
         this.draw();
     }
