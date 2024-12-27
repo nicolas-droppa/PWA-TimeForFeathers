@@ -26,7 +26,8 @@ export class Dog extends Entity {
         }
 
         if (this.state == DOG_STATE.CHASING) {
-            
+            playerX = playerX * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - playerSize) / 2;
+            playerY = playerY * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - playerSize) / 2;
         }
         
         const [targetX, targetY] = this.path[this.currentTargetIndex];
