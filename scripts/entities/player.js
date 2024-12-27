@@ -1,17 +1,10 @@
+import { Entity } from './_entity.js';
 import { TILE_WIDTH, PIXEL_ART_RATIO, FOX_SIZE} from '../_constants/_constants.js';
-export class Player {
+
+export class Player extends Entity {
     constructor(x, y, speed, canvas, levelDataUrl, currentLevel) {
-        this.x = x * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - FOX_SIZE) / 2;
-        this.y = y * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - FOX_SIZE) / 2;
-        this.speed = speed;
-        this.canvas = canvas;
-        this.ctx = canvas.getContext('2d');
-        this.size = FOX_SIZE;
-
-        this.imageLeft = new Image();
+        super(x, y, FOX_SIZE, speed, canvas);
         this.imageLeft.src = '../../assets/images/fox/fox_left.png';
-
-        this.imageRight = new Image();
         this.imageRight.src = '../../assets/images/fox/fox_right.png';
 
         this.keys = {
@@ -31,7 +24,8 @@ export class Player {
         /*
          * Loads tileMap and stores it in the constructor of player
          * url : Path to stored levels
-         */
+         * currentLevel : level to fetch data from 
+        */
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -121,15 +115,6 @@ export class Player {
         if (canMoveVertically) {
             this.y = newY;
         }
-    }
-
-    draw() {
-        /*
-         * Clears the previous frame and draws player as fox only on playerLayer.
-         */
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        const image = this.keys.ArrowLeft ? this.imageLeft : this.imageRight;
-        this.ctx.drawImage(image, this.x, this.y, this.size, this.size);   
     }
 
     update(deltaTime) {

@@ -1,59 +1,29 @@
+import { Entity } from './_entity.js';
 import { CHICKEN_SIZE, TILE_WIDTH, PIXEL_ART_RATIO } from '../_constants/_constants.js';
-export class Chicken {
-    constructor(startX, startY, speed, canvas, path) {
-        this.x = startX * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - CHICKEN_SIZE) / 2;
-        this.y = startY * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - CHICKEN_SIZE) / 2;
-        this.prevX = this.x;
-        this.prevY = this.y;
-        this.speed = speed;
-        this.canvas = canvas;
-        this.ctx = canvas.getContext('2d');
-        this.tileSize = (TILE_WIDTH * PIXEL_ART_RATIO);
-        this.size = CHICKEN_SIZE;
+
+export class Chicken extends Entity {
+    constructor(x, y, speed, canvas, path) {
+        super(x, y, CHICKEN_SIZE, speed, canvas);
+        this.imageLeft.src = '../../assets/images/chicken/chicken_left.png';
+        this.imageRight.src = '../../assets/images/chicken/chicken_right.png';
+
         this.path = path.map(([col, row]) => [
             col * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - CHICKEN_SIZE) / 2,
             row * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - CHICKEN_SIZE) / 2
         ]);
         this.currentTargetIndex = 0;
-        this.reachedTarget = true;
         this.eaten = false;
-
-        this.imageLeft = new Image();
-        this.imageLeft.src = '../../assets/images/chicken/chicken_left.png';
-
-        this.imageRight = new Image();
-        this.imageRight.src = '../../assets/images/chicken/chicken_right.png';
     }
 
     updatePosition(deltaTime) {
-        /*
-         * Moves chicken to target and cycles to another
-         * deltaTime : time diff for movement normalization
-         */
-        if (this.eaten || this.path.length == 0) return;
-    
+        if (this.eaten || !this.path.length) return;
+
         const [targetX, targetY] = this.path[this.currentTargetIndex];
-        const deltaX = targetX - this.x;
-        const deltaY = targetY - this.y;
-        const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
-    
-        const moveDistance = this.speed * deltaTime;
-    
-        if (distance < moveDistance) { // Target reached
-            this.prevX = this.x;
-            this.prevY = this.y;
-            this.x = targetX;
-            this.y = targetY;
-            this.reachedTarget = true;
-            this.currentTargetIndex = (this.currentTargetIndex + 1) % this.path.length; // Next target
-        } else { // Move to the target
-            this.prevX = this.x;
-            this.prevY = this.y;
-            const moveX = (deltaX / distance) * moveDistance;
-            const moveY = (deltaY / distance) * moveDistance;
-            this.x += moveX;
-            this.y += moveY;
-            this.reachedTarget = false;
+        super.updatePosition(deltaTime, targetX, targetY);
+
+        const distance = Math.sqrt((targetX - this.x) ** 2 + (targetY - this.y) ** 2);
+        if (distance < this.speed * deltaTime) {
+            this.currentTargetIndex = (this.currentTargetIndex + 1) % this.path.length;
         }
     }
 

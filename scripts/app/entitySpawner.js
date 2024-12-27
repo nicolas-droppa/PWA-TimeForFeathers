@@ -1,14 +1,14 @@
 import { CANVAS_WIDTH, CANVAS_HEIGHT } from '../_constants/_constants.js';
-import { Player } from '../animals/playerMovement.js';
-import { Chicken } from '../animals/chickenAI.js';
-import { Dog } from '../animals/dogAI.js';
+import { Player } from '../entities/player.js';
+import { Chicken } from '../entities/chicken.js';
+import { Dog } from '../entities/dog.js';
 import { Timer } from './timer.js';
 
-/*
- * Initializes the canvas elements and sets their dimensions
- * canvasIds : Ids of every canvas
- */
 export function initializeCanvases(canvasIds) {
+    /*
+     * Initializes the canvas elements and sets their dimensions
+     * canvasIds : Ids of every canvas
+     */
     const canvases = {};
     canvasIds.forEach((id) => {
         const canvas = document.getElementById(id);
@@ -19,11 +19,11 @@ export function initializeCanvases(canvasIds) {
     return canvases;
 }
 
-/*
- * Fetches level data from the specified file
- * levelDataPath : path to levels.json
- */
 export async function fetchLevelData(levelDataPath) {
+    /*
+     * Fetches level data from the specified file
+     * levelDataPath : path to levels.json
+     */
     return fetch(levelDataPath)
         .then((response) => {
             if (!response.ok) {
@@ -37,12 +37,12 @@ export async function fetchLevelData(levelDataPath) {
         });
 }
 
-/*
- * Spawns entities based on the fetched level data
- * canvases : all the canvases for every needed layer
- * levelDataPath : path to levels.json
- */
 export async function loadEntities(canvases, levelDataPath, currentLevel) {
+    /*
+     * Spawns entities based on the fetched level data
+     * canvases : all the canvases for every needed layer
+     * levelDataPath : path to levels.json
+     */
     const levelData = await fetchLevelData(levelDataPath);
 
     if (!levelData) {
