@@ -13,7 +13,8 @@ export class Dog extends Entity {
         this.stateFlag = false;
         this.fovAngle = Math.PI * 2 / 3; //120 degrees
         this.detectionRadius = 150;
-        this.recentlyChased = false;
+        this.walkingSpeed = speed;
+        this.runningSpeed = speed * 2;
     }
 
     updatePosition(deltaTime, playerX, playerY, playerSize) {
@@ -116,6 +117,7 @@ export class Dog extends Entity {
                 if (!this.stateFlag) {
                     console.log("Alarmed!");
                     this.state = DOG_STATE.ALARMED;
+                    this.speed = this.runningSpeed;
                     this.stateFlag = true;
     
                     setTimeout(() => {
@@ -131,6 +133,7 @@ export class Dog extends Entity {
         if (this.stateFlag) {
             console.log("Confused?");
             this.state = DOG_STATE.CONFUSED;
+            this.speed = this.walkingSpeed;
     
             setTimeout(() => {
                 console.log("Guarding...");
