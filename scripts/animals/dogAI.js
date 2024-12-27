@@ -1,4 +1,4 @@
-import { DOG_SIZE, TILE_WIDTH, PIXEL_ART_RATIO, DOG_STATE } from './_constants.js';
+import { DOG_SIZE, TILE_WIDTH, PIXEL_ART_RATIO, DOG_STATE } from '../_constants/_constants.js';
 export class Dog {
     constructor(startX, startY, speed, canvas, path) {
         this.x = startX * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - DOG_SIZE) / 2;

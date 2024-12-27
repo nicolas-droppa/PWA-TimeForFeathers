@@ -3,7 +3,7 @@
  * dependant_on -> none
  * true -> skips menus
  */
-export const SKIP_MENU = true;
+export const SKIP_MENU = false;
 
 /* = = = AUTO_NEXT_LEVEL = = =
  * Variable responsible for automatically starting next levels

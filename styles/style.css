@@ -6,7 +6,7 @@
 
 @font-face {
     font-family: 'PixelFont';
-    src: url('./fonts/Pixel.ttf');
+    src: url('../assets/fonts/Pixel.ttf');
 }
 
 .no-select {

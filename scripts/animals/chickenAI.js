@@ -1,4 +1,4 @@
-import { CHICKEN_SIZE, TILE_WIDTH, PIXEL_ART_RATIO } from './_constants.js';
+import { CHICKEN_SIZE, TILE_WIDTH, PIXEL_ART_RATIO } from '../_constants/_constants.js';
 export class Chicken {
     constructor(startX, startY, speed, canvas, path) {
         this.x = startX * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - CHICKEN_SIZE) / 2;
@@ -19,10 +19,10 @@ export class Chicken {
         this.eaten = false;
 
         this.imageLeft = new Image();
-        this.imageLeft.src = '../images/chicken_left.png';
+        this.imageLeft.src = '../../assets/images/chicken/chicken_left.png';
 
         this.imageRight = new Image();
-        this.imageRight.src = '../images/chicken_right.png';
+        this.imageRight.src = '../../assets/images/chicken/chicken_right.png';
     }
 
     updatePosition(deltaTime) {

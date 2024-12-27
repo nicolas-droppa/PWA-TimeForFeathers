@@ -1,9 +1,9 @@
-import { TILE_WIDTH, TILE_HEIGHT, PIXEL_ART_RATIO } from './_constants.js';
-import { loadTiles } from './tileRenderer.js';
+import { TILE_WIDTH, TILE_HEIGHT, PIXEL_ART_RATIO } from '../_constants/_constants.js';
+import { loadTiles } from '../rendering/tileRenderer.js';
 import { initializeCanvases, loadEntities } from './entitySpawner.js';
 import { DeltaTime } from './deltaTime.js';
 import { GameManager } from './gameManager.js';
-import { getCurrentLevel, resetGameData } from './storageSystem.js';
+import { getCurrentLevel, resetGameData } from '../_system/storageSystem.js';
 
 const gameManager = new GameManager({
     gameContainerId: 'gameContainer',
@@ -26,16 +26,16 @@ export async function startGame() {
     const timeContainer = document.getElementById('timer');
 
     const grassImage = new Image();
-    grassImage.src = '../images/assets/ground/grass.png';
+    grassImage.src = '../../assets/images/tileMap/grass.png';
 
     let entities = null;
 
     const deltaTimeCalculator = new DeltaTime();
 
     grassImage.onload = async () => {
-        entities = await loadEntities(canvases, '../levels.json', gameManager.currentLevel);
+        entities = await loadEntities(canvases, '../../assets/levels/levels.json', gameManager.currentLevel);
     
-        loadTiles('../levels.json', gameManager.currentLevel, tileWidth, tileHeight, ctx, grassImage);
+        loadTiles('../../assets/levels/levels.json', gameManager.currentLevel, tileWidth, tileHeight, ctx, grassImage);
     
         gameLoop(entities, timeContainer, deltaTimeCalculator);
     };

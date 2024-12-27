@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_KEY } from "./_constants.js";
+import { LOCAL_STORAGE_KEY } from "../_constants/_constants.js";
 
 export function saveCurrentLevel() {
     /*

@@ -11,4 +11,5 @@ export const DOG_STATE = Object.freeze({
     GUARDING: "guarding",
     ALARMED: "alarmed",
     CHASING: "chasing",
+    CONFUSED: "confused",
 });

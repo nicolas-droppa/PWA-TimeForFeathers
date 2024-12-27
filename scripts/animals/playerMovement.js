@@ -1,4 +1,4 @@
-import { TILE_WIDTH, PIXEL_ART_RATIO, FOX_SIZE} from './_constants.js';
+import { TILE_WIDTH, PIXEL_ART_RATIO, FOX_SIZE} from '../_constants/_constants.js';
 export class Player {
     constructor(x, y, speed, canvas, levelDataUrl, currentLevel) {
         this.x = x * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - FOX_SIZE) / 2;
@@ -9,10 +9,10 @@ export class Player {
         this.size = FOX_SIZE;
 
         this.imageLeft = new Image();
-        this.imageLeft.src = '../images/fox_left.png';
+        this.imageLeft.src = '../../assets/images/fox/fox_left.png';
 
         this.imageRight = new Image();
-        this.imageRight.src = '../images/fox_right.png';
+        this.imageRight.src = '../../assets/images/fox/fox_right.png';
 
         this.keys = {
             ArrowUp: false,

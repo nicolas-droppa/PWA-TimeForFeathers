@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time for Feathers</title>
     <link rel="manifest" href="./manifest.json">
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./assets/images/_favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body class="no-select">
     <main id="gameContainer">
@@ -49,7 +49,7 @@
             <button id="retryButton">[ R ] Retry</button>
         </div>
     </div>
-    <script type="module" src="./scripts/app.js" defer></script>
+    <script type="module" src="./scripts/app/app.js" defer></script>
     <script>
         navigator.serviceWorker.register('./serviceWorker.js')
         .then((reg) => {

@@ -1,7 +1,7 @@
-import { CANVAS_WIDTH, CANVAS_HEIGHT } from './_constants.js';
-import { Player } from './playerMovement.js';
-import { Chicken } from './chickenAI.js';
-import { Dog } from './dogAI.js';
+import { CANVAS_WIDTH, CANVAS_HEIGHT } from '../_constants/_constants.js';
+import { Player } from '../animals/playerMovement.js';
+import { Chicken } from '../animals/chickenAI.js';
+import { Dog } from '../animals/dogAI.js';
 import { Timer } from './timer.js';
 
 /*

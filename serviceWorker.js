@@ -1,11 +1,11 @@
 const staticDevTFF = "dev-time-for-feathers-v1"
 const assets = [
     "./",
-    "./fonts/Pixel.ttf",
-    "./images",
+    "./assets/fonts/Pixel.ttf",
+    "./assets/images",
     "./index.html",
-    "./scripts/app.js",
-    "./style.css"
+    "./scripts/app/app.js",
+    "./styles/style.css"
 ]
 
 self.addEventListener("install", installEvent => {
