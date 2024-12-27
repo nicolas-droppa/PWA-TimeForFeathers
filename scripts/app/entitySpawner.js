@@ -81,7 +81,9 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
             dogConfig.spawn.y,
             dogConfig.speed,
             canvases.dogLayer,
-            dogConfig.path.map((p) => [p.x, p.y])
+            dogConfig.path.map((p) => [p.x, p.y]),
+            levelDataPath,
+            currentLevel
         );
     });
 
