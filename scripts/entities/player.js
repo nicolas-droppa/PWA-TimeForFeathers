@@ -18,6 +18,8 @@ export class Player extends Entity {
         this.tileMap = null;
         this.tileSize = TILE_WIDTH * PIXEL_ART_RATIO;
         this.loadLevelData(levelDataUrl, currentLevel);
+
+        this.eaten = false;
     }
 
     async loadLevelData(url, currentLevel) {
@@ -117,12 +119,48 @@ export class Player extends Entity {
         }
     }
 
-    update(deltaTime) {
+    checkCollision({ dogs }, timer) {
+        /*
+         * Check if the player overlaps with the dog.
+         * If so, mark the player as "eaten"
+         * @param { dogs }
+         * @param dogX : x-position of dog
+         * @param dogY : y-position of dog
+         * @param dogSize : size of dog
+         * 
+         * @param timer : timer object
+         */
+        dogs.forEach((dog) => {
+            const overlapX = dog.x < this.x + this.size && dog.x + dog.size > this.x;
+            const overlapY = dog.y < this.y + this.size && dog.y + dog.size > this.y;
+    
+            if (overlapX && overlapY) {
+                this.eaten = true;
+                this.logEvent(timer);
+            }
+        });
+    }
+
+    logEvent(timer) {
+        /*
+         * Logs event in case of player being eaten
+         * @param timer : timer object
+         */
+        const [minutes,seconds,milliseconds] = timer.getFormattedTime();
+        const eventContainer = document.getElementById('eventTable');
+        const eventElement = document.createElement('p');
+        eventElement.id = 'event';
+        eventElement.innerHTML = `<span id="eventTitle">Fox</span><span id="eventTime">${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}.${milliseconds < 10 ? '0' + milliseconds : milliseconds}</span>`;
+        eventContainer.appendChild(eventElement);
+    }
+
+    update({ dogs }, timer, deltaTime) {
         /*
          * Parrent class for all the smaller functions regarding player script
          * @param deltaTime : value used to normalize movement speed
          */
         this.updatePosition(deltaTime);
+        this.checkCollision({ dogs }, timer);
         this.draw();
     }
 }

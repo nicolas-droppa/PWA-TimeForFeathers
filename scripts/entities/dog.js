@@ -26,8 +26,13 @@ export class Dog extends Entity {
         }
 
         if (this.state == DOG_STATE.CHASING) {
-            playerX = playerX * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - playerSize) / 2;
-            playerY = playerY * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - playerSize) / 2;
+            //playerX = parseInt(playerX / TILE_WIDTH / 2);
+            //playerY = parseInt(playerY / TILE_WIDTH / 2);
+
+            console.log(playerX + " " + playerY);
+            
+            super.updatePosition(deltaTime, playerX, playerY);
+            return;
         }
         
         const [targetX, targetY] = this.path[this.currentTargetIndex];
@@ -85,7 +90,7 @@ export class Dog extends Entity {
                 setTimeout(() => {
                     console.log("Chasing!");
                     this.state = DOG_STATE.CHASING;
-                }, 500);
+                }, 250);
             }
         } else {
             if (this.stateFlag) {
@@ -96,7 +101,7 @@ export class Dog extends Entity {
                     console.log("Guarding...");
                     this.state = DOG_STATE.GUARDING;
                     this.stateFlag = false;
-                }, 500);
+                }, 250);
             }
         }
     }

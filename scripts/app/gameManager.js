@@ -93,9 +93,9 @@ export class GameManager {
         });
     }
 
-    async setupLevelListeners() {
+    async setupLevelCompletedListeners() {
         /*
-         * Prepares buttons for level menu and their listeners
+         * Prepares buttons for completed level menu and their listeners
          */
         const levelCount = await getLevelCount('../../assets/levels/levels.json');
         const nextButton = document.getElementById('nextButton');
@@ -121,6 +121,23 @@ export class GameManager {
         });
     }
 
+    async setupLevelFailedListeners() {
+        /*
+         * Prepares buttons for failed level menu and their listeners
+         */
+        const retryButton = document.getElementById('retryButton');
+
+        if (SKIP_MENU) {
+            this.startGame(() => startGame());
+        }
+
+        retryButton.replaceWith(retryButton.cloneNode(true));
+    
+        document.getElementById('retryButton').addEventListener('click', () => {
+            this.startGame(() => startGame());
+        });
+    }
+
     levelCompleted() {
         /*
          * Handling level completion
@@ -131,7 +148,20 @@ export class GameManager {
         this.isLevelCompleted = true;
         this.prepareMenuEnvironment();
         this.showMenu('levelCompleted');
-        this.setupLevelListeners();
+        this.setupLevelCompletedListeners();
+    }
+
+    levelFailed() {
+        /*
+         * Handling level failure
+         */
+        if (this.isLevelCompleted)
+            return;
+
+        this.isLevelCompleted = true;
+        this.prepareMenuEnvironment();
+        this.showMenu('levelFailed');
+        this.setupLevelFailedListeners();
     }
 
     clearEventTable() {

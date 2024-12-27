@@ -44,7 +44,7 @@ export async function startGame() {
         const deltaTime = deltaTimeCalculator.getDeltaTime();
 
         timer.display(timeContainer);
-        player.update(deltaTime);
+        player.update({ dogs }, timer, deltaTime);
         chickens.forEach((chicken) => {
             if (!chicken.eaten) 
                 chicken.update(player.x, player.y, player.size, timer, deltaTime);
@@ -55,6 +55,11 @@ export async function startGame() {
 
         if (chickens.every(chicken => chicken.eaten)) {
             gameManager.levelCompleted();   
+            return;
+        }
+
+        if (player.eaten) {
+            gameManager.levelFailed();
             return;
         }
 
