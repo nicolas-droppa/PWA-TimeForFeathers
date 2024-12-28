@@ -1,9 +1,9 @@
 import { Entity } from './_entity.js';
-import { TILE_WIDTH, PIXEL_ART_RATIO, FOX_SIZE} from '../_constants/_constants.js';
+import { TILE_WIDTH, PIXEL_ART_RATIO, FOX_SIZE, FOX_SPEED} from '../_constants/_constants.js';
 
 export class Player extends Entity {
-    constructor(x, y, speed, canvas, levelDataUrl, currentLevel) {
-        super(x, y, FOX_SIZE, speed, canvas);
+    constructor(x, y, canvas, levelDataUrl, currentLevel) {
+        super(x, y, FOX_SIZE, FOX_SPEED, canvas);
         this.imageLeft.src = '../../assets/images/fox/fox_left.png';
         this.imageRight.src = '../../assets/images/fox/fox_right.png';
 

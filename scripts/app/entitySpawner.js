@@ -59,7 +59,6 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
     const player = new Player(
         playerConfig.spawn.x,
         playerConfig.spawn.y,
-        playerConfig.speed,
         canvases.playerLayer,
         levelDataPath,
         currentLevel
@@ -69,7 +68,6 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
         return new Chicken(
             chickenConfig.spawn.x,
             chickenConfig.spawn.y,
-            chickenConfig.speed,
             canvases.chickenLayer,
             chickenConfig.path.map((p) => [p.x, p.y])
         );
@@ -79,7 +77,6 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
         return new Dog(
             dogConfig.spawn.x,
             dogConfig.spawn.y,
-            dogConfig.speed,
             canvases.dogLayer,
             dogConfig.path.map((p) => [p.x, p.y]),
             levelDataPath,

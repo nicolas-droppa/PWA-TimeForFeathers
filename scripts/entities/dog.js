@@ -1,8 +1,8 @@
 import { Entity } from './_entity.js';
-import { DOG_SIZE, DOG_STATE, TILE_WIDTH, PIXEL_ART_RATIO } from '../_constants/_constants.js';
+import { DOG_SIZE, DOG_STATE, TILE_WIDTH, PIXEL_ART_RATIO, DOG_SPEED } from '../_constants/_constants.js';
 export class Dog extends Entity {
-    constructor(x, y, speed, canvas, path, levelDataPath, currentLevel) {
-        super(x, y, DOG_SIZE, speed, canvas);
+    constructor(x, y, canvas, path, levelDataPath, currentLevel) {
+        super(x, y, DOG_SIZE, DOG_SPEED, canvas);
         this.path = path.map(([col, row]) => [
             col * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - DOG_SIZE) / 2,
             row * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - DOG_SIZE) / 2
@@ -13,8 +13,8 @@ export class Dog extends Entity {
         this.stateFlag = false;
         this.fovAngle = Math.PI * 2 / 3; //120 degrees
         this.detectionRadius = 150;
-        this.walkingSpeed = speed;
-        this.runningSpeed = speed * 2;
+        this.walkingSpeed = DOG_SPEED;
+        this.runningSpeed = DOG_SPEED * 2;
     }
 
     updatePosition(deltaTime, playerX, playerY, playerSize) {
