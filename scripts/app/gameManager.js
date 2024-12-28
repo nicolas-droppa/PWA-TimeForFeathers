@@ -125,7 +125,7 @@ export class GameManager {
         /*
          * Prepares buttons for failed level menu and their listeners
          */
-        const retryButton = document.getElementById('retryButton');
+        const retryButton = document.getElementById('tryAgainButton');
 
         if (SKIP_MENU) {
             this.startGame(() => startGame());
@@ -133,7 +133,7 @@ export class GameManager {
 
         retryButton.replaceWith(retryButton.cloneNode(true));
     
-        document.getElementById('retryButton').addEventListener('click', () => {
+        document.getElementById('tryAgainButton').addEventListener('click', () => {
             this.startGame(() => startGame());
         });
     }
