@@ -38,6 +38,57 @@ export class Dog extends Entity {
         }
     }
 
+    canMoveTo(newX, newY) {
+        /*
+         * Checks if the dog can move to the target position based on the tileMap
+         * @param newX : Target X position
+         * @param newY : Target Y position
+         * @return : true if the dog can move, false otherwise
+         */
+        const corners = [
+            [newX, newY],
+            [newX + this.size, newY],
+            [newX, newY + this.size],
+            [newX + this.size, newY + this.size],
+        ];
+    
+        return corners.every(([cornerX, cornerY]) => {
+            const tileX = Math.floor(cornerX / (TILE_WIDTH * PIXEL_ART_RATIO));
+            const tileY = Math.floor(cornerY / (TILE_WIDTH * PIXEL_ART_RATIO));
+    
+            // Check if the tile is within bounds and walkable
+            return (
+                tileY >= 0 &&
+                tileX >= 0 &&
+                tileY < this.tileMap.length &&
+                tileX < this.tileMap[tileY].length &&
+                this.tileMap[tileY][tileX] == 0
+            );
+        });
+    }
+
+    canMoveD() {
+        const directions = [
+            { dx: -10, dy: 0 },
+            { dx: -10, dy: -10 },
+            { dx: 0, dy: -10 },
+            { dx: 0, dy: 0 },
+            { dx: +10, dy: 0 },
+            { dx: +10, dy: +10 },
+            { dx: 0, dy: +10 },
+            { dx: -10, dy: +10 },
+            { dx: +10, dy: -10 },
+        ];
+    
+        return directions.some(({ dx, dy }) => {
+            const canMove = this.canMoveTo(this.x + dx, this.y + dy);
+            if (!canMove) {
+                console.log(`Blocked at direction dx: ${dx}, dy: ${dy}`);
+            }
+            return canMove;
+        });
+    }
+
     updatePosition(deltaTime, playerX, playerY, playerSize) {
         /*
          * Updates position of a dog
@@ -48,11 +99,29 @@ export class Dog extends Entity {
 
         if (this.state == DOG_STATE.CHASING) {
             if (this.isPathClear(playerX, playerY, this.x, this.y)) {
+                if (!this.canMoveD()) {
+                    console.log("can move");
+                    this.state = DOG_STATE.CONFUSED;
+                    this.speed = this.walkingSpeed;
+            
+                    setTimeout(() => {
+                        console.log("Guarding...");
+                        this.state = DOG_STATE.GUARDING;
+                        this.stateFlag = false;
+                    }, 250);
+                }
                 super.updatePosition(deltaTime, playerX, playerY);
                 return;
             } else {
                 console.log("obstacle");
                 this.state = DOG_STATE.CONFUSED;
+                this.speed = this.walkingSpeed;
+        
+                setTimeout(() => {
+                    console.log("Guarding...");
+                    this.state = DOG_STATE.GUARDING;
+                    this.stateFlag = false;
+                }, 250);
             }
         }
         
@@ -117,7 +186,6 @@ export class Dog extends Entity {
     
         while (x !== endX || y !== endY) {
             if (this.tileMap[y][x] !== 0) {
-                // Obstacle detected
                 return false;
             }
     
@@ -133,7 +201,7 @@ export class Dog extends Entity {
             }
         }
     
-        return true; // Path is clear
+        return true;
     }
 
     checkForPlayerInSight(playerX, playerY, playerSize) {
@@ -246,5 +314,9 @@ export class Dog extends Entity {
         this.updatePosition(deltaTime, playerX, playerY, playerSize);
         this.checkForPlayerInSight(playerX, playerY, playerSize)
         this.draw();
+        this.ctx.fillStyle = 'red';
+        this.ctx.fillRect(32, 32, this.size, this.size);
+        this.ctx.fillStyle = 'cyan';
+        this.ctx.fillRect(0, 32, this.size, this.size);
     }
 }
