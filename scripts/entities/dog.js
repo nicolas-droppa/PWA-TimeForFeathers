@@ -1,7 +1,7 @@
 import { Entity } from './_entity.js';
 import { DOG_SIZE, DOG_STATE, TILE_WIDTH, PIXEL_ART_RATIO, DOG_SPEED } from '../_constants/_constants.js';
 export class Dog extends Entity {
-    constructor(x, y, canvas, path, levelDataPath, currentLevel) {
+    constructor(x, y, canvas, path, levelDataUrl, currentLevel) {
         super(x, y, DOG_SIZE, DOG_SPEED, canvas);
         this.path = path.map(([col, row]) => [
             col * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - DOG_SIZE) / 2,
@@ -15,6 +15,27 @@ export class Dog extends Entity {
         this.detectionRadius = 150;
         this.walkingSpeed = DOG_SPEED;
         this.runningSpeed = DOG_SPEED * 2;
+
+        this.tileMap = null;
+        this.loadLevelData(levelDataUrl, currentLevel);
+    }
+
+    async loadLevelData(url, currentLevel) {
+        /*
+         * Loads tileMap and stores it in the constructor of player
+         * @param url : Path to stored levels
+         * @param currentLevel : level to fetch data from 
+         */
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch level data: ${response.status}`);
+            }
+            const data = await response.json();
+            this.tileMap = data.levels[currentLevel].tileMap;
+        } catch (error) {
+            console.error("Error fetching level data:", error);
+        }
     }
 
     updatePosition(deltaTime, playerX, playerY, playerSize) {
@@ -22,22 +43,21 @@ export class Dog extends Entity {
          * Updates position of a dog
          * @param deltaTime : value for movement normalization
          */
-        if (this.state == DOG_STATE.ALARMED || this.state == DOG_STATE.CONFUSED) {
-            return; // Stop movement
-        }
+        if (this.state == DOG_STATE.ALARMED || this.state == DOG_STATE.CONFUSED)
+            return;
 
         if (this.state == DOG_STATE.CHASING) {
-            //playerX = parseInt(playerX / TILE_WIDTH / 2);
-            //playerY = parseInt(playerY / TILE_WIDTH / 2);
-
-            console.log("player: " + parseInt(playerX) + " " + parseInt(playerY));
-            console.log("dog: " + parseInt(this.x) + " " + parseInt(this.y));
-            
-            super.updatePosition(deltaTime, playerX, playerY);
-            return;
+            if (this.isPathClear(playerX, playerY, this.x, this.y)) {
+                super.updatePosition(deltaTime, playerX, playerY);
+                return;
+            } else {
+                console.log("obstacle");
+                this.state = DOG_STATE.CONFUSED;
+            }
         }
         
         const [targetX, targetY] = this.path[this.currentTargetIndex];
+
         super.updatePosition(deltaTime, targetX, targetY);
 
         const distance = Math.sqrt((targetX - this.x) ** 2 + (targetY - this.y) ** 2);
@@ -55,23 +75,65 @@ export class Dog extends Entity {
          * @param angle : The FOV angle in radians
          * @param facingDirection : The direction the dog is facing (in radians)
          */
-        // Clear the canvas area (optional: remove if handled elsewhere)
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     
-        // Calculate the start and end angles of the cone
         const startAngle = facingDirection - angle / 2;
         const endAngle = facingDirection + angle / 2;
     
         this.ctx.beginPath();
-        this.ctx.moveTo(centerX, centerY); // Start at the center of the dog
-        this.ctx.arc(centerX, centerY, detectionRadius, startAngle, endAngle); // Draw the arc
-        this.ctx.closePath(); // Close the shape by connecting the arc to the center
+        this.ctx.moveTo(centerX, centerY);
+        this.ctx.arc(centerX, centerY, detectionRadius, startAngle, endAngle);
+        this.ctx.closePath();
     
-        // Set fill and stroke styles
-        this.ctx.fillStyle = 'rgba(0, 0, 255, 0.2)'; // Semi-transparent blue
+        this.ctx.fillStyle = 'rgba(0, 0, 255, 0.2)';
         this.ctx.fill();
-        this.ctx.strokeStyle = 'blue'; // Outline color
+        this.ctx.strokeStyle = 'blue';
         this.ctx.stroke();
+    }
+
+    isPathClear(startX, startY, endX, endY) {
+        /*
+         * Checks if there are any obstacles (non-zero tiles) along a straight line between two points
+         * @param startX : Starting X position (tile coordinates)
+         * @param startY : Starting Y position (tile coordinates)
+         * @param endX : Ending X position (tile coordinates)
+         * @param endY : Ending Y position (tile coordinates)
+         * @param tileMap : 2D array representing the map (0 = free, 1 = obstacle)
+         * @return : true if path is clear, false otherwise
+         */
+        startX = parseInt(startX / TILE_WIDTH / 2);
+        startY = parseInt(startY / TILE_WIDTH / 2);
+        endX = parseInt(endX / TILE_WIDTH / 2);
+        endY = parseInt(endY / TILE_WIDTH / 2);
+        const dx = Math.abs(endX - startX);
+        const dy = Math.abs(endY - startY);
+        const sx = startX < endX ? 1 : -1;
+        const sy = startY < endY ? 1 : -1;
+    
+        let err = dx - dy;
+    
+        let x = startX;
+        let y = startY;
+    
+        while (x !== endX || y !== endY) {
+            if (this.tileMap[y][x] !== 0) {
+                // Obstacle detected
+                return false;
+            }
+    
+            const e2 = 2 * err;
+    
+            if (e2 > -dy) {
+                err -= dy;
+                x += sx;
+            }
+            if (e2 < dx) {
+                err += dx;
+                y += sy;
+            }
+        }
+    
+        return true; // Path is clear
     }
 
     checkForPlayerInSight(playerX, playerY, playerSize) {
@@ -130,7 +192,6 @@ export class Dog extends Entity {
             }
         }
     
-        // Player not detected
         if (this.stateFlag) {
             console.log("Confused?");
             this.state = DOG_STATE.CONFUSED;

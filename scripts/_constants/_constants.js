@@ -21,7 +21,7 @@ export const CHICKEN_SPEED = 150;
 
 //Entities / Dog
 export const DOG_SIZE = 32;
-export const DOG_SPEED = 90;
+export const DOG_SPEED = 80;
 export const DOG_STATE = Object.freeze({
     GUARDING: "guarding",
     ALARMED: "alarmed",
