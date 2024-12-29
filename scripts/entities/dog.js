@@ -67,7 +67,7 @@ export class Dog extends Entity {
         });
     }
 
-    canMoveD() {
+    canMove() {
         const directions = [
             { dx: -10, dy: 0 },
             { dx: -10, dy: -10 },
@@ -99,7 +99,7 @@ export class Dog extends Entity {
 
         if (this.state == DOG_STATE.CHASING) {
             if (this.isPathClear(playerX, playerY, this.x, this.y)) {
-                if (!this.canMoveD()) {
+                if (!this.canMove()) {
                     console.log("can move");
                     this.state = DOG_STATE.CONFUSED;
                     this.speed = this.walkingSpeed;
