@@ -30,7 +30,8 @@ export class Dog extends Entity {
             //playerX = parseInt(playerX / TILE_WIDTH / 2);
             //playerY = parseInt(playerY / TILE_WIDTH / 2);
 
-            console.log(playerX + " " + playerY);
+            console.log("player: " + parseInt(playerX) + " " + parseInt(playerY));
+            console.log("dog: " + parseInt(this.x) + " " + parseInt(this.y));
             
             super.updatePosition(deltaTime, playerX, playerY);
             return;
