@@ -1,5 +1,6 @@
 import { Entity } from './_entity.js';
 import { DOG_SIZE, DOG_STATE, TILE_WIDTH, PIXEL_ART_RATIO, DOG_SPEED } from '../_constants/_constants.js';
+import { coordToTile } from '../_system/utils.js';
 export class Dog extends Entity {
     constructor(x, y, canvas, path, levelDataUrl, currentLevel) {
         super(x, y, DOG_SIZE, DOG_SPEED, canvas);
@@ -38,12 +39,29 @@ export class Dog extends Entity {
         }
     }
 
+    isTileWalkable(x, y, tileMap) {
+        /**
+         * Checks if a tile is walkable.
+         * @param {number} x : Tile x index
+         * @param {number} y : Tile y index
+         * @param {Array} tileMap : 2D map array
+         * @returns {boolean} : True if the tile is walkable, false otherwise
+         */
+        return (
+            y >= 0 &&
+            x >= 0 &&
+            y < tileMap.length &&
+            x < tileMap[y].length &&
+            tileMap[y][x] === 0
+        );
+    }
+
     canMoveTo(newX, newY) {
-        /*
+        /**
          * Checks if the dog can move to the target position based on the tileMap
-         * @param newX : Target X position
-         * @param newY : Target Y position
-         * @return : true if the dog can move, false otherwise
+         * @param {number} newX : Target X position
+         * @param {number} newY : Target Y position
+         * @return {boolean} : true if the dog can move, false otherwise
          */
         const corners = [
             [newX, newY],
@@ -170,10 +188,10 @@ export class Dog extends Entity {
          * @param tileMap : 2D array representing the map (0 = free, 1 = obstacle)
          * @return : true if path is clear, false otherwise
          */
-        startX = parseInt(startX / TILE_WIDTH / 2);
-        startY = parseInt(startY / TILE_WIDTH / 2);
-        endX = parseInt(endX / TILE_WIDTH / 2);
-        endY = parseInt(endY / TILE_WIDTH / 2);
+        startX = parseInt(startX / TILE_WIDTH / PIXEL_ART_RATIO);
+        startY = parseInt(startY / TILE_WIDTH / PIXEL_ART_RATIO);
+        endX = parseInt(endX / TILE_WIDTH / PIXEL_ART_RATIO);
+        endY = parseInt(endY / TILE_WIDTH / PIXEL_ART_RATIO);
         const dx = Math.abs(endX - startX);
         const dy = Math.abs(endY - startY);
         const sx = startX < endX ? 1 : -1;
