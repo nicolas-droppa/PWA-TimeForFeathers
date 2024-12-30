@@ -31,3 +31,6 @@ export const DOG_STATE = Object.freeze({
     CHASING: "chasing",
     CONFUSED: "confused",
 });
+
+// Entities / Boots
+export const BOOTS_SIZE = 32;

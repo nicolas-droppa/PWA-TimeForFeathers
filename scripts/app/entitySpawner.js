@@ -4,6 +4,7 @@ import { Chicken } from '../entities/chicken.js';
 import { FastChicken } from '../entities/fastChicken.js';
 import { Dog } from '../entities/dog.js';
 import { Timer } from './timer.js';
+import { Boots } from '../entities/boots.js';
 
 export function initializeCanvases(canvasIds) {
     /*
@@ -94,7 +95,15 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
         );
     });
 
+    const boots = level.boots.map((bootConfig) => {
+        return new Boots(
+            bootConfig.spawn.x,
+            bootConfig.spawn.y,
+            canvases.itemLayer,
+        );
+    });
+
     const timer = new Timer();
 
-    return { player, chickens, fastChickens, dogs, timer };
+    return { player, chickens, fastChickens, dogs, boots, timer };
 }
