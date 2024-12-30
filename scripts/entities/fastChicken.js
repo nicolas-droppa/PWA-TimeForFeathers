@@ -4,11 +4,11 @@ import { FAST_CHICKEN_SPEED } from '../_constants/_constants.js';
 export class FastChicken extends Chicken {
     constructor(x, y, canvas, path) {
         super(x, y, canvas, path);
+        
         this.imageLeft.src = '../../assets/images/chicken/chicken_left_faster.png';
         this.imageRight.src = '../../assets/images/chicken/chicken_right_faster.png';
 
         this.speed = FAST_CHICKEN_SPEED;
-        console.log("a");
     }
 
     logEvent(timer) {

@@ -17,7 +17,7 @@ window.onload = () => {
 };
 
 export async function startGame() {
-    const canvasIds = ['gameCanvas', 'playerLayer', 'chickenLayer', 'dogLayer'];
+    const canvasIds = ['gameCanvas', 'playerLayer', 'chickenLayer', 'dogLayer', 'itemLayer'];
     const tileWidth = TILE_WIDTH * PIXEL_ART_RATIO;
     const tileHeight = TILE_HEIGHT * PIXEL_ART_RATIO;
 
@@ -40,11 +40,14 @@ export async function startGame() {
         gameLoop(entities, timeContainer, deltaTimeCalculator);
     };
 
-    function gameLoop({ player, chickens, fastChickens, dogs, timer }, timeContainer, deltaTimeCalculator) {
+    function gameLoop({ player, chickens, fastChickens, dogs, boots, timer }, timeContainer, deltaTimeCalculator) {
         const deltaTime = deltaTimeCalculator.getDeltaTime();
 
         timer.display(timeContainer);
-        player.update({ dogs }, timer, deltaTime);
+        console.log(dogs);
+        console.log(boots);
+        
+        player.update({ dogs }, { boots }, timer, deltaTime);
         chickens.forEach((chicken) => {
             if (!chicken.eaten) 
                 chicken.update(player.x, player.y, player.size, timer, deltaTime);
@@ -57,7 +60,12 @@ export async function startGame() {
             dog.update(player.x, player.y, player.size, deltaTime);
         });
 
-        if (chickens.every(chicken => chicken.eaten)) {
+        boots.forEach((item) => {
+            if (!item.pickedUp)
+                item.update(player.x, player.y, player.size, timer);
+        });
+
+        if (chickens.every(chicken => chicken.eaten) && fastChickens.every(fastChicken => fastChicken.eaten)) {
             gameManager.levelCompleted();   
             return;
         }
@@ -67,6 +75,6 @@ export async function startGame() {
             return;
         }
 
-        requestAnimationFrame(() => gameLoop({ player, chickens, fastChickens, dogs, timer }, timeContainer, deltaTimeCalculator));
+        requestAnimationFrame(() => gameLoop({ player, chickens, fastChickens, dogs, boots, timer }, timeContainer, deltaTimeCalculator));
     }
 }

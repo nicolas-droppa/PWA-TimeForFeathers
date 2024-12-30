@@ -1,16 +1,16 @@
 import { Item } from './_item.js';
 import { BOOTS_SIZE } from '../_constants/_constants.js';
 export class Boots extends Item {
-    constructor(x, y, canvas, path) {
-        super(x, y, BOOTS_SIZE, canvas, path);
+    constructor(x, y, canvas) {
+        super(x, y, BOOTS_SIZE, canvas);
         this.image.src = '../../assets/images/boots.png';
         this.pickedUp = false;
     }
 
     checkCollision(playerX, playerY, playerSize, timer) {
         /*
-         * Check if the player overlaps with the chicken.
-         * If so, mark the chicken as "eaten."
+         * Check if the player overlaps with the item.
+         * If so, mark the item as "picked-up."
          * @paramplayerX : x-position of player
          * @param playerY : y-position of player
          * @param playerSize : size of player
@@ -20,7 +20,7 @@ export class Boots extends Item {
         const overlapY = playerY < this.y + this.size && playerY + playerSize > this.y;
 
         if (overlapX && overlapY) {
-            this.eaten = true;
+            this.pickedUp = true;
             this.logEvent(timer);
         }
     }
@@ -47,12 +47,10 @@ export class Boots extends Item {
             return;
         }
         this.ctx.clearRect(this.x, this.y, this.size, this.size);
-        this.ctx.drawImage(image, this.x, this.y, this.size, this.size);
-        this.prevX = this.x;
-        this.prevY = this.y;
+        this.ctx.drawImage(this.image, this.x, this.y, this.size, this.size);
     }
 
-    update(playerX, playerY, playerSize, timer, deltaTime) {
+    update(playerX, playerY, playerSize, timer) {
         /*
          * Parrent class for all the smaller functions regarding chicken script
          * @param playerX : ...

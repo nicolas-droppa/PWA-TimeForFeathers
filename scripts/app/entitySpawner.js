@@ -99,7 +99,6 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
         return new Boots(
             bootConfig.spawn.x,
             bootConfig.spawn.y,
-            
             canvases.itemLayer,
         );
     });

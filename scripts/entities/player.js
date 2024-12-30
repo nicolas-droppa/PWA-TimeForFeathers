@@ -20,6 +20,8 @@ export class Player extends Entity {
         this.loadLevelData(levelDataUrl, currentLevel);
 
         this.eaten = false;
+
+        this.pickedUpBoots = false;
     }
 
     async loadLevelData(url, currentLevel) {
@@ -141,6 +143,20 @@ export class Player extends Entity {
         });
     }
 
+    checkPickedUpBoots({ boots }) {
+        /*
+         * Check if the player picked-up items.
+         * If so, make affect player...
+         * @param { items }
+         */
+        boots.forEach((item) => {
+            if (item.pickedUp) {
+                this.pickedUpBoots = true;
+                this.speed = this.speed * 1.5;
+            }
+        })
+    }
+
     logEvent(timer) {
         /*
          * Logs event in case of player being eaten
@@ -154,13 +170,17 @@ export class Player extends Entity {
         eventContainer.appendChild(eventElement);
     }
 
-    update({ dogs }, timer, deltaTime) {
+    update({ dogs }, { boots }, timer, deltaTime) {
         /*
          * Parrent class for all the smaller functions regarding player script
          * @param deltaTime : value used to normalize movement speed
          */
+        console.log("Pu:" + dogs);
+        console.log("Pu:" + boots);
         this.updatePosition(deltaTime);
         this.checkCollision({ dogs }, timer);
+        if (!this.pickedUpBoots)
+            this.checkPickedUpBoots({ boots });
         this.draw();
     }
 }
