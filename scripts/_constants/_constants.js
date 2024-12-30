@@ -19,6 +19,9 @@ export const FOX_SPEED = 250;
 export const CHICKEN_SIZE = 32;
 export const CHICKEN_SPEED = 150;
 
+//Entities / Fast Chicken
+export const FAST_CHICKEN_SPEED = 230;
+
 //Entities / Dog
 export const DOG_SIZE = 32;
 export const DOG_SPEED = 80;

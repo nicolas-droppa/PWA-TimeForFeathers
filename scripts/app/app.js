@@ -40,7 +40,7 @@ export async function startGame() {
         gameLoop(entities, timeContainer, deltaTimeCalculator);
     };
 
-    function gameLoop({ player, chickens, dogs, timer }, timeContainer, deltaTimeCalculator) {
+    function gameLoop({ player, chickens, fastChickens, dogs, timer }, timeContainer, deltaTimeCalculator) {
         const deltaTime = deltaTimeCalculator.getDeltaTime();
 
         timer.display(timeContainer);
@@ -48,6 +48,10 @@ export async function startGame() {
         chickens.forEach((chicken) => {
             if (!chicken.eaten) 
                 chicken.update(player.x, player.y, player.size, timer, deltaTime);
+        });
+        fastChickens.forEach((fastChicken) => {
+            if (!fastChicken.eaten) 
+                fastChicken.update(player.x, player.y, player.size, timer, deltaTime);
         });
         dogs.forEach((dog) => {
             dog.update(player.x, player.y, player.size, deltaTime);
@@ -63,6 +67,6 @@ export async function startGame() {
             return;
         }
 
-        requestAnimationFrame(() => gameLoop({ player, chickens, dogs, timer }, timeContainer, deltaTimeCalculator));
+        requestAnimationFrame(() => gameLoop({ player, chickens, fastChickens, dogs, timer }, timeContainer, deltaTimeCalculator));
     }
 }

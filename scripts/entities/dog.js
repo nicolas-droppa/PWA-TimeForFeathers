@@ -332,9 +332,5 @@ export class Dog extends Entity {
         this.updatePosition(deltaTime, playerX, playerY, playerSize);
         this.checkForPlayerInSight(playerX, playerY, playerSize)
         this.draw();
-        this.ctx.fillStyle = 'red';
-        this.ctx.fillRect(32, 32, this.size, this.size);
-        this.ctx.fillStyle = 'cyan';
-        this.ctx.fillRect(0, 32, this.size, this.size);
     }
 }

@@ -1,6 +1,7 @@
 import { CANVAS_WIDTH, CANVAS_HEIGHT } from '../_constants/_constants.js';
 import { Player } from '../entities/player.js';
 import { Chicken } from '../entities/chicken.js';
+import { FastChicken } from '../entities/fastChicken.js';
 import { Dog } from '../entities/dog.js';
 import { Timer } from './timer.js';
 
@@ -73,6 +74,15 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
         );
     });
 
+    const fastChickens = level.fastChickens.map((fastChickenConfig) => {
+        return new FastChicken(
+            fastChickenConfig.spawn.x,
+            fastChickenConfig.spawn.y,
+            canvases.chickenLayer,
+            fastChickenConfig.path.map((p) => [p.x, p.y])
+        );
+    });
+
     const dogs = level.dogs.map((dogConfig) => {
         return new Dog(
             dogConfig.spawn.x,
@@ -86,5 +96,5 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
 
     const timer = new Timer();
 
-    return { player, chickens, dogs, timer };
+    return { player, chickens, fastChickens, dogs, timer };
 }
