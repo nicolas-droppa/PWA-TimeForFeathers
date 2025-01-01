@@ -1,6 +1,6 @@
 import { Entity } from './_entity.js';
+import { Bullet } from './bullet.js';
 import { FARMER_SIZE, FARMER_STATE, TILE_WIDTH, PIXEL_ART_RATIO, FARMER_SPEED } from '../_constants/_constants.js';
-import { coordToTile } from '../_system/utils.js';
 export class Farmer extends Entity {
     constructor(x, y, canvas, path, levelDataUrl, currentLevel) {
         super(x, y, FARMER_SIZE, FARMER_SPEED, canvas);
@@ -19,6 +19,11 @@ export class Farmer extends Entity {
 
         this.tileMap = null;
         this.loadLevelData(levelDataUrl, currentLevel);
+
+        this.bullets = []; // Zoznam aktívnych striel
+        this.bulletSpeed = 300; // Rýchlosť striel
+        this.lastShotTime = 0; // Tracks the last shot time
+        this.shootInterval = 1000;
     }
 
     async loadLevelData(url, currentLevel) {
@@ -107,13 +112,46 @@ export class Farmer extends Entity {
         });
     }
 
+    shoot(direction) {
+        /**
+         * Farmer shoots bullet in that direction.
+         * @param direction : direction in radians
+         */
+        const bullet = new Bullet(this.x, this.y, direction, this.bulletSpeed, this.canvas);
+        this.bullets.push(bullet);
+    }
+
     updatePosition(deltaTime, playerX, playerY, playerSize) {
         /**
          * Updates position of a farmer
          * @param deltaTime : value for movement normalization
          */
-        if (this.state == FARMER_STATE.ALARMED || this.state == FARMER_STATE.CONFUSED || this.state == FARMER_STATE.SHOOTING)
+        if (this.state == FARMER_STATE.ALARMED || this.state == FARMER_STATE.CONFUSED)
             return;
+
+        
+        if (this.state == FARMER_STATE.SHOOTING) {
+            const currentTime = Date.now();
+
+            // Check if enough time has passed since the last shot
+            if (currentTime - this.lastShotTime >= this.shootInterval) {
+                // Calculate the direction to shoot at the player
+                const centerX = this.x + this.size / 2;
+                const centerY = this.y + this.size / 2;
+                const playerCenterX = playerX + playerSize / 2;
+                const playerCenterY = playerY + playerSize / 2;
+
+                const direction = Math.atan2(playerCenterY - centerY, playerCenterX - centerX);
+
+                // Shoot in the calculated direction
+                this.shoot(direction);
+                this.shoot(direction-0.15);
+                this.shoot(direction+0.15);
+
+                this.lastShotTime = currentTime;
+            }
+            return;
+        }
         
         const [targetX, targetY] = this.path[this.currentTargetIndex];
 
@@ -304,5 +342,9 @@ export class Farmer extends Entity {
         this.updatePosition(deltaTime, playerX, playerY, playerSize);
         this.checkForPlayerInSight(playerX, playerY, playerSize)
         this.draw();
+
+        this.bullets = this.bullets.filter(bullet => bullet.active);
+        this.bullets.forEach(bullet => bullet.update(deltaTime));
+        this.bullets.forEach(bullet => bullet.draw());
     }
 }

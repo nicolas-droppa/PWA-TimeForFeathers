@@ -75,7 +75,7 @@ export async function startGame() {
             return;
         }
 
-        if (player.eaten) {
+        if (player.dead) {
             gameManager.levelFailed();
             return;
         }

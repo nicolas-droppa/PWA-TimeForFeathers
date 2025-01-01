@@ -19,7 +19,7 @@ export class Player extends Entity {
         this.tileSize = TILE_WIDTH * PIXEL_ART_RATIO;
         this.loadLevelData(levelDataUrl, currentLevel);
 
-        this.eaten = false;
+        this.dead = false;
 
         this.pickedUpBoots = false;
     }
@@ -124,7 +124,7 @@ export class Player extends Entity {
     checkCollision({ dogs }, timer) {
         /**
          * Check if the player overlaps with the dog.
-         * If so, mark the player as "eaten"
+         * If so, mark the player as "dead"
          * @param { dogs }
          * @param dogX : x-position of dog
          * @param dogY : y-position of dog
@@ -137,7 +137,7 @@ export class Player extends Entity {
             const overlapY = dog.y < this.y + this.size && dog.y + dog.size > this.y;
     
             if (overlapX && overlapY) {
-                this.eaten = true;
+                this.dead = true;
                 this.logEvent(timer);
             }
         });
@@ -159,7 +159,7 @@ export class Player extends Entity {
 
     logEvent(timer) {
         /**
-         * Logs event in case of player being eaten
+         * Logs event in case of player being killed
          * @param timer : timer object
          */
         const [minutes,seconds,milliseconds] = timer.getFormattedTime();
