@@ -8,7 +8,7 @@ import { Timer } from './timer.js';
 import { Boots } from '../entities/boots.js';
 
 export function initializeCanvases(canvasIds) {
-    /*
+    /**
      * Initializes the canvas elements and sets their dimensions
      * @param canvasIds : Ids of every canvas
      * @returns : all the canvases
@@ -24,7 +24,7 @@ export function initializeCanvases(canvasIds) {
 }
 
 export async function fetchLevelData(levelDataPath) {
-    /*
+    /**
      * Fetches level data from the specified file
      * @param levelDataPath : path to levels.json
      * @returns : fetched data
@@ -43,7 +43,7 @@ export async function fetchLevelData(levelDataPath) {
 }
 
 export async function loadEntities(canvases, levelDataPath, currentLevel) {
-    /*
+    /**
      * Spawns entities based on the fetched level data
      * @param canvases : all the canvases for every needed layer
      * @param levelDataPath : path to levels.json
@@ -101,6 +101,7 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
             farmerConfig.spawn.x,
             farmerConfig.spawn.y,
             canvases.farmerLayer,
+            canvases.bulletLayer,
             farmerConfig.path.map((p) => [p.x, p.y]),
             levelDataPath,
             currentLevel

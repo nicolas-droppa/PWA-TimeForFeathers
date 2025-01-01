@@ -17,7 +17,7 @@ window.onload = () => {
 };
 
 export async function startGame() {
-    const canvasIds = ['gameCanvas', 'playerLayer', 'chickenLayer', 'dogLayer', 'farmerLayer', 'itemLayer'];
+    const canvasIds = ['gameCanvas', 'playerLayer', 'chickenLayer', 'dogLayer', 'farmerLayer', 'itemLayer', 'bulletLayer'];
     const tileWidth = TILE_WIDTH * PIXEL_ART_RATIO;
     const tileHeight = TILE_HEIGHT * PIXEL_ART_RATIO;
 

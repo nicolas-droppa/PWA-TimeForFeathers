@@ -1,8 +1,8 @@
 import { Entity } from './_entity.js';
 import { Bullet } from './bullet.js';
-import { FARMER_SIZE, FARMER_STATE, TILE_WIDTH, PIXEL_ART_RATIO, FARMER_SPEED } from '../_constants/_constants.js';
+import { FARMER_SIZE, FARMER_STATE, TILE_WIDTH, PIXEL_ART_RATIO, FARMER_SPEED, BULLET_SPEED, SHOOTING_INTERVAL } from '../_constants/_constants.js';
 export class Farmer extends Entity {
-    constructor(x, y, canvas, path, levelDataUrl, currentLevel) {
+    constructor(x, y, canvas, bulletCanvas, path, levelDataUrl, currentLevel) {
         super(x, y, FARMER_SIZE, FARMER_SPEED, canvas);
         this.path = path.map(([col, row]) => [
             col * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - FARMER_SIZE) / 2,
@@ -20,10 +20,11 @@ export class Farmer extends Entity {
         this.tileMap = null;
         this.loadLevelData(levelDataUrl, currentLevel);
 
-        this.bullets = []; // Zoznam aktívnych striel
-        this.bulletSpeed = 300; // Rýchlosť striel
-        this.lastShotTime = 0; // Tracks the last shot time
-        this.shootInterval = 1000;
+        this.bulletCanvas = bulletCanvas;
+        this.bullets = [];
+        this.bulletSpeed = BULLET_SPEED;
+        this.lastShotTime = 0;
+        this.shootInterval = SHOOTING_INTERVAL;
     }
 
     async loadLevelData(url, currentLevel) {
@@ -117,7 +118,8 @@ export class Farmer extends Entity {
          * Farmer shoots bullet in that direction.
          * @param direction : direction in radians
          */
-        const bullet = new Bullet(this.x, this.y, direction, this.bulletSpeed, this.canvas);
+        //const bullet = new Bullet(this.x, this.y, direction, this.bulletSpeed, this.canvas);
+        const bullet = new Bullet(this.x, this.y, direction, this.bulletSpeed, this.bulletCanvas);
         this.bullets.push(bullet);
     }
 
@@ -128,7 +130,6 @@ export class Farmer extends Entity {
          */
         if (this.state == FARMER_STATE.ALARMED || this.state == FARMER_STATE.CONFUSED)
             return;
-
         
         if (this.state == FARMER_STATE.SHOOTING) {
             const currentTime = Date.now();
@@ -340,7 +341,7 @@ export class Farmer extends Entity {
          * @param deltaTime : value used to normalize movement speed
          */
         this.updatePosition(deltaTime, playerX, playerY, playerSize);
-        this.checkForPlayerInSight(playerX, playerY, playerSize)
+        this.checkForPlayerInSight(playerX, playerY, playerSize);
         this.draw();
 
         this.bullets = this.bullets.filter(bullet => bullet.active);

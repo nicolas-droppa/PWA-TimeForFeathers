@@ -1,4 +1,4 @@
-import { FARMER_SIZE } from '../_constants/_constants.js';
+import { FARMER_SIZE, MAX_DISTANCE } from '../_constants/_constants.js';
 
 export class Bullet {
     constructor(x, y, direction, speed, canvas) {
@@ -11,7 +11,7 @@ export class Bullet {
         this.size = 5;
         this.active = true;
         this.travelledDistance = 0;
-        this.maxDistance = 180;
+        this.maxDistance = MAX_DISTANCE;
     }
 
     draw() {

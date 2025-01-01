@@ -2,7 +2,6 @@
 export const TILE_WIDTH = 32;
 export const TILE_HEIGHT = 32;
 
-
 //Game / Pixel-Art 
 export const PIXEL_ART_RATIO = 2;
 export const CANVAS_WIDTH = 500;
@@ -41,6 +40,11 @@ export const FARMER_STATE = Object.freeze({
     SHOOTING: "shooting",
     CONFUSED: "confused",
 });
+
+//Entities / Bullet
+export const MAX_DISTANCE = 180;
+export const BULLET_SPEED = 300;
+export const SHOOTING_INTERVAL = 1000;
 
 // Entities / Boots
 export const BOOTS_SIZE = 32;
