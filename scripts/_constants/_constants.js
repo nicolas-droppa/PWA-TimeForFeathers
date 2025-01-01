@@ -32,5 +32,15 @@ export const DOG_STATE = Object.freeze({
     CONFUSED: "confused",
 });
 
+//Entities / Farmer
+export const FARMER_SIZE = 32;
+export const FARMER_SPEED = 60;
+export const FARMER_STATE = Object.freeze({
+    GUARDING: "guarding",
+    ALARMED: "alarmed",
+    SHOOTING: "shooting",
+    CONFUSED: "confused",
+});
+
 // Entities / Boots
 export const BOOTS_SIZE = 32;

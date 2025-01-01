@@ -17,7 +17,7 @@ window.onload = () => {
 };
 
 export async function startGame() {
-    const canvasIds = ['gameCanvas', 'playerLayer', 'chickenLayer', 'dogLayer', 'itemLayer'];
+    const canvasIds = ['gameCanvas', 'playerLayer', 'chickenLayer', 'dogLayer', 'farmerLayer', 'itemLayer'];
     const tileWidth = TILE_WIDTH * PIXEL_ART_RATIO;
     const tileHeight = TILE_HEIGHT * PIXEL_ART_RATIO;
 
@@ -40,24 +40,29 @@ export async function startGame() {
         gameLoop(entities, timeContainer, deltaTimeCalculator);
     };
 
-    function gameLoop({ player, chickens, fastChickens, dogs, boots, timer }, timeContainer, deltaTimeCalculator) {
+    function gameLoop({ player, chickens, fastChickens, dogs, farmers, boots, timer }, timeContainer, deltaTimeCalculator) {
         const deltaTime = deltaTimeCalculator.getDeltaTime();
 
         timer.display(timeContainer);
-        console.log(dogs);
-        console.log(boots);
         
         player.update({ dogs }, { boots }, timer, deltaTime);
+
         chickens.forEach((chicken) => {
             if (!chicken.eaten) 
                 chicken.update(player.x, player.y, player.size, timer, deltaTime);
         });
+
         fastChickens.forEach((fastChicken) => {
             if (!fastChicken.eaten) 
                 fastChicken.update(player.x, player.y, player.size, timer, deltaTime);
         });
+
         dogs.forEach((dog) => {
             dog.update(player.x, player.y, player.size, deltaTime);
+        });
+
+        farmers.forEach((farmer) => {
+            farmer.update(player.x, player.y, player.size, deltaTime);
         });
 
         boots.forEach((item) => {
@@ -75,6 +80,6 @@ export async function startGame() {
             return;
         }
 
-        requestAnimationFrame(() => gameLoop({ player, chickens, fastChickens, dogs, boots, timer }, timeContainer, deltaTimeCalculator));
+        requestAnimationFrame(() => gameLoop({ player, chickens, fastChickens, dogs, farmers, boots, timer }, timeContainer, deltaTimeCalculator));
     }
 }

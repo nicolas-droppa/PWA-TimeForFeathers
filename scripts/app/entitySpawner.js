@@ -3,6 +3,7 @@ import { Player } from '../entities/player.js';
 import { Chicken } from '../entities/chicken.js';
 import { FastChicken } from '../entities/fastChicken.js';
 import { Dog } from '../entities/dog.js';
+import { Farmer } from '../entities/farmer.js';
 import { Timer } from './timer.js';
 import { Boots } from '../entities/boots.js';
 
@@ -95,6 +96,17 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
         );
     });
 
+    const farmers = level.farmers.map((farmerConfig) => {
+        return new Farmer(
+            farmerConfig.spawn.x,
+            farmerConfig.spawn.y,
+            canvases.farmerLayer,
+            farmerConfig.path.map((p) => [p.x, p.y]),
+            levelDataPath,
+            currentLevel
+        );
+    });
+
     const boots = level.boots.map((bootConfig) => {
         return new Boots(
             bootConfig.spawn.x,
@@ -105,5 +117,5 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
 
     const timer = new Timer();
 
-    return { player, chickens, fastChickens, dogs, boots, timer };
+    return { player, chickens, fastChickens, dogs, farmers, boots, timer };
 }
