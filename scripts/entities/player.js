@@ -25,7 +25,7 @@ export class Player extends Entity {
     }
 
     async loadLevelData(url, currentLevel) {
-        /*
+        /**
          * Loads tileMap and stores it in the constructor of player
          * @param url : Path to stored levels
          * @param currentLevel : level to fetch data from 
@@ -57,7 +57,7 @@ export class Player extends Entity {
     }
 
     isWalkable(x, y) {
-        /*
+        /**
          * Checks if a position is walkable (tileMap value is 0).
          * @param x : x-position of player
          * @param y : y-position of player
@@ -70,7 +70,7 @@ export class Player extends Entity {
     }
 
     updatePosition(deltaTime) {
-        /*
+        /**
          * Checks if player can move in direction and moves player
          * @param deltaTime : time diff for movement normalization
          */
@@ -122,7 +122,7 @@ export class Player extends Entity {
     }
 
     checkCollision({ dogs }, timer) {
-        /*
+        /**
          * Check if the player overlaps with the dog.
          * If so, mark the player as "eaten"
          * @param { dogs }
@@ -144,7 +144,7 @@ export class Player extends Entity {
     }
 
     checkPickedUpBoots({ boots }) {
-        /*
+        /**
          * Check if the player picked-up items.
          * If so, make affect player...
          * @param { items }
@@ -158,7 +158,7 @@ export class Player extends Entity {
     }
 
     logEvent(timer) {
-        /*
+        /**
          * Logs event in case of player being eaten
          * @param timer : timer object
          */
@@ -171,12 +171,10 @@ export class Player extends Entity {
     }
 
     update({ dogs }, { boots }, timer, deltaTime) {
-        /*
+        /**
          * Parrent class for all the smaller functions regarding player script
          * @param deltaTime : value used to normalize movement speed
          */
-        console.log("Pu:" + dogs);
-        console.log("Pu:" + boots);
         this.updatePosition(deltaTime);
         this.checkCollision({ dogs }, timer);
         if (!this.pickedUpBoots)

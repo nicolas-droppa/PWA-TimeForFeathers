@@ -8,7 +8,7 @@ export class Boots extends Item {
     }
 
     checkCollision(playerX, playerY, playerSize, timer) {
-        /*
+        /**
          * Check if the player overlaps with the item.
          * If so, mark the item as "picked-up."
          * @paramplayerX : x-position of player
@@ -26,7 +26,7 @@ export class Boots extends Item {
     }
 
     logEvent(timer) {
-        /*
+        /**
          * Logs event in case of item being picked up
          * @param timer : timer object
          */
@@ -39,7 +39,7 @@ export class Boots extends Item {
     }
 
     draw() {
-        /*
+        /**
          * Default displaying of items
          */
         if (this.pickedUp) {
@@ -51,13 +51,12 @@ export class Boots extends Item {
     }
 
     update(playerX, playerY, playerSize, timer) {
-        /*
+        /**
          * Parrent class for all the smaller functions regarding chicken script
          * @param playerX : ...
          * @param playerY : ...
          * @param playerSize : ...
          * @param timer : timer object
-         * @param deltaTime : value used to normalize movement speed
          */
         this.checkCollision(playerX, playerY, playerSize, timer);
         this.draw();
