@@ -28,11 +28,18 @@ export async function startGame() {
     grassImage.src = '../../assets/images/tileMap/grass.png';
 
     let entities = null;
+    let animationFrameId = null;
 
     const deltaTimeCalculator = new DeltaTime();
 
     grassImage.onload = async () => {
         entities = await loadEntities(canvases, '../../assets/levels/levels.json', gameManager.currentLevel);
+
+        const player = entities.player;
+        player.onRetry = () => {
+            cancelAnimationFrame(animationFrameId);
+            gameManager.restartLevel();
+        };
     
         loadTiles('../../assets/levels/levels.json', gameManager.currentLevel, tileWidth, tileHeight, ctx, grassImage);
     
@@ -79,6 +86,6 @@ export async function startGame() {
             return;
         }
 
-        requestAnimationFrame(() => gameLoop({ player, chickens, fastChickens, dogs, farmers, boots, timer }, timeContainer, deltaTimeCalculator));
+        animationFrameId = requestAnimationFrame(() => gameLoop({ player, chickens, fastChickens, dogs, farmers, boots, timer }, timeContainer, deltaTimeCalculator));
     }
 }

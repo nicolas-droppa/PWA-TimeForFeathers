@@ -11,6 +11,7 @@ export class GameManager {
         this.currentMenu = null;
         this.currentLevel = null;
         this.isLevelCompleted = false;
+        this.levelRetry = false;
     }
 
     initialize() {
@@ -166,14 +167,22 @@ export class GameManager {
 
         this.isLevelCompleted = true;
 
-        showFadeOverlay();
-
-        setTimeout(() => {
+        if (this.levelRetry) {
             this.prepareMenuEnvironment();
             this.showMenu('levelFailed');
             this.setupLevelFailedListeners();
-            hideFadeOverlay();
-        }, 1100);
+            this.levelRetry = false;
+        } else {
+            showFadeOverlay();
+
+            setTimeout(() => {
+                this.prepareMenuEnvironment();
+                this.showMenu('levelFailed');
+                this.setupLevelFailedListeners();
+                hideFadeOverlay();
+                this.levelRetry = false;
+            }, 1100);   
+        }
     }
 
     clearEventTable() {
@@ -191,5 +200,13 @@ export class GameManager {
          */
         const levelContainer = document.getElementById('level-id');
         levelContainer.innerHTML = this.currentLevel + 1;
+    }
+
+    restartLevel() {
+        /**
+         * Handling level failure
+         */
+        this.levelRetry = true;
+        this.levelFailed();
     }
 }

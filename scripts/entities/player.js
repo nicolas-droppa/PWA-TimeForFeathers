@@ -1,5 +1,6 @@
 import { Entity } from './_entity.js';
 import { TILE_WIDTH, PIXEL_ART_RATIO, FOX_SIZE, FOX_SPEED} from '../_constants/_constants.js';
+import { startGame } from '../app/app.js';
 
 export class Player extends Entity {
     constructor(x, y, canvas, levelDataUrl, currentLevel) {
@@ -12,6 +13,8 @@ export class Player extends Entity {
             ArrowDown: false,
             ArrowLeft: false,
             ArrowRight: false,
+            R: false,
+            r: false,
         };
         this.initEventListeners();
 
@@ -22,6 +25,8 @@ export class Player extends Entity {
         this.dead = false;
 
         this.pickedUpBoots = false;
+
+        this.onRetry = null;
     }
 
     async loadLevelData(url, currentLevel) {
@@ -46,6 +51,11 @@ export class Player extends Entity {
         window.addEventListener('keydown', (e) => {
             if (e.key in this.keys) {
                 this.keys[e.key] = true;
+            }
+
+            if (e.key == 'R' || e.key == 'r' && typeof this.onRetry == 'function') {
+                console.log('R key pressed');
+                this.onRetry();
             }
         });
 
