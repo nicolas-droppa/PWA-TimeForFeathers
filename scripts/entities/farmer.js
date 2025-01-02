@@ -288,6 +288,18 @@ export class Farmer extends Entity {
             }
         }
 
+        if (distance > this.detectionRadius && this.state == FARMER_STATE.SHOOTING) {
+            console.log("Confused?");
+            this.state = FARMER_STATE.CONFUSED;
+            this.speed = this.walkingSpeed;
+
+            setTimeout(() => {
+                console.log("Guarding...");
+                this.state = FARMER_STATE.GUARDING;
+                this.stateFlag = false;
+            }, 250);
+        }
+
         if (this.stateFlag) {
             console.log("Confused?");
             this.state = FARMER_STATE.CONFUSED;
