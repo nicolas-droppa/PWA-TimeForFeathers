@@ -245,16 +245,13 @@ export class Dog extends Entity {
     
         const facingDirection = Math.atan2(targetY - this.y, targetX - this.x);
     
-        // Draw the cone for visualization
         this.drawCone(dogCenterX, dogCenterY, this.detectionRadius, this.fovAngle, facingDirection);
     
-        // Check if the player is within the detection radius
         const dx = playerCenterX - dogCenterX;
         const dy = playerCenterY - dogCenterY;
         const distance = Math.sqrt(dx ** 2 + dy ** 2);
     
         if (distance <= this.detectionRadius) {
-            // Check if the player is within the field of view angle
             const angleToPlayer = Math.atan2(dy, dx);
             const deltaAngle = Math.abs(facingDirection - angleToPlayer);
     
@@ -262,7 +259,6 @@ export class Dog extends Entity {
             const normalizedDeltaAngle = Math.min(deltaAngle, Math.abs(2 * Math.PI - deltaAngle));
     
             if (normalizedDeltaAngle <= this.fovAngle / 2) {
-                // Player detected within cone
                 if (!this.stateFlag) {
                     console.log("Alarmed!");
                     this.state = DOG_STATE.ALARMED;
@@ -292,7 +288,7 @@ export class Dog extends Entity {
     }
     
     isPointInTriangle(px, py, [v1, v2, v3]) {
-        /*
+        /**
          * Determines if a point is inside a triangle
          * @param px : X coordinate of the point
          * @param py : Y coordinate of the point
@@ -310,7 +306,7 @@ export class Dog extends Entity {
     }
 
     draw() {
-        /*
+        /**
          * Draws the dog on canvas
          */
         // -1 and +2 to prevent errors of not delelting whole chicken
@@ -322,7 +318,7 @@ export class Dog extends Entity {
     }
 
     update(playerX, playerY, playerSize, deltaTime) {
-        /*
+        /**
          * Parrent class for all the smaller functions regarding dog script
          * @param playerX : ...
          * @param playerY : ...

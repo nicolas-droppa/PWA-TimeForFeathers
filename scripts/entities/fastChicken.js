@@ -12,6 +12,10 @@ export class FastChicken extends Chicken {
     }
 
     logEvent(timer) {
+        /**
+         * Logs event in case of chicken beign eaten
+         * @param timer : timer object
+         */
         const [minutes, seconds, milliseconds] = timer.getFormattedTime();
         const eventContainer = document.getElementById('eventTable');
         const eventElement = document.createElement('p');

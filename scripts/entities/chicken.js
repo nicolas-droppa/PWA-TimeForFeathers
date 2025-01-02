@@ -32,7 +32,7 @@ export class Chicken extends Entity {
     }
 
     checkCollision(playerX, playerY, playerSize, timer) {
-        /*
+        /**
          * Check if the player overlaps with the chicken.
          * If so, mark the chicken as "eaten."
          * @paramplayerX : x-position of player
@@ -50,7 +50,7 @@ export class Chicken extends Entity {
     }
 
     logEvent(timer) {
-        /*
+        /**
          * Logs event in case of chicken beign eaten
          * @param timer : timer object
          */
@@ -63,7 +63,7 @@ export class Chicken extends Entity {
     }
 
     draw() {
-        /*
+        /**
          * Draw the chicken if not eaten.
          */
         if (this.eaten) {
@@ -81,7 +81,7 @@ export class Chicken extends Entity {
     }
 
     update(playerX, playerY, playerSize, timer, deltaTime) {
-        /*
+        /**
          * Parrent class for all the smaller functions regarding chicken script
          * @param playerX : ...
          * @param playerY : ...
