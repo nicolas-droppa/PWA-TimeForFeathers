@@ -47,7 +47,7 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
      * Spawns entities based on the fetched level data
      * @param canvases : all the canvases for every needed layer
      * @param levelDataPath : path to levels.json
-     * @returns : all the entities
+     * @returns { objects } : all the entities
      */
     const levelData = await fetchLevelData(levelDataPath);
 

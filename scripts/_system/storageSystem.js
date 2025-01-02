@@ -3,6 +3,7 @@ import { LOCAL_STORAGE_KEY } from "../_constants/_constants.js";
 export function saveCurrentLevel(level) {
     /**
      * Saves current level to local storage
+     * @param { number } level : current level to be saved
      */
     let currentLevel = JSON.stringify(level);
     localStorage.setItem(LOCAL_STORAGE_KEY, currentLevel);

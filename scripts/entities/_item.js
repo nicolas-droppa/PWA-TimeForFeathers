@@ -11,7 +11,7 @@ export class Item {
     }
 
     draw() {
-        /*
+        /**
          * Default displaying of items
          */
         this.ctx.clearRect(this.x, this.y, this.size, this.size);

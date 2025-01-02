@@ -15,7 +15,7 @@ export class Entity {
     }
 
     updatePosition(deltaTime, targetX = null, targetY = null) {
-        /*
+        /**
          * Updates position of an entity
          * @param deltaTime : value for movement normalization
          * @param targetX : x-pos coord of where to move
@@ -40,7 +40,7 @@ export class Entity {
     }
 
     draw() {
-        /*
+        /**
          * Default displaying of animals
          */
         // -1 and +2 to prevent errors of not delelting whole image

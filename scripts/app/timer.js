@@ -5,9 +5,9 @@ export class Timer {
     }
 
     getFormattedTime() {
-        /*
+        /**
          * Calculate and return the formatted time
-         * @returns : minutes, seconds, miliseconds
+         * @returns { array } : minutes, seconds, miliseconds
          */
         this.elapsedTime = Date.now() - this.startTime;
 
@@ -19,7 +19,7 @@ export class Timer {
     }
 
     display(container) {
-        /*
+        /**
          * Display the time in its container
          * @param container : container holding time
          */
