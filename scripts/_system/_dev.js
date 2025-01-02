@@ -19,4 +19,4 @@ export const AUTO_NEXT_LEVEL = false;
  * -1 -> default behavior
  * <0; inf> -> game will start on this level
  */
-export const STARTING_LEVEL = 3;
+export const STARTING_LEVEL = -1;

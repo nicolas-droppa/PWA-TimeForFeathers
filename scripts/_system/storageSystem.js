@@ -1,10 +1,10 @@
 import { LOCAL_STORAGE_KEY } from "../_constants/_constants.js";
 
-export function saveCurrentLevel() {
+export function saveCurrentLevel(level) {
     /*
      * Saves current level to local storage
      */
-    let currentLevel = JSON.stringify(1);
+    let currentLevel = JSON.stringify(level);
     localStorage.setItem(LOCAL_STORAGE_KEY, currentLevel);
 }
 

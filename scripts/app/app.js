@@ -3,7 +3,6 @@ import { loadTiles } from '../rendering/tileRenderer.js';
 import { initializeCanvases, loadEntities } from './entitySpawner.js';
 import { DeltaTime } from './deltaTime.js';
 import { GameManager } from './gameManager.js';
-import { getCurrentLevel, resetGameData } from '../_system/storageSystem.js';
 
 const gameManager = new GameManager({
     gameContainerId: 'gameContainer',
@@ -12,7 +11,7 @@ const gameManager = new GameManager({
 });
 
 window.onload = () => {
-    resetGameData();
+    //resetGameData();
     gameManager.initialize();
 };
 
