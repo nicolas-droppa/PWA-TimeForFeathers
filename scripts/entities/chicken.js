@@ -16,6 +16,10 @@ export class Chicken extends Entity {
     }
 
     updatePosition(deltaTime) {
+        /**
+         * Updates position of a chicken
+         * @param deltaTime : value for movement normalization
+         */
         if (this.eaten || !this.path.length) return;
 
         const [targetX, targetY] = this.path[this.currentTargetIndex];

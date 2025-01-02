@@ -119,24 +119,31 @@ export class Farmer extends Entity {
          * @param direction : direction in radians
          */
         //const bullet = new Bullet(this.x, this.y, direction, this.bulletSpeed, this.canvas);
-        const bullet = new Bullet(this.x, this.y, direction, this.bulletSpeed, this.bulletCanvas);
+        if (this.activeBullets >= 3) return;
+
+        const bullet = new Bullet(this.x, this.y, direction, this.bulletSpeed, this.canvas);
         this.bullets.push(bullet);
+        this.activeBullets++;
+
+        bullet.onDestroy = () => {
+            this.activeBullets--;
+        };
     }
 
     updatePosition(deltaTime, playerX, playerY, playerSize) {
         /**
          * Updates position of a farmer
          * @param deltaTime : value for movement normalization
+         * @param playerX : x-coord position of player
+         * @param playerY : y-coord position of plyer
+         * @param playerSize : size of player in pixels
          */
-        if (this.state == FARMER_STATE.ALARMED || this.state == FARMER_STATE.CONFUSED)
-            return;
-        
+        if (this.state == FARMER_STATE.ALARMED || this.state == FARMER_STATE.CONFUSED) return;
+
         if (this.state == FARMER_STATE.SHOOTING) {
             const currentTime = Date.now();
 
-            // Check if enough time has passed since the last shot
             if (currentTime - this.lastShotTime >= this.shootInterval) {
-                // Calculate the direction to shoot at the player
                 const centerX = this.x + this.size / 2;
                 const centerY = this.y + this.size / 2;
                 const playerCenterX = playerX + playerSize / 2;
@@ -144,18 +151,16 @@ export class Farmer extends Entity {
 
                 const direction = Math.atan2(playerCenterY - centerY, playerCenterX - centerX);
 
-                // Shoot in the calculated direction
                 this.shoot(direction);
-                this.shoot(direction-0.15);
-                this.shoot(direction+0.15);
+                this.shoot(direction - 0.15);
+                this.shoot(direction + 0.15);
 
                 this.lastShotTime = currentTime;
             }
             return;
         }
-        
-        const [targetX, targetY] = this.path[this.currentTargetIndex];
 
+        const [targetX, targetY] = this.path[this.currentTargetIndex];
         super.updatePosition(deltaTime, targetX, targetY);
 
         const distance = Math.sqrt((targetX - this.x) ** 2 + (targetY - this.y) ** 2);
@@ -244,42 +249,36 @@ export class Farmer extends Entity {
         const farmerCenterY = this.y + this.size / 2;
         const playerCenterX = playerX + playerSize / 2;
         const playerCenterY = playerY + playerSize / 2;
-    
+
         let targetX, targetY;
-    
+
         if (this.state == FARMER_STATE.SHOOTING) {
             targetX = parseInt(playerX);
             targetY = parseInt(playerY);
         } else {
             [targetX, targetY] = this.path[this.currentTargetIndex];
         }
-    
+
         const facingDirection = Math.atan2(targetY - this.y, targetX - this.x);
-    
-        // Draw the cone for visualization
+
         this.drawCone(farmerCenterX, farmerCenterY, this.detectionRadius, this.fovAngle, facingDirection);
-    
-        // Check if the player is within the detection radius
+
         const dx = playerCenterX - farmerCenterX;
         const dy = playerCenterY - farmerCenterY;
         const distance = Math.sqrt(dx ** 2 + dy ** 2);
-    
+
         if (distance <= this.detectionRadius) {
-            // Check if the player is within the field of view angle
             const angleToPlayer = Math.atan2(dy, dx);
             const deltaAngle = Math.abs(facingDirection - angleToPlayer);
-    
-            // Normalize angles to account for edge cases at 0/2π
             const normalizedDeltaAngle = Math.min(deltaAngle, Math.abs(2 * Math.PI - deltaAngle));
-    
+
             if (normalizedDeltaAngle <= this.fovAngle / 2) {
-                // Player detected within cone
                 if (!this.stateFlag) {
                     console.log("Alarmed!");
                     this.state = FARMER_STATE.ALARMED;
-                    this.speed = this.shootingSpeedSpeed;
+                    this.speed = this.shootingSpeed;
                     this.stateFlag = true;
-    
+
                     setTimeout(() => {
                         console.log("Shooting!");
                         this.state = FARMER_STATE.SHOOTING;
@@ -288,12 +287,12 @@ export class Farmer extends Entity {
                 return;
             }
         }
-    
+
         if (this.stateFlag) {
             console.log("Confused?");
             this.state = FARMER_STATE.CONFUSED;
             this.speed = this.walkingSpeed;
-    
+
             setTimeout(() => {
                 console.log("Guarding...");
                 this.state = FARMER_STATE.GUARDING;
@@ -324,7 +323,7 @@ export class Farmer extends Entity {
         /**
          * Draws the farmer on canvas
          */
-        // -1 and +2 to prevent errors of not delelting whole chicken
+        // -1 and +2 to prevent errors of not delelting whole farmer
         this.ctx.clearRect(this.prevX - 1, this.prevY - 1, this.size + 2, this.size + 2);
         this.ctx.fillStyle = 'red';
         this.ctx.fillRect(this.x, this.y, this.size, this.size);
