@@ -3,7 +3,7 @@
  * dependant_on -> none
  * true -> skips menus
  */
-export const SKIP_MENU = true;
+export const SKIP_MENU = false;
 
 /* = = = AUTO_NEXT_LEVEL = = =
  * Variable responsible for automatically starting next levels
@@ -19,4 +19,4 @@ export const AUTO_NEXT_LEVEL = false;
  * -1 -> default behavior
  * <0; inf> -> game will start on this level
  */
-export const STARTING_LEVEL = -1;
+export const STARTING_LEVEL = 3;

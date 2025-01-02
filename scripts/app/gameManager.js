@@ -1,6 +1,7 @@
 import { startGame } from './app.js';
 import { SKIP_MENU, AUTO_NEXT_LEVEL, STARTING_LEVEL } from '../_system/_dev.js';
 import { getCurrentLevel, getLevelCount, saveCurrentLevel } from '../_system/storageSystem.js';
+import { hideFadeOverlay, showFadeOverlay } from '../_system/utils.js';
 
 export class GameManager {
     constructor({ gameContainerId, menuId, eventTableId }) {
@@ -150,6 +151,7 @@ export class GameManager {
             return;
 
         this.isLevelCompleted = true;
+
         this.prepareMenuEnvironment();
         this.showMenu('levelCompleted');
         this.setupLevelCompletedListeners();
@@ -163,9 +165,15 @@ export class GameManager {
             return;
 
         this.isLevelCompleted = true;
-        this.prepareMenuEnvironment();
-        this.showMenu('levelFailed');
-        this.setupLevelFailedListeners();
+
+        showFadeOverlay();
+
+        setTimeout(() => {
+            this.prepareMenuEnvironment();
+            this.showMenu('levelFailed');
+            this.setupLevelFailedListeners();
+            hideFadeOverlay();
+        }, 1100);
     }
 
     clearEventTable() {
