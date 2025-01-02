@@ -143,6 +143,31 @@ export class Player extends Entity {
         });
     }
 
+    checkBulletCollision({ farmers }, timer) {
+        /**
+         * Check if the player collides with any bullet from farmers.
+         * If so, mark the player as "dead".
+         * @param { farmers } : Array of farmer objects
+         * @param timer : Timer object
+         */
+        farmers.forEach((farmer) => {
+            farmer.bullets.forEach((bullet) => {
+                const bulletX = bullet.x;
+                const bulletY = bullet.y;
+                const bulletSize = bullet.size;
+                
+                // Check if the player overlaps with the bullet
+                const overlapX = bulletX < this.x + this.size && bulletX + bulletSize > this.x;
+                const overlapY = bulletY < this.y + this.size && bulletY + bulletSize > this.y;
+    
+                if (overlapX && overlapY) {
+                    this.dead = true;
+                    this.logEvent(timer);
+                }
+            });
+        });
+    }
+
     checkPickedUpBoots({ boots }) {
         /**
          * Check if the player picked-up items.
@@ -170,13 +195,14 @@ export class Player extends Entity {
         eventContainer.appendChild(eventElement);
     }
 
-    update({ dogs }, { boots }, timer, deltaTime) {
+    update({ dogs }, { farmers }, { boots }, timer, deltaTime) {
         /**
          * Parrent class for all the smaller functions regarding player script
          * @param deltaTime : value used to normalize movement speed
          */
         this.updatePosition(deltaTime);
         this.checkCollision({ dogs }, timer);
+        this.checkBulletCollision({ farmers }, timer);
         if (!this.pickedUpBoots)
             this.checkPickedUpBoots({ boots });
         this.draw();

@@ -45,7 +45,7 @@ export async function startGame() {
 
         timer.display(timeContainer);
         
-        player.update({ dogs }, { boots }, timer, deltaTime);
+        player.update({ dogs }, { farmers }, { boots }, timer, deltaTime);
 
         chickens.forEach((chicken) => {
             if (!chicken.eaten) 
