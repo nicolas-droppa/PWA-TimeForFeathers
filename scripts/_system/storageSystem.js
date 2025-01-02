@@ -1,7 +1,7 @@
 import { LOCAL_STORAGE_KEY } from "../_constants/_constants.js";
 
 export function saveCurrentLevel(level) {
-    /*
+    /**
      * Saves current level to local storage
      */
     let currentLevel = JSON.stringify(level);
@@ -9,7 +9,7 @@ export function saveCurrentLevel(level) {
 }
 
 export function getCurrentLevel() {
-    /*
+    /**
      * Returns current level from local storage
      */
     let currentLevel = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || 0);
@@ -17,14 +17,14 @@ export function getCurrentLevel() {
 }
 
 export function resetGameData() {
-    /*
+    /**
      * Resets local storage
      */
     localStorage.removeItem(LOCAL_STORAGE_KEY);
 }
 
 export async function getLevelCount(url) {
-    /*
+    /**
      * Returns how many levels are there
      * @param url : url to fetched data
      */

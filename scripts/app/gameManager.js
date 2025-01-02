@@ -13,7 +13,7 @@ export class GameManager {
     }
 
     initialize() {
-        /*
+        /**
          * initialize game and skips menu based on dev file
          */
         if (STARTING_LEVEL != -1)
@@ -31,7 +31,7 @@ export class GameManager {
     }
 
     showMenu(menuId) {
-        /*
+        /**
          * Shows menu
          * @param menuId : id of menu
          */
@@ -44,7 +44,7 @@ export class GameManager {
     }
 
     hideAllMenus() {
-        /*
+        /**
          * Hiding all menu types
          */
         const menus = this.menuContainer.querySelectorAll('.menu-screen');
@@ -58,7 +58,7 @@ export class GameManager {
     }
 
     prepareGameEnvironment() {
-        /*
+        /**
          * Shows game container and hides menu container
          */
         this.gameContainer.style.display = 'block';
@@ -68,7 +68,7 @@ export class GameManager {
     }
 
     prepareMenuEnvironment() {
-        /*
+        /**
          * Shows menu container and hides game container
          */
         this.gameContainer.style.display = 'none';
@@ -76,7 +76,7 @@ export class GameManager {
     }
 
     setupMenuListeners() {
-        /*
+        /**
          * Prepares buttons for main menu and their listeners
          */
         const startButton = document.getElementById('startButton');
@@ -96,7 +96,7 @@ export class GameManager {
     }
 
     async setupLevelCompletedListeners() {
-        /*
+        /**
          * Prepares buttons for completed level menu and their listeners
          */
         const levelCount = await getLevelCount('../../assets/levels/levels.json');
@@ -126,7 +126,7 @@ export class GameManager {
     }
 
     async setupLevelFailedListeners() {
-        /*
+        /**
          * Prepares buttons for failed level menu and their listeners
          */
         const retryButton = document.getElementById('tryAgainButton');
@@ -143,7 +143,7 @@ export class GameManager {
     }
 
     levelCompleted() {
-        /*
+        /**
          * Handling level completion
          */
         if (this.isLevelCompleted)
@@ -156,7 +156,7 @@ export class GameManager {
     }
 
     levelFailed() {
-        /*
+        /**
          * Handling level failure
          */
         if (this.isLevelCompleted)
@@ -169,7 +169,7 @@ export class GameManager {
     }
 
     clearEventTable() {
-        /*
+        /**
          * Clears eventTable from previous logs
          */
         while (this.eventTable.firstChild) {
@@ -178,7 +178,7 @@ export class GameManager {
     }
 
     displayCurrentLevel() {
-        /*
+        /**
          * Displays current level number in specified container
          */
         const levelContainer = document.getElementById('level-id');

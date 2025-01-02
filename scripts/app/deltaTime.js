@@ -1,5 +1,5 @@
 export class DeltaTime {
-    /*
+    /**
      * Making sure that movement speed of entities is not based on hardware but rather dependent on time (still not perfect)
      * @returns : time difference in seconds
      */
