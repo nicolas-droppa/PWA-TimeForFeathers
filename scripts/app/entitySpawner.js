@@ -6,6 +6,7 @@ import { Dog } from '../entities/dog.js';
 import { Farmer } from '../entities/farmer.js';
 import { Timer } from './timer.js';
 import { Boots } from '../entities/boots.js';
+import { Portal } from '../entities/portals.js';
 
 export function initializeCanvases(canvasIds) {
     /**
@@ -116,7 +117,17 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
         );
     });
 
+    const portals = level.portals.map(portalConfig =>
+        new Portal(
+            portalConfig.entryX,
+            portalConfig.entryY,
+            portalConfig.exitX,
+            portalConfig.exitY,
+            canvases.itemLayer
+        )
+    );
+
     const timer = new Timer();
 
-    return { player, chickens, fastChickens, dogs, farmers, boots, timer };
+    return { player, chickens, fastChickens, dogs, farmers, boots, portals, timer };
 }
