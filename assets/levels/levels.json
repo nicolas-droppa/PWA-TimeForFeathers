@@ -281,7 +281,10 @@
             ],
             "portals": [
                 {
-
+                    "entryX": 4,
+                    "entryY": 5,
+                    "exitX": 2,
+                    "exitY": 3
                 }
             ]
         }
