@@ -8,6 +8,9 @@ export class Farmer extends Entity {
             col * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - FARMER_SIZE) / 2,
             row * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - FARMER_SIZE) / 2
         ]);
+        this.imageRight.src = '../assets/images/farmer_right.png';
+        this.imageLeft.src = '../assets/images/farmer_left.png';
+        
         this.currentTargetIndex = 0;
         this.reachedTarget = true;
         this.state = FARMER_STATE.GUARDING;
@@ -337,8 +340,8 @@ export class Farmer extends Entity {
          */
         // -1 and +2 to prevent errors of not delelting whole farmer
         this.ctx.clearRect(this.prevX - 1, this.prevY - 1, this.size + 2, this.size + 2);
-        this.ctx.fillStyle = 'red';
-        this.ctx.fillRect(this.x, this.y, this.size, this.size);
+        const image = this.x < this.prevX ? this.imageLeft: this.imageRight;
+        this.ctx.drawImage(image, this.x, this.y, this.size, this.size);
         this.prevX = this.x;
         this.prevY = this.y;
     }
