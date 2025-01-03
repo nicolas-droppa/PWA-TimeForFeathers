@@ -10,6 +10,7 @@ export class Dog extends Entity {
         ]);
         this.imageLeft.src = '../assets/images/dog_left.png';
         this.imageRight.src = '../assets/images/dog_right.png';
+        
         this.currentTargetIndex = 0;
         this.reachedTarget = true;
         this.state = DOG_STATE.GUARDING;
