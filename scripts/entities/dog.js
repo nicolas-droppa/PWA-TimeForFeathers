@@ -8,6 +8,8 @@ export class Dog extends Entity {
             col * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - DOG_SIZE) / 2,
             row * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - DOG_SIZE) / 2
         ]);
+        this.imageLeft.src = '../assets/images/dog_left.png';
+        this.imageRight.src = '../assets/images/dog_right.png';
         this.currentTargetIndex = 0;
         this.reachedTarget = true;
         this.state = DOG_STATE.GUARDING;
@@ -311,8 +313,8 @@ export class Dog extends Entity {
          */
         // -1 and +2 to prevent errors of not delelting whole chicken
         this.ctx.clearRect(this.prevX - 1, this.prevY - 1, this.size + 2, this.size + 2);
-        this.ctx.fillStyle = 'blue';
-        this.ctx.fillRect(this.x, this.y, this.size, this.size);
+       const image = this.x < this.prevX ? this.imageLeft: this.imageRight;
+        this.ctx.drawImage(image, this.x, this.y, this.size, this.size);
         this.prevX = this.x;
         this.prevY = this.y;
     }
