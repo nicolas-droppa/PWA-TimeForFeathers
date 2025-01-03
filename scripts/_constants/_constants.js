@@ -48,3 +48,6 @@ export const SHOOTING_INTERVAL = 1000;
 
 // Entities / Boots
 export const BOOTS_SIZE = 32;
+
+// Entities / Portals
+export const PORTALS_SIZE = 64
