@@ -148,6 +148,8 @@ h4 {
     text-transform: uppercase;
     cursor: pointer;
     border: none;
+    display: flex;
+    justify-content: flex-start;
     color: var(--text-color);
     background-color: transparent;
     text-shadow: -4px 4px 3px var(--text-dark-color);
@@ -176,4 +178,48 @@ h4 {
     z-index: 500;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
+}
+
+.level-completed-panel {
+    display: flex;
+    flex-direction: row;
+}
+
+.left-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-panel {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;   
+}
+
+.current-time {
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    margin-right: .1rem;
+}
+
+.best-time {
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.current-time .title,
+.best-time .title {
+    padding: 1rem;
+    margin-bottom: .1rem;
+    font-size: 2rem;
+    background-color: rgba(28, 28, 28, 0.362);
+}
+
+.current-time .item, 
+.best-time .item {
+    padding: 1rem;
+    font-size: 3rem;
+    background-color: rgba(28, 28, 28, 0.362);
 }
