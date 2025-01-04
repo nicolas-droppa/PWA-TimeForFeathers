@@ -23,8 +23,6 @@ export class GameManager {
         else
             this.currentLevel = getCurrentLevel();
 
-        console.log(this.currentLevel);
-
         if (SKIP_MENU)
             this.startGame(() => startGame());
         

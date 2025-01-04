@@ -3,6 +3,7 @@ import { loadTiles } from '../rendering/tileRenderer.js';
 import { initializeCanvases, loadEntities } from './entitySpawner.js';
 import { DeltaTime } from './deltaTime.js';
 import { GameManager } from './gameManager.js';
+import { LEVEL_COMPLETED } from '../_system/_dev.js';
 
 const gameManager = new GameManager({
     gameContainerId: 'gameContainer',
@@ -78,7 +79,7 @@ export async function startGame() {
         
         portals.forEach(portal => portal.update(player));
 
-        if (chickens.every(chicken => chicken.eaten) && fastChickens.every(fastChicken => fastChicken.eaten)) {
+        if (chickens.every(chicken => chicken.eaten) && fastChickens.every(fastChicken => fastChicken.eaten) || LEVEL_COMPLETED) {
             gameManager.levelCompleted();   
             return;
         }

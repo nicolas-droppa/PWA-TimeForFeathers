@@ -20,3 +20,11 @@ export const AUTO_NEXT_LEVEL = false;
  * <0; inf> -> game will start on this level
  */
 export const STARTING_LEVEL = 3;
+
+/* = = = LEVEL_COMPLETED = = =
+ * Variable responsible for starting level as it was already completed
+ * dependant_on -> none
+ * false -> play level normally
+ * true -> level is completed
+ */
+export const LEVEL_COMPLETED = true;
