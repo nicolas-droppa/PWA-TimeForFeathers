@@ -27,4 +27,4 @@ export const STARTING_LEVEL = 3;
  * false -> play level normally
  * true -> level is completed
  */
-export const LEVEL_COMPLETED = true;
+export const LEVEL_COMPLETED = false;

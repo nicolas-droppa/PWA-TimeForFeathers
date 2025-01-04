@@ -141,7 +141,7 @@ export class GameManager {
         });
     }
 
-    levelCompleted() {
+    levelCompleted(timer) {
         /**
          * Handling level completion
          */
@@ -152,7 +152,15 @@ export class GameManager {
 
         this.prepareMenuEnvironment();
         this.showMenu('levelCompleted');
+        this.displayCurrentTime(timer);
         this.setupLevelCompletedListeners();
+    }
+
+    displayCurrentTime(timer) {
+        const currentTimeContainer = document.getElementById('currentTimeItem');
+        const [minutes,seconds,milliseconds] = timer.getFormattedTime();
+        const time = (minutes < 10 ? '0' + minutes : minutes) + ":" + (seconds < 10 ? '0' + seconds : seconds) + "." + (milliseconds < 10 ? '0' + milliseconds : milliseconds);
+        currentTimeContainer.innerHTML = '<img src="assets/images/clock.png" alt="time" width="32" height="32"> ' + time;
     }
 
     levelFailed() {

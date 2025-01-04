@@ -80,7 +80,7 @@ export async function startGame() {
         portals.forEach(portal => portal.update(player));
 
         if (chickens.every(chicken => chicken.eaten) && fastChickens.every(fastChicken => fastChicken.eaten) || LEVEL_COMPLETED) {
-            gameManager.levelCompleted();   
+            gameManager.levelCompleted(timer);   
             return;
         }
 
