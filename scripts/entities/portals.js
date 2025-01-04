@@ -6,19 +6,18 @@ export class Portal extends Item {
         super(entryX, entryY, PORTALS_SIZE, canvas);
         this.exit = { x: exitX, y: exitY };
 
-        // Load images for the portal
         this.imageEntry = new Image();
-        this.imageEntry.src = '../assets/images/treePortalBlue.png'; // Entry portal image
+        this.imageEntry.src = '../assets/images/treePortalBlue.png';
 
         this.imageExit = new Image();
-        this.imageExit.src = '../assets/images/treePortalPurple.png'; // Exit portal image
+        this.imageExit.src = '../assets/images/treePortalPurple.png';
     }
 
     checkCollision(player) {
         /**
          * Detects if the player overlaps with the portal entry.
-         * @param player : player object
-         * @returns {object|null} : exit coordinates or null
+         * @param { object } player : player object
+         * @returns { object|null } : exit coordinates or null
          */
         const overlapX = player.x < this.x + this.size && player.x + player.size > this.x;
         const overlapY = player.y < this.y + this.size && player.y + player.size > this.y;
@@ -40,7 +39,7 @@ export class Portal extends Item {
     update(player) {
         /**
          * Updates portal logic: checks collision and teleports the player.
-         * @param player : player object
+         * @param { number } player : player object
          */
         const exit = this.checkCollision(player);
         if (exit) {

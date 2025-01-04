@@ -111,9 +111,9 @@ export class Dog extends Entity {
     }
 
     updatePosition(deltaTime, playerX, playerY, playerSize) {
-        /*
+        /**
          * Updates position of a dog
-         * @param deltaTime : value for movement normalization
+         * @param { number } deltaTime : value for movement normalization
          */
         if (this.state == DOG_STATE.ALARMED || this.state == DOG_STATE.CONFUSED)
             return;
@@ -157,13 +157,13 @@ export class Dog extends Entity {
     }
 
     drawCone(centerX, centerY, detectionRadius, angle, facingDirection) {
-        /*
+        /**
          * Draws a cone-shaped field of view (FOV) for the dog
-         * @param centerX : X-coordinate of the dog's center
-         * @param centerY : Y-coordinate of the dog's center
-         * @param detectionRadius : The radius of the cone
-         * @param angle : The FOV angle in radians
-         * @param facingDirection : The direction the dog is facing (in radians)
+         * @param { number } centerX : X-coordinate of the dog's center
+         * @param { number } centerY : Y-coordinate of the dog's center
+         * @param { number } detectionRadius : The radius of the cone
+         * @param { number } angle : The FOV angle in radians
+         * @param { number } facingDirection : The direction the dog is facing (in radians)
          */
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     
@@ -182,14 +182,14 @@ export class Dog extends Entity {
     }
 
     isPathClear(startX, startY, endX, endY) {
-        /*
+        /**
          * Checks if there are any obstacles (non-zero tiles) along a straight line between two points
-         * @param startX : Starting X position (tile coordinates)
-         * @param startY : Starting Y position (tile coordinates)
-         * @param endX : Ending X position (tile coordinates)
-         * @param endY : Ending Y position (tile coordinates)
-         * @param tileMap : 2D array representing the map (0 = free, 1 = obstacle)
-         * @return : true if path is clear, false otherwise
+         * @param { number } startX : Starting X position (tile coordinates)
+         * @param { number } startY : Starting Y position (tile coordinates)
+         * @param { number } endX : Ending X position (tile coordinates)
+         * @param { number } endY : Ending Y position (tile coordinates)
+         * @param { array } tileMap : 2D array representing the map (0 = free, 1 = obstacle)
+         * @return { boolean } : true if path is clear, false otherwise
          */
         startX = parseInt(startX / TILE_WIDTH / PIXEL_ART_RATIO);
         startY = parseInt(startY / TILE_WIDTH / PIXEL_ART_RATIO);
@@ -226,11 +226,11 @@ export class Dog extends Entity {
     }
 
     checkForPlayerInSight(playerX, playerY, playerSize) {
-        /*
+        /**
          * Checks if the player is within the dog's cone-shaped field of view
-         * @param playerX : X position of the player
-         * @param playerY : Y position of the player
-         * @param playerSize : Size of the player
+         * @param { number } playerX : X position of the player
+         * @param { number } playerY : Y position of the player
+         * @param { number } playerSize : Size of the player
          */
         const dogCenterX = this.x + this.size / 2;
         const dogCenterY = this.y + this.size / 2;
@@ -293,8 +293,8 @@ export class Dog extends Entity {
     isPointInTriangle(px, py, [v1, v2, v3]) {
         /**
          * Determines if a point is inside a triangle
-         * @param px : X coordinate of the point
-         * @param py : Y coordinate of the point
+         * @param { number } px : X coordinate of the point
+         * @param { number } py : Y coordinate of the point
          * @param [v1, v2, v3] : Array of triangle vertices
          */
         const area = (v1, v2, v3) =>
@@ -314,7 +314,7 @@ export class Dog extends Entity {
          */
         // -1 and +2 to prevent errors of not delelting whole chicken
         this.ctx.clearRect(this.prevX - 1, this.prevY - 1, this.size + 2, this.size + 2);
-       const image = this.x < this.prevX ? this.imageLeft: this.imageRight;
+        const image = this.x < this.prevX ? this.imageLeft: this.imageRight;
         this.ctx.drawImage(image, this.x, this.y, this.size, this.size);
         this.prevX = this.x;
         this.prevY = this.y;

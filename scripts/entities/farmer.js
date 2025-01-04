@@ -119,7 +119,7 @@ export class Farmer extends Entity {
     shoot(direction) {
         /**
          * Farmer shoots bullet in that direction.
-         * @param direction : direction in radians
+         * @param { number } direction : direction in radians
          */
         //const bullet = new Bullet(this.x, this.y, direction, this.bulletSpeed, this.canvas);
         if (this.activeBullets >= 3) return;
@@ -136,10 +136,10 @@ export class Farmer extends Entity {
     updatePosition(deltaTime, playerX, playerY, playerSize) {
         /**
          * Updates position of a farmer
-         * @param deltaTime : value for movement normalization
-         * @param playerX : x-coord position of player
-         * @param playerY : y-coord position of plyer
-         * @param playerSize : size of player in pixels
+         * @param { number } deltaTime : value for movement normalization
+         * @param { number } playerX : x-coord position of player
+         * @param { number } playerY : y-coord position of plyer
+         * @param { number } playerSize : size of player in pixels
          */
         if (this.state == FARMER_STATE.ALARMED || this.state == FARMER_STATE.CONFUSED) return;
 
