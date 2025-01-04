@@ -182,7 +182,7 @@ h4 {
 
 .level-completed-panel {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .left-panel {
