@@ -54,7 +54,6 @@ export class Player extends Entity {
             }
 
             if (e.key == 'R' || e.key == 'r' && typeof this.onRetry == 'function') {
-                console.log('R key pressed');
                 this.onRetry();
             }
         });

@@ -118,7 +118,6 @@ export class GameManager {
         document.getElementById('nextButton').addEventListener('click', () => {
             this.currentLevel = this.currentLevel + 1 < levelCount ? this.currentLevel + 1 : 0;
             saveCurrentLevel(this.currentLevel);
-            console.log(this.currentLevel);
             this.startGame(() => startGame());
         });
     
