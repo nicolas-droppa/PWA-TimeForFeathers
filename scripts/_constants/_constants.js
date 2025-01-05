@@ -51,3 +51,6 @@ export const BOOTS_SIZE = 32;
 
 // Entities / Portals
 export const PORTALS_SIZE = 64
+
+// Entities / Decorations
+export const DECORATIONS_SIZE = 64
