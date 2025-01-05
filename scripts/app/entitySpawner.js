@@ -7,6 +7,7 @@ import { Farmer } from '../entities/farmer.js';
 import { Timer } from './timer.js';
 import { Boots } from '../entities/boots.js';
 import { Portal } from '../entities/portals.js';
+import { Decoration} from "../entities/decoration";
 
 export function initializeCanvases(canvasIds) {
     /**
@@ -127,7 +128,16 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
         )
     );
 
+    const decorations = level.decorations.map(decoConfig =>
+        new Decoration(
+            decoConfig.x,
+            decoConfig.y,
+            canvases.gameCanvas,
+            decoConfig.image
+        )
+    );
+
     const timer = new Timer();
 
-    return { player, chickens, fastChickens, dogs, farmers, boots, portals, timer };
+    return { player, chickens, fastChickens, dogs, farmers, boots, portals, decorations, timer };
 }
