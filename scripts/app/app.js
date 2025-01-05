@@ -47,7 +47,7 @@ export async function startGame() {
         gameLoop(entities, timeContainer, deltaTimeCalculator);
     };
 
-    function gameLoop({ player, chickens, fastChickens, dogs, farmers, boots, portals, timer }, timeContainer, deltaTimeCalculator) {
+    function gameLoop({ player, chickens, fastChickens, dogs, farmers, boots, portals, decorations, timer }, timeContainer, deltaTimeCalculator) {
         const deltaTime = deltaTimeCalculator.getDeltaTime();
 
         timer.display(timeContainer);
@@ -79,6 +79,10 @@ export async function startGame() {
         
         portals.forEach(portal => portal.update(player));
 
+          decorations.forEach((deco) => {
+            deco.draw();
+        });
+
         if (chickens.every(chicken => chicken.eaten) && fastChickens.every(fastChicken => fastChicken.eaten) || LEVEL_COMPLETED) {
             gameManager.levelCompleted(timer);   
             return;
@@ -89,6 +93,6 @@ export async function startGame() {
             return;
         }
 
-        animationFrameId = requestAnimationFrame(() => gameLoop({ player, chickens, fastChickens, dogs, farmers, boots, portals, timer }, timeContainer, deltaTimeCalculator));
+        animationFrameId = requestAnimationFrame(() => gameLoop({ player, chickens, fastChickens, dogs, farmers, boots, portals, decorations, timer }, timeContainer, deltaTimeCalculator));
     }
 }
