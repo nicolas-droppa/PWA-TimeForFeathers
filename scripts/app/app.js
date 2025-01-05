@@ -79,7 +79,7 @@ export async function startGame() {
         
         portals.forEach(portal => portal.update(player));
 
-          decorations.forEach((deco) => {
+        decorations.forEach((deco) => {
             deco.draw();
         });
 

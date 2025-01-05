@@ -1,5 +1,5 @@
 import { Item } from './_item.js';
-import { DECORATIONS_SIZE } from "../_constants/_constants";
+import { DECORATIONS_SIZE } from "../_constants/_constants.js";
 
 export class Decoration extends Item {
     constructor(x, y, canvas, imageSrc) {

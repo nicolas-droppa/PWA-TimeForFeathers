@@ -7,7 +7,7 @@ import { Farmer } from '../entities/farmer.js';
 import { Timer } from './timer.js';
 import { Boots } from '../entities/boots.js';
 import { Portal } from '../entities/portals.js';
-import { Decoration} from "../entities/decoration";
+import { Decoration} from "../entities/decoration.js";
 
 export function initializeCanvases(canvasIds) {
     /**
