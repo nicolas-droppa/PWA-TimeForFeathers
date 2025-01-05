@@ -46,3 +46,11 @@ export function getBasePath() {
     : ''; 
     return basePath;
 }
+
+export function isMobileDevice() {
+    return /Mobi|Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
+}
+
+export function hasGyroscopeSupport() {
+    return 'DeviceOrientationEvent' in window;
+}

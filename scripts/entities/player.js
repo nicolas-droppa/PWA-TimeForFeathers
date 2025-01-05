@@ -1,6 +1,7 @@
 import { Entity } from './_entity.js';
 import { TILE_WIDTH, PIXEL_ART_RATIO, FOX_SIZE, FOX_SPEED} from '../_constants/_constants.js';
 import { startGame } from '../app/app.js';
+import { hasGyroscopeSupport, isMobileDevice } from '../_system/utils.js';
 
 export class Player extends Entity {
     constructor(x, y, canvas, levelDataUrl, currentLevel, basePath) {
@@ -16,7 +17,7 @@ export class Player extends Entity {
             R: false,
             r: false,
         };
-        this.initEventListeners();
+        //this.initEventListeners();
 
         this.tileMap = null;
         this.tileSize = TILE_WIDTH * PIXEL_ART_RATIO;
@@ -27,6 +28,90 @@ export class Player extends Entity {
         this.pickedUpBoots = false;
 
         this.onRetry = null;
+
+        this.useGyroscope = false;
+        this.initializeControls();
+        this.tiltX = 0;
+        this.tiltY = 0;
+    }
+
+    initializeControls() {
+        if (isMobileDevice() && hasGyroscopeSupport()) {
+            this.useGyroscope = true;
+            this.requestGyroscopePermission();
+        } else {
+            this.useGyroscope = false;
+            this.setupKeyboardControls();
+        }
+    }
+
+    requestGyroscopePermission() {
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+            DeviceOrientationEvent.requestPermission().then(response => {
+                if (response === 'granted') {
+                    this.setupGyroscopeControls();
+                } else {
+                    console.error("Gyroscope permission denied");
+                }
+            }).catch((error) => {
+                console.error("Error requesting gyroscope permission", error);
+            });
+        } else {
+            this.setupGyroscopeControls();
+        }
+    }
+
+    setupGyroscopeControls() {
+        window.addEventListener('deviceorientation', (event) => {
+            this.tiltX = event.beta;  // forward/backward (x-axis)
+            this.tiltY = event.gamma; // left/right (y-axis)
+        });
+    }
+
+    updatePositionWithGyroscope(deltaTime) {
+        let x = 0;
+        let y = 0;
+    
+        if (Math.abs(this.tiltY) > movementThreshold) {
+            x = this.tiltY / 90;
+        }
+    
+        if (Math.abs(this.tiltX) > movementThreshold) {
+            y = -this.tiltX / 90;
+        }
+    
+        if (x !== 0 && y !== 0) {
+            const length = Math.sqrt(x ** 2 + y ** 2);
+            x /= length;
+            y /= length;
+        }
+    
+        const newX = this.x + x * this.speed * deltaTime;
+        const newY = this.y + y * this.speed * deltaTime;
+    
+        const horizontalCorners = [
+            [newX, this.y],
+            [newX + this.size, this.y],
+            [newX, this.y + this.size],
+            [newX + this.size, this.y + this.size],
+        ];
+        const canMoveHorizontally = horizontalCorners.every(([cornerX, cornerY]) => this.isWalkable(cornerX, cornerY));
+    
+        if (canMoveHorizontally) {
+            this.x = newX;
+        }
+    
+        const verticalCorners = [
+            [this.x, newY],
+            [this.x + this.size, newY],
+            [this.x, newY + this.size],
+            [this.x + this.size, newY + this.size],
+        ];
+        const canMoveVertically = verticalCorners.every(([cornerX, cornerY]) => this.isWalkable(cornerX, cornerY));
+    
+        if (canMoveVertically) {
+            this.y = newY;
+        }
     }
 
     async loadLevelData(url, currentLevel) {
@@ -47,7 +132,7 @@ export class Player extends Entity {
         }
     }
 
-    initEventListeners() {
+    setupKeyboardControls() {
         window.addEventListener('keydown', (e) => {
             if (e.key in this.keys) {
                 this.keys[e.key] = true;
@@ -78,7 +163,7 @@ export class Player extends Entity {
         return this.tileMap[row]?.[col] == 0;
     }
 
-    updatePosition(deltaTime) {
+    updatePositionWithKeyboard(deltaTime) {
         /**
          * Checks if player can move in direction and moves player
          * @param deltaTime : time diff for movement normalization
@@ -209,7 +294,12 @@ export class Player extends Entity {
          * Parrent class for all the smaller functions regarding player script
          * @param deltaTime : value used to normalize movement speed
          */
-        this.updatePosition(deltaTime);
+        //this.updatePosition(deltaTime);
+        if (this.useGyroscope) {
+            this.updatePositionWithGyroscope(deltaTime);
+        } else {
+            this.updatePositionWithKeyboard(deltaTime);
+        }
         this.checkCollision({ dogs }, timer);
         this.checkBulletCollision({ farmers }, timer);
         if (!this.pickedUpBoots)

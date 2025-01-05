@@ -1,7 +1,5 @@
-import { getBasePath } from "./scripts/_system/utils"
-
 const staticDevTFF = "dev-time-for-feathers-v1"
-const basePath = getBasePath();
+const basePath = self.location.pathname.includes('/');
 const assets = [
     `${basePath}//`,
     `${basePath}/assets/fonts/Pixel.ttf`,
