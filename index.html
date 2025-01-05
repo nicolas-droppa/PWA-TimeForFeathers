@@ -39,6 +39,22 @@
             </div>
         </div>
     </main>
+    <div class="controls">
+        <button id="showInstructions">Zobraziť návod</button>
+    </div>
+
+    <div id="instructions" class="hidden print-friendly">
+        <h2>Popis hry</h2>
+        <p>Vašou úlohou je pochytať všetky sliepky a pritom si dať pozor na strážneho psa, či farmára.</p>
+
+        <h3>Návod</h3>
+        <p>Hra sa ovláda šípkami na klávesnici.</p>
+        <ul>
+            <li>Vyhnite sa strážnemu psovi.</li>
+            <li>Dajte si pozor na farmára.</li>
+            <li>Využívajte portály v stromoch a špeciálne zrýchlovacie topánky.</li>
+        </ul>
+    </div>
     <div id="menu" class="menu">
         <div id="mainMenu" class="menu-screen">
             <h1>Time for Feathers</h1>
@@ -71,6 +87,20 @@
         </div>
     </div>
     <div class="fade-overlay"></div>
+    
+    <script>
+        document.getElementById("showInstructions").addEventListener("click", () => {
+            const instructions = document.getElementById("instructions");
+            if (instructions.classList.contains("hidden")) {
+                instructions.classList.remove("hidden");
+                instructions.style.display = "block";
+            } else {
+                instructions.classList.add("hidden");
+                instructions.style.display = "none";
+            }
+        });
+    </script>
+
     <script type="module" src="./scripts/app/app.js" defer></script>
     <script>
         navigator.serviceWorker.register('./serviceWorker.js')
