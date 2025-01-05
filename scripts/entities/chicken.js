@@ -4,8 +4,8 @@ import { CHICKEN_SIZE, TILE_WIDTH, PIXEL_ART_RATIO, CHICKEN_SPEED } from '../_co
 export class Chicken extends Entity {
     constructor(x, y, canvas, path) {
         super(x, y, CHICKEN_SIZE, CHICKEN_SPEED, canvas, basePath);
-        this.imageLeft.src = '../../assets/images/chicken/chicken_left.png';
-        this.imageRight.src = '../../assets/images/chicken/chicken_right.png';
+        this.imageLeft.src = `${basePath}/assets/images/chicken/chicken_left.png`;
+        this.imageRight.src = `${basePath}/assets/images/chicken/chicken_right.png`;
 
         this.path = path.map(([col, row]) => [
             col * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - CHICKEN_SIZE) / 2,

@@ -3,10 +3,10 @@ import { TILE_WIDTH, PIXEL_ART_RATIO, FOX_SIZE, FOX_SPEED} from '../_constants/_
 import { startGame } from '../app/app.js';
 
 export class Player extends Entity {
-    constructor(x, y, canvas, levelDataUrl, currentLevel) {
+    constructor(x, y, canvas, levelDataUrl, currentLevel, basePath) {
         super(x, y, FOX_SIZE, FOX_SPEED, canvas);
-        this.imageLeft.src = '../../assets/images/fox/fox_left.png';
-        this.imageRight.src = '../../assets/images/fox/fox_right.png';
+        this.imageLeft.src = `${basePath}/assets/images/fox/fox_left.png`;
+        this.imageRight.src = `${basePath}/assets/images/fox/fox_right.png`;
 
         this.keys = {
             ArrowUp: false,

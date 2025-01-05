@@ -8,8 +8,8 @@ export class Dog extends Entity {
             col * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - DOG_SIZE) / 2,
             row * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - DOG_SIZE) / 2
         ]);
-        this.imageLeft.src = '../assets/images/dog_left.png';
-        this.imageRight.src = '../assets/images/dog_right.png';
+        this.imageLeft.src = `${basePath}/assets/images/dog_left.png`;
+        this.imageRight.src = `${basePath}/assets/images/dog_right.png`;
         
         this.currentTargetIndex = 0;
         this.reachedTarget = true;

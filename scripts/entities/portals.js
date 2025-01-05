@@ -2,15 +2,15 @@ import { Item } from './_item.js';
 import { PORTALS_SIZE } from '../_constants/_constants.js';
 
 export class Portal extends Item {
-    constructor(entryX, entryY, exitX, exitY, canvas) {
+    constructor(entryX, entryY, exitX, exitY, canvas, basePath) {
         super(entryX, entryY, PORTALS_SIZE, canvas);
         this.exit = { x: exitX, y: exitY };
 
         this.imageEntry = new Image();
-        this.imageEntry.src = '../assets/images/treePortalBlue.png';
+        this.imageEntry.src = `${basePath}/assets/images/treePortalBlue.png`;
 
         this.imageExit = new Image();
-        this.imageExit.src = '../assets/images/treePortalPurple.png';
+        this.imageExit.src = `${basePath}/assets/images/treePortalPurple.png`;
     }
 
     checkCollision(player) {

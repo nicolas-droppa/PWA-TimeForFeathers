@@ -8,8 +8,8 @@ export class Farmer extends Entity {
             col * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - FARMER_SIZE) / 2,
             row * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - FARMER_SIZE) / 2
         ]);
-        this.imageRight.src = '../assets/images/farmer_right.png';
-        this.imageLeft.src = '../assets/images/farmer_left.png';
+        this.imageRight.src = `${basePath}/assets/images/farmer_right.png`;
+        this.imageLeft.src = `${basePath}/assets/images/farmer_left.png`;
         
         this.currentTargetIndex = 0;
         this.reachedTarget = true;
