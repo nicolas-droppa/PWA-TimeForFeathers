@@ -2,8 +2,8 @@ import { Entity } from './_entity.js';
 import { CHICKEN_SIZE, TILE_WIDTH, PIXEL_ART_RATIO, CHICKEN_SPEED } from '../_constants/_constants.js';
 
 export class Chicken extends Entity {
-    constructor(x, y, canvas, path) {
-        super(x, y, CHICKEN_SIZE, CHICKEN_SPEED, canvas, basePath);
+    constructor(x, y, canvas, path, basePath) {
+        super(x, y, CHICKEN_SIZE, CHICKEN_SPEED, canvas);
         this.imageLeft.src = `${basePath}/assets/images/chicken/chicken_left.png`;
         this.imageRight.src = `${basePath}/assets/images/chicken/chicken_right.png`;
 

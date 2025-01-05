@@ -1,8 +1,8 @@
 import { Item } from './_item.js';
 import { BOOTS_SIZE } from '../_constants/_constants.js';
 export class Boots extends Item {
-    constructor(x, y, canvas) {
-        super(x, y, BOOTS_SIZE, canvas, basePath);
+    constructor(x, y, canvas, basePath) {
+        super(x, y, BOOTS_SIZE, canvas);
         this.image.src = `${basePath}/assets/images/boots.png`;
         this.pickedUp = false;
     }

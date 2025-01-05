@@ -2,8 +2,8 @@ import { Item } from './_item.js';
 import { DECORATIONS_SIZE } from "../_constants/_constants.js";
 
 export class Decoration extends Item {
-    constructor(x, y, canvas, imageSrc) {
-        super(x, y, DECORATIONS_SIZE, canvas, basePath);
+    constructor(x, y, canvas, imageSrc, basePath) {
+        super(x, y, DECORATIONS_SIZE, canvas);
         this.image = new Image();
         this.image.src = imageSrc;
     }
