@@ -4,8 +4,8 @@ export const TILE_HEIGHT = 32;
 
 //Game / Pixel-Art 
 export const PIXEL_ART_RATIO = 2;
-export const CANVAS_WIDTH = 500;
-export const CANVAS_HEIGHT = 500;
+export const CANVAS_WIDTH = 650;
+export const CANVAS_HEIGHT = 650;
 
 //Game / Local-Storage
 export const LOCAL_STORAGE_KEY = "gameData";
