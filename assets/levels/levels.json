@@ -37,7 +37,10 @@
             "dogs": [],
             "farmers": [],
             "boots": [],
-            "portals": []
+            "portals": [],
+            "decorations": [
+                {"x": 2, "y": 3, "image": "../../assets/images/appleTree.png" }
+            ]
         },
         {
             "id": 2,
@@ -80,7 +83,8 @@
                     "spawn": { "x": 6, "y": 6 }
                 }
             ],
-            "portals": []
+            "portals": [],
+            "decorations": []
         },
         {
             "id": 3,
@@ -141,7 +145,8 @@
                     "spawn": { "x": 6, "y": 6 }
                 }
             ],
-            "portals": []
+            "portals": [],
+            "decorations": []
         },
         {
             "id": 4,
@@ -210,7 +215,8 @@
                     "spawn": { "x": 6, "y": 6 }
                 }
             ],
-            "portals": []
+            "portals": [],
+            "decorations": []
         },
         {
             "id": 5,
@@ -286,7 +292,8 @@
                     "exitX": 2,
                     "exitY": 3
                 }
-            ]
+            ],
+            "decorations": []
         }
     ]
 }
