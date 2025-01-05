@@ -38,7 +38,13 @@
             "boots": [],
             "portals": [],
             "decorations": [
-                { "x": 2, "y": 3, "image": "assets/images/appleTree.png" }
+                { "x": 1, "y": 0, "image": "assets/images/appleTree.png" },
+                { "x": 1, "y": 1, "image": "assets/images/appleTree.png" },
+                { "x": 3, "y": 1, "image": "assets/images/well.png" },
+                { "x": 0, "y": 5, "image": "assets/images/strawBale.png" },
+                { "x": 3, "y": 4, "image": "assets/images/scarecrow.png" },
+                { "x": 5, "y": 3, "image": "assets/images/straw.png" }
+
             ]
 
         },
@@ -92,7 +98,24 @@
                 }
             ],
             "portals": [],
-            "decorations": []
+            "decorations": [
+                { "x": 1, "y": 0, "image": "assets/images/tree.png" },
+                { "x": 1, "y": 1, "image": "assets/images/tree.png" },
+                { "x": 3, "y": 1, "image": "assets/images/vegetables.png" },
+                { "x": 4, "y": 1, "image": "assets/images/vegetables.png" },
+                { "x": 0, "y": 5, "image": "assets/images/field.png" },
+                { "x": 0, "y": 6, "image": "assets/images/scarecrow.png" },
+                { "x": 1, "y": 6, "image": "assets/images/field.png" },
+                { "x": 7, "y": 6, "image": "assets/images/barrel.png" },
+                { "x": 7, "y": 1, "image": "assets/images/barrel.png" },
+                { "x": 3, "y": 4, "image": "assets/images/appleTree.png" },
+                { "x": 4, "y": 4, "image": "assets/images/appleTree.png" },
+                { "x": 5, "y": 4, "image": "assets/images/appleTree.png" },
+                { "x": 3, "y": 5, "image": "assets/images/appleTree.png" },
+                { "x": 5, "y": 3, "image": "assets/images/appleTree.png" },
+                { "x": 6, "y": 3, "image": "assets/images/appleTree.png" },
+                { "x": 6, "y": 0, "image": "assets/images/tree.png" }
+            ]
         },
         {
             "id": 3,
@@ -172,7 +195,20 @@
                 }
             ],
             "portals": [],
-            "decorations": []
+            "decorations": [
+                { "x": 1, "y": 0, "image": "assets/images/tree.png" },
+                { "x": 1, "y": 1, "image": "assets/images/tree.png" },
+                { "x": 6, "y": 0, "image": "assets/images/tree.png" },
+                { "x": 0, "y": 5, "image": "assets/images/field.png" },
+                { "x": 0, "y": 6, "image": "assets/images/scarecrow.png" },
+                { "x": 1, "y": 6, "image": "assets/images/field.png" },
+                { "x": 7, "y": 7, "image": "assets/images/field.png" },
+                { "x": 7, "y": 8, "image": "assets/images/scarecrow.png" },
+                { "x": 6, "y": 8, "image": "assets/images/field.png" },
+                { "x": 7, "y": 3, "image": "assets/images/vegetables.png" },
+                { "x": 7, "y": 4, "image": "assets/images/vegetables.png" },
+                { "x": 3, "y": 1, "image": "assets/images/well.png" }
+            ]
         },
         {
             "id": 4,
@@ -245,7 +281,16 @@
                 }
             ],
             "portals": [],
-            "decorations": []
+            "decorations": [
+                { "x": 4, "y": 2, "image": "assets/images/tractor.png" },
+                { "x": 5, "y": 5, "image": "assets/images/well.png" },
+                { "x": 0, "y": 5, "image": "assets/images/tree.png" },
+                { "x": 2, "y": 4, "image": "assets/images/tree.png" },
+                { "x": 0, "y": 0, "image": "assets/images/tree.png" },
+                { "x": 2, "y": 0, "image": "assets/images/tree.png" }
+
+
+            ]
         },
         {
             "id": 5,
@@ -341,7 +386,25 @@
                     "exitY": 0
                 }
             ],
-            "decorations": []
+            "decorations": [
+                { "x": 1, "y": 0, "image": "assets/images/appleTree.png" },
+                { "x": 1, "y": 1, "image": "assets/images/appleTree.png" },
+                { "x": 6, "y": 1, "image": "assets/images/well.png" },
+                { "x": 4, "y": 4, "image": "assets/images/tractor.png" },
+                { "x": 8, "y": 3, "image": "assets/images/field.png" },
+                { "x": 7, "y": 3, "image": "assets/images/scarecrow.png" },
+                { "x": 7, "y": 4, "image": "assets/images/field.png" },
+                { "x": 3, "y": 5, "image": "assets/images/barrel.png" },
+                { "x": 0, "y": 8, "image": "assets/images/barrel.png" },
+                { "x": 0, "y": 5, "image": "assets/images/tree.png" },
+                { "x": 0, "y": 6, "image": "assets/images/tree.png" },
+                { "x": 1, "y": 6, "image": "assets/images/tree.png" },
+                { "x": 7, "y": 9, "image": "assets/images/field.png" },
+                { "x": 6, "y": 9, "image": "assets/images/field.png" },
+                { "x": 7, "y": 8, "image": "assets/images/field.png" },
+                { "x": 7, "y": 7, "image": "assets/images/field.png" },
+                { "x": 6, "y": 8, "image": "assets/images/scarecrow.png" }
+            ]
         }
     ]
 }
