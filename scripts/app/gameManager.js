@@ -95,11 +95,6 @@ export class GameManager {
         recordsButton.addEventListener('click', () => {
             console.log('Show records menu');
         });
-
-        const settingsButton = document.getElementById('settingsButton');
-        settingsButton.addEventListener('click', () => {
-            console.log('Show settings menu');
-        });
     }
 
     async setupLevelCompletedListeners() {
