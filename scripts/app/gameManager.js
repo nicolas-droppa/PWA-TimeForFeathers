@@ -1,7 +1,7 @@
 import { startGame } from './app.js';
 import { SKIP_MENU, AUTO_NEXT_LEVEL, STARTING_LEVEL } from '../_system/_dev.js';
 import { getCurrentLevel, getLevelCount, saveCurrentLevel } from '../_system/storageSystem.js';
-import { hideFadeOverlay, showFadeOverlay } from '../_system/utils.js';
+import { getBasePath, hideFadeOverlay, showFadeOverlay } from '../_system/utils.js';
 
 export class GameManager {
     constructor({ gameContainerId, menuId, eventTableId }) {
@@ -12,12 +12,15 @@ export class GameManager {
         this.currentLevel = null;
         this.isLevelCompleted = false;
         this.levelRetry = false;
+        this.basePath = null;
     }
 
     initialize() {
         /**
          * initialize game and skips menu based on dev file
          */
+        this.setBasePath();
+
         if (STARTING_LEVEL != -1)
             this.currentLevel = STARTING_LEVEL - 1;
         else
@@ -28,6 +31,10 @@ export class GameManager {
         
         this.showMenu('mainMenu');
         this.setupMenuListeners();
+    }
+
+    setBasePath() {
+        this.basePath = getBasePath();
     }
 
     showMenu(menuId) {
@@ -99,7 +106,7 @@ export class GameManager {
         /**
          * Prepares buttons for completed level menu and their listeners
          */
-        const levelCount = await getLevelCount('../../assets/levels/levels.json');
+        const levelCount = await getLevelCount(`${this.basePath}/assets/levels/levels.json`);
         const nextButton = document.getElementById('nextButton');
         const retryButton = document.getElementById('retryButton');
 

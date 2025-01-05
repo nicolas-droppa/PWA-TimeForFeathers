@@ -44,7 +44,7 @@ export async function fetchLevelData(levelDataPath) {
         });
 }
 
-export async function loadEntities(canvases, levelDataPath, currentLevel) {
+export async function loadEntities(canvases, levelDataPath, currentLevel, basePath) {
     /**
      * Spawns entities based on the fetched level data
      * @param canvases : all the canvases for every needed layer
@@ -66,7 +66,8 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
         playerConfig.spawn.y,
         canvases.playerLayer,
         levelDataPath,
-        currentLevel
+        currentLevel,
+        basePath
     );
 
     const chickens = level.chickens.map((chickenConfig) => {
@@ -74,7 +75,8 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
             chickenConfig.spawn.x,
             chickenConfig.spawn.y,
             canvases.chickenLayer,
-            chickenConfig.path.map((p) => [p.x, p.y])
+            chickenConfig.path.map((p) => [p.x, p.y]),
+            basePath
         );
     });
 
@@ -83,7 +85,8 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
             fastChickenConfig.spawn.x,
             fastChickenConfig.spawn.y,
             canvases.chickenLayer,
-            fastChickenConfig.path.map((p) => [p.x, p.y])
+            fastChickenConfig.path.map((p) => [p.x, p.y]),
+            basePath
         );
     });
 
@@ -94,7 +97,8 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
             canvases.dogLayer,
             dogConfig.path.map((p) => [p.x, p.y]),
             levelDataPath,
-            currentLevel
+            currentLevel,
+            basePath
         );
     });
 
@@ -106,7 +110,8 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
             canvases.bulletLayer,
             farmerConfig.path.map((p) => [p.x, p.y]),
             levelDataPath,
-            currentLevel
+            currentLevel,
+            basePath
         );
     });
 
@@ -115,6 +120,7 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
             bootConfig.spawn.x,
             bootConfig.spawn.y,
             canvases.itemLayer,
+            basePath
         );
     });
 
@@ -124,7 +130,8 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
             portalConfig.entryY,
             portalConfig.exitX,
             portalConfig.exitY,
-            canvases.itemLayer
+            canvases.itemLayer,
+            basePath
         )
     );
 
@@ -133,7 +140,8 @@ export async function loadEntities(canvases, levelDataPath, currentLevel) {
             decoConfig.x,
             decoConfig.y,
             canvases.gameCanvas,
-            decoConfig.image
+            decoConfig.image,
+            basePath
         )
     );
 

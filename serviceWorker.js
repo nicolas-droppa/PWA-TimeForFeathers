@@ -1,11 +1,14 @@
+import { getBasePath } from "./scripts/_system/utils"
+
 const staticDevTFF = "dev-time-for-feathers-v1"
+const basePath = getBasePath();
 const assets = [
-    "./",
-    "./assets/fonts/Pixel.ttf",
-    "./assets/images",
-    "./index.html",
-    "./scripts/app/app.js",
-    "./styles/style.css"
+    `${basePath}//`,
+    `${basePath}/assets/fonts/Pixel.ttf`,
+    `${basePath}/assets/images`,
+    `${basePath}/index.html`,
+    `${basePath}/scripts/app/app.js`,
+    `${basePath}/styles/style.css`
 ]
 
 self.addEventListener("install", installEvent => {

@@ -39,3 +39,10 @@ export function hideFadeOverlay() {
         overlay.style.opacity = '0';
     }
 }
+
+export function getBasePath() {
+    const basePath = window.location.pathname.includes('/') 
+    ? window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) 
+    : ''; 
+    return basePath;
+}

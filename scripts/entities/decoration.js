@@ -3,7 +3,7 @@ import { DECORATIONS_SIZE } from "../_constants/_constants.js";
 
 export class Decoration extends Item {
     constructor(x, y, canvas, imageSrc) {
-        super(x, y, DECORATIONS_SIZE, canvas);
+        super(x, y, DECORATIONS_SIZE, canvas, basePath);
         this.image = new Image();
         this.image.src = imageSrc;
     }

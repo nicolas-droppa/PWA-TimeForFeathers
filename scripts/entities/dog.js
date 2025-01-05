@@ -2,7 +2,7 @@ import { Entity } from './_entity.js';
 import { DOG_SIZE, DOG_STATE, TILE_WIDTH, PIXEL_ART_RATIO, DOG_SPEED } from '../_constants/_constants.js';
 import { coordToTile } from '../_system/utils.js';
 export class Dog extends Entity {
-    constructor(x, y, canvas, path, levelDataUrl, currentLevel) {
+    constructor(x, y, canvas, path, levelDataUrl, currentLevel, basePath) {
         super(x, y, DOG_SIZE, DOG_SPEED, canvas);
         this.path = path.map(([col, row]) => [
             col * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - DOG_SIZE) / 2,

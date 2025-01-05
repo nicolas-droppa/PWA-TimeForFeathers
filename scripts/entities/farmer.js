@@ -2,7 +2,7 @@ import { Entity } from './_entity.js';
 import { Bullet } from './bullet.js';
 import { FARMER_SIZE, FARMER_STATE, TILE_WIDTH, PIXEL_ART_RATIO, FARMER_SPEED, BULLET_SPEED, SHOOTING_INTERVAL } from '../_constants/_constants.js';
 export class Farmer extends Entity {
-    constructor(x, y, canvas, bulletCanvas, path, levelDataUrl, currentLevel) {
+    constructor(x, y, canvas, bulletCanvas, path, levelDataUrl, currentLevel, basePath) {
         super(x, y, FARMER_SIZE, FARMER_SPEED, canvas);
         this.path = path.map(([col, row]) => [
             col * (TILE_WIDTH * PIXEL_ART_RATIO) + ((TILE_WIDTH * PIXEL_ART_RATIO) - FARMER_SIZE) / 2,

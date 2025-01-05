@@ -14,7 +14,7 @@ const gameManager = new GameManager({
 window.onload = () => {
     //resetGameData();
     gameManager.initialize();
-};
+}
 
 export async function startGame() {
     const canvasIds = ['gameCanvas', 'playerLayer', 'chickenLayer', 'dogLayer', 'farmerLayer', 'itemLayer', 'bulletLayer'];
@@ -26,7 +26,7 @@ export async function startGame() {
     const timeContainer = document.getElementById('timer');
 
     const grassImage = new Image();
-    grassImage.src = '../../assets/images/tileMap/grass.png';
+    grassImage.src = `${gameManager.basePath}/assets/images/tileMap/grass.png`;
 
     let entities = null;
     let animationFrameId = null;
@@ -34,7 +34,7 @@ export async function startGame() {
     const deltaTimeCalculator = new DeltaTime();
 
     grassImage.onload = async () => {
-        entities = await loadEntities(canvases, '../../assets/levels/levels.json', gameManager.currentLevel);
+        entities = await loadEntities(canvases, `${gameManager.basePath}/assets/levels/levels.json`, gameManager.currentLevel, gameManager.basePath);
 
         const player = entities.player;
         player.onRetry = () => {
@@ -42,7 +42,7 @@ export async function startGame() {
             gameManager.restartLevel();
         };
     
-        loadTiles('../../assets/levels/levels.json', gameManager.currentLevel, tileWidth, tileHeight, ctx, grassImage);
+        loadTiles(`${gameManager.basePath}/assets/levels/levels.json`, gameManager.currentLevel, tileWidth, tileHeight, ctx, grassImage);
     
         gameLoop(entities, timeContainer, deltaTimeCalculator);
     };
