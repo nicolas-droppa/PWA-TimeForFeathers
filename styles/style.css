@@ -37,6 +37,11 @@ canvas {
     right: 0;
 }
 
+#gameCanvas {
+    background-image: url('../assets/images/tileMap/grass.png');
+
+}
+
 #topInfo {
     display: flex;
     flex-direction: row; 
