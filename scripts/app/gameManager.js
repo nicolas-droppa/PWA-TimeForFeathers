@@ -2,6 +2,7 @@ import { startGame } from './app.js';
 import { SKIP_MENU, AUTO_NEXT_LEVEL, STARTING_LEVEL } from '../_system/_dev.js';
 import { getBestTimes, getCurrentLevel, getLevelCount, saveCurrentLevel, saveCurrentTime } from '../_system/storageSystem.js';
 import { getBasePath, hideFadeOverlay, showFadeOverlay } from '../_system/utils.js';
+import { LOCAL_STORAGE_KEY_TIMES } from '../_constants/_constants.js';
 
 export class GameManager {
     constructor({ gameContainerId, menuId, eventTableId }) {
@@ -31,7 +32,6 @@ export class GameManager {
         
         this.showMenu('mainMenu');
         this.setupMenuListeners();
-        saveCurrentTime();
     }
 
     setBasePath() {
@@ -70,7 +70,7 @@ export class GameManager {
         const bestTimes = getBestTimes();
         bestTimes.forEach((time, index) => {
             const recordItem = document.createElement('span');
-            recordItem.textContent = `Level ${index + 1}: ${time !== null ? time + 's' : 'No record'}`;
+            recordItem.textContent = `Level ${index + 1}: ${time !== null ? time[0] + ':' + time[1] + '.' + time[2] : 'No record'}`;
             recordsList.appendChild(recordItem);
         });
     
@@ -189,6 +189,7 @@ export class GameManager {
         this.prepareMenuEnvironment();
         this.showMenu('levelCompleted');
         this.displayCurrentTime(timer);
+        this.displayBestTime(timer, this.currentLevel);
         this.setupLevelCompletedListeners();
     }
 
@@ -197,6 +198,14 @@ export class GameManager {
         const [minutes,seconds,milliseconds] = timer.getFormattedTime();
         const time = (minutes < 10 ? '0' + minutes : minutes) + ":" + (seconds < 10 ? '0' + seconds : seconds) + "." + (milliseconds < 10 ? '0' + milliseconds : milliseconds);
         currentTimeContainer.innerHTML = '<img src="assets/images/clock.png" alt="time" width="32" height="32"> ' + time;
+    }
+
+    displayBestTime(timer, level) {
+        const bestTimeContainer = document.getElementById('bestTimeItem');
+        const bestTimeForLevel = saveCurrentTime(timer.getFormattedTime(), level);
+        const bestTimes = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_TIMES)) || [];
+        console.log(bestTimeForLevel);
+        bestTimeContainer.innerHTML = `<img src="assets/images/clock.png" alt="time" width="32" height="32"> ${bestTimeForLevel[0]}:${bestTimeForLevel[1]}.${bestTimeForLevel[2]}`;
     }
 
     levelFailed() {

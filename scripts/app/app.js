@@ -4,6 +4,7 @@ import { initializeCanvases, loadEntities } from './entitySpawner.js';
 import { DeltaTime } from './deltaTime.js';
 import { GameManager } from './gameManager.js';
 import { LEVEL_COMPLETED } from '../_system/_dev.js';
+import { resetGameData } from '../_system/storageSystem.js';
 
 const gameManager = new GameManager({
     gameContainerId: 'gameContainer',

@@ -18,16 +18,28 @@ export function saveCurrentTime(time, level) {
      */
     let bestTimes = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_TIMES)) || [Infinity, Infinity, Infinity, Infinity, Infinity];
 
+    const currentTimeInMilliseconds = (time[0] * 60 * 1000) + (time[1] * 1000) + (time[2] * 10);
+    let bestTimeInMilliseconds = Infinity;
+    if (bestTimes[level] != null)
+        bestTimeInMilliseconds = (bestTimes[level][0] * 60 * 1000) + (bestTimes[level][1] * 1000) + (bestTimes[level][2] * 10);
+
+    console.log(bestTimeInMilliseconds);
+
+    const formattedMinutes =  time[0] < 10 ? '0' +  time[0] :  time[0];
+    const formattedSeconds =  time[1] < 10 ? '0' +  time[1] :  time[1];
+    const formattedMilliseconds =  time[2] < 10 ? '0' +  time[2] :  time[2];
+    time = [formattedMinutes,formattedSeconds,formattedMilliseconds];
+
     while (bestTimes.length <= level) {
         bestTimes.push(Infinity);
     }
 
-    if (time < bestTimes[level]) {
+    if (currentTimeInMilliseconds < bestTimeInMilliseconds || bestTimes[level] == null) {
         bestTimes[level] = time;
     }
 
     localStorage.setItem(LOCAL_STORAGE_KEY_TIMES, JSON.stringify(bestTimes));
-    console.log(bestTimes);
+    return bestTimes[level];
 }
 
 export function getBestTimes() {
@@ -52,6 +64,7 @@ export function resetGameData() {
      * Resets local storage
      */
     localStorage.removeItem(LOCAL_STORAGE_KEY);
+    localStorage.removeItem(LOCAL_STORAGE_KEY_TIMES);
 }
 
 export async function getLevelCount(url) {
