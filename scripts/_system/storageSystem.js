@@ -1,4 +1,5 @@
 import { LOCAL_STORAGE_KEY } from "../_constants/_constants.js";
+import { LOCAL_STORAGE_KEY_TIMES } from "../_constants/_constants.js";
 
 export function saveCurrentLevel(level) {
     /**
@@ -7,6 +8,35 @@ export function saveCurrentLevel(level) {
      */
     let currentLevel = JSON.stringify(level);
     localStorage.setItem(LOCAL_STORAGE_KEY, currentLevel);
+}
+
+export function saveCurrentTime(time, level) {
+    /**
+     * Checks if current time is best and saves it to local storage
+     * @param { number } time : formated time to be saved
+     * @param { number } level : current level
+     */
+    let bestTimes = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_TIMES)) || [Infinity, Infinity, Infinity, Infinity, Infinity];
+
+    while (bestTimes.length <= level) {
+        bestTimes.push(Infinity);
+    }
+
+    if (time < bestTimes[level]) {
+        bestTimes[level] = time;
+    }
+
+    localStorage.setItem(LOCAL_STORAGE_KEY_TIMES, JSON.stringify(bestTimes));
+    console.log(bestTimes);
+}
+
+export function getBestTimes() {
+    /**
+     * Retrieves the best times from local storage.
+     * @returns {Array<number>} - An array of best times for each level.
+     */
+    let bestTimes = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_TIMES)) || [Infinity, Infinity, Infinity, Infinity, Infinity];
+    return bestTimes.map(time => (time === Infinity ? null : time));
 }
 
 export function getCurrentLevel() {

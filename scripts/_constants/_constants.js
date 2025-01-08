@@ -9,6 +9,7 @@ export const CANVAS_HEIGHT = 650;
 
 //Game / Local-Storage
 export const LOCAL_STORAGE_KEY = "gameData";
+export const LOCAL_STORAGE_KEY_TIMES = "gameTimes";
 
 //Entities / Fox
 export const FOX_SIZE = 32;

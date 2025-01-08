@@ -271,6 +271,13 @@ button#showInstructions:hover {
     display: none;
 }
 
+#recordsList {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+    margin: 1rem 0rem 1rem 0rem;
+}
+
 @media (max-width: 768px) {
     .controls {
         margin-top: 40rem;

@@ -1,6 +1,6 @@
 import { startGame } from './app.js';
 import { SKIP_MENU, AUTO_NEXT_LEVEL, STARTING_LEVEL } from '../_system/_dev.js';
-import { getCurrentLevel, getLevelCount, saveCurrentLevel } from '../_system/storageSystem.js';
+import { getBestTimes, getCurrentLevel, getLevelCount, saveCurrentLevel, saveCurrentTime } from '../_system/storageSystem.js';
 import { getBasePath, hideFadeOverlay, showFadeOverlay } from '../_system/utils.js';
 
 export class GameManager {
@@ -31,6 +31,7 @@ export class GameManager {
         
         this.showMenu('mainMenu');
         this.setupMenuListeners();
+        saveCurrentTime();
     }
 
     setBasePath() {
@@ -48,6 +49,39 @@ export class GameManager {
             menu.style.display = 'flex';
             this.currentMenu = menu;
         }
+    }
+
+    showRecordsMenu() {
+        this.showMenu('recordMenu');
+    
+        const recordsContainer = document.getElementById('recordMenu');
+        let recordsList = document.getElementById('recordsList');
+    
+        if (recordsList) {
+            while (recordsList.firstChild) {
+                recordsList.removeChild(recordsList.firstChild);
+            }
+        } else {
+            recordsList = document.createElement('div');
+            recordsList.id = 'recordsList';
+            recordsContainer.appendChild(recordsList);
+        }
+    
+        const bestTimes = getBestTimes();
+        bestTimes.forEach((time, index) => {
+            const recordItem = document.createElement('span');
+            recordItem.textContent = `Level ${index + 1}: ${time !== null ? time + 's' : 'No record'}`;
+            recordsList.appendChild(recordItem);
+        });
+    
+        this.setupRecordsMenuListeners();
+    }
+
+    setupRecordsMenuListeners() {
+        const backButton = document.getElementById('backButton');
+        backButton.addEventListener('click', () => {
+            this.showMenu('mainMenu');
+        });
     }
 
     hideAllMenus() {
@@ -93,7 +127,7 @@ export class GameManager {
 
         const recordsButton = document.getElementById('recordsButton');
         recordsButton.addEventListener('click', () => {
-            console.log('Show records menu');
+            this.showRecordsMenu();
         });
     }
 
